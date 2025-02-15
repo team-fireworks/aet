@@ -5,6 +5,7 @@ import { Child, Contextual, Value } from "@rbxts/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
 import { scope, Scoped } from "ui/scoped";
 import { Resources } from "./resources";
+import { Settings } from "./settings";
 import { Tools } from "./tools";
 
 export interface Route {
@@ -28,11 +29,16 @@ export const ROUTES = {
 		render: Resources,
 		icon: fontAwesome.swatchbook,
 	},
+	settings: {
+		label: "Settings",
+		render: Settings,
+		icon: fontAwesome.gear,
+	},
 } satisfies Record<string, Route>;
 
 export type RouteKey = keyof typeof ROUTES;
 
-export const NAV_ROUTES: RouteKey[] = ["tools", "resources"];
+export const NAV_ROUTES: RouteKey[] = ["tools", "resources", "settings"];
 
 export const currentRouteContext = Contextual(scope.Value<Route>(ROUTES.tools));
 export function unwrapRouteContext(): Value<Route> {

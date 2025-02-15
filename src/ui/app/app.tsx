@@ -1,5 +1,5 @@
 import Fusion, { peek } from "@rbxts/fusion";
-import { Workspace } from "@rbxts/services";
+import { isTower, selectedTower, setDefaultTower } from "lib/tower";
 import { unwrapRouteContext } from "ui/routes";
 import { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
@@ -11,45 +11,21 @@ import { TowerSelector } from "./tower-selector";
 // import { Selection } from "@rbxts/services";
 const Selection = game.GetService("Selection");
 
-const services = new Set(game.GetChildren());
-export function isTower(inst: Instance): LuaTuple<[isTower: boolean, reason: Maybe<string>]> {
-	if (inst === Workspace) return $tuple(false, "Towers should not be unparented in the Workspace.");
-	if (services.has(inst as never)) return $tuple(false, "Services are not a tower.");
-
-	if (!inst.FindFirstChild("ClientSidedObjects"))
-		return $tuple(
-			false,
-			"No ClientSidedObjects folder. If you're building a purist tower, create an empty folder.",
-		);
-
-	if (!inst.FindFirstChild("Obby")) return $tuple(false, "No Obby folder.");
-	if (!inst.FindFirstChild("Frame"))
-		return $tuple(false, "No Frame folder. If you're building a frameless tower, create an empty group.");
-
-	const spawn = inst.FindFirstChild("SpawnLocation");
-	if (!spawn) return $tuple(false, "No SpawnLocation found. Create a new part to mark the start of the tower.");
-	if (!spawn.IsA("BasePart"))
-		return $tuple(false, `Expected SpawnLocation to be a base part, got a ${spawn.ClassName}`);
-
-	return $tuple(true, undefined);
-}
-
 export interface AppProps extends Scoped {}
 
 export function App({ scope }: AppProps) {
 	const order = createLayoutOrder();
 	const searchValue = scope.Value("");
 
-	const selectedTowerInstance = scope.Value<Maybe<Instance>>(undefined);
 	const isSelecting = scope.Value(false);
-
 	function trySelectTower(inst: Instance) {
 		const [is, reason] = isTower(inst);
 		if (!is) {
 			print("Failed to select tower:", reason);
 			return;
 		}
-		selectedTowerInstance.set(inst);
+		setDefaultTower(inst);
+		selectedTower.set(inst);
 	}
 
 	return (
@@ -70,11 +46,10 @@ export function App({ scope }: AppProps) {
 			</frame>
 			<TowerSelector
 				scope={scope}
-				instance={selectedTowerInstance}
 				isSelecting={isSelecting}
 				onClick={() => {
-					if (peek(selectedTowerInstance)) {
-						Selection.Set([peek(selectedTowerInstance)!]);
+					if (peek(selectedTower)) {
+						Selection.Set([peek(selectedTower)!]);
 					}
 
 					if (peek(isSelecting)) {
@@ -92,7 +67,7 @@ export function App({ scope }: AppProps) {
 
 					isSelecting.set(true);
 				}}
-				onDeselected={() => selectedTowerInstance.set(undefined)}
+				onDeselected={() => selectedTower.set(undefined)}
 			/>
 		</frame>
 	);

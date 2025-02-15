@@ -1,4 +1,4 @@
-import { UsedAs } from "@rbxts/fusion";
+import { Child, Children, UsedAs } from "@rbxts/fusion";
 
 export interface LayoutProps {
 	position?: UsedAs<UDim2>;
@@ -16,3 +16,5 @@ export interface BaseProps {
 export interface FlexProps {
 	flexMode?: UsedAs<Enum.UIFlexMode>;
 }
+
+export interface ChildrenProps extends Record<typeof Children, Maybe<Child>> {}

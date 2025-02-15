@@ -1,10 +1,11 @@
 import Fusion, { peek, UsedAs } from "@rbxts/fusion";
-import { nameSortedTools, Tool } from "lib";
+import { nameSortedTools, Tool, tryCallMethod } from "lib";
+import { Button, ButtonStyle } from "ui/components/foundational/button";
 import { Muted } from "ui/components/foundational/muted";
 import { Padding } from "ui/components/foundational/padding";
 import { Paragraph } from "ui/components/foundational/paragraph";
 import { Round } from "ui/components/foundational/round";
-import { ForValues, Show } from "ui/components/fusion";
+import { ForPairs, ForValues, Show } from "ui/components/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
 import { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
@@ -79,6 +80,12 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						BackgroundTransparency={1}
 						Size={UDim2.fromScale(1, 0)}
 					>
+						<uilistlayout
+							scope={scope}
+							FillDirection={Enum.FillDirection.Vertical}
+							Padding={new UDim(0, 4)}
+							SortOrder={Enum.SortOrder.LayoutOrder}
+						/>
 						<Padding
 							scope={scope}
 							paddingX={new UDim(0, 8)}
@@ -89,6 +96,23 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 							scope={scope}
 							text={scope.Computed((use) => use(tool).description)}
 							padding={new UDim()}
+						/>
+						<ForPairs
+							scope={scope}
+							each={scope.Computed((use) => use(tool).methods)}
+							children={(use, scope, method, fn) =>
+								$tuple(
+									[],
+									<Button
+										scope={scope}
+										style={ButtonStyle.Primary}
+										label={method.label}
+										onClick={() => {
+											tryCallMethod(use(tool), fn);
+										}}
+									/>,
+								)
+							}
 						/>
 					</frame>
 				)}

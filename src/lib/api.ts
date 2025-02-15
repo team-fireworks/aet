@@ -1,17 +1,19 @@
 import { peek } from "@rbxts/fusion";
 import { info, trace } from "log";
 import { scope } from "ui/scoped";
-// import { Tag } from "./tags";
-
-// export * as Tags from "./tags";
-
+import { createToolContext, ToolContext } from "./context";
+import { selectedTower } from "./tower";
 export class ToolMethod {
-	// ????
+	constructor(
+		readonly label: string,
+		readonly showInWidget: boolean = true,
+	) {}
 }
 
 export namespace Methods {
-	export const Default = new ToolMethod();
-	export const Custom = (name: string) => new ToolMethod();
+	export const Default = new ToolMethod("Run");
+	export const Background = new ToolMethod("Background", false);
+	export const Custom = (name: string) => new ToolMethod(name);
 }
 
 export interface Source {
@@ -21,19 +23,19 @@ export interface Source {
 	root: boolean;
 }
 
-export interface ToolContextSetting<T> {
-	unwrap(): T;
-	unwrapOr<U>(defaultValue: U): T | U;
-	assertNonNil(): ToolContextSetting<NonNullable<T>>;
-	assertString(): ToolContextSetting<string>;
-	assertNumber(): ToolContextSetting<number>;
-	assertBoolean(): ToolContextSetting<boolean>;
-	assertKeyCode(): ToolContextSetting<Enum.KeyCode>;
-}
+// export interface ToolContextSetting<T> {
+// 	unwrap(): T;
+// 	unwrapOr<U>(defaultValue: U): T | U;
+// 	assertNonNil(): ToolContextSetting<NonNullable<T>>;
+// 	assertString(): ToolContextSetting<string>;
+// 	assertNumber(): ToolContextSetting<number>;
+// 	assertBoolean(): ToolContextSetting<boolean>;
+// 	assertKeyCode(): ToolContextSetting<Enum.KeyCode>;
+// }
 
-export interface ToolContext {
-	setting(name: string): ToolContextSetting<unknown>;
-}
+// export interface ToolContext {
+// 	setting(name: string): ToolContextSetting<unknown>;
+// }
 
 type ToolMethodFn = (ctx: ToolContext) => void;
 
@@ -74,4 +76,15 @@ export function registerTool(props: Tool) {
 	info(`Registering new tool ${props.name} from plugin ${props.source.name}`);
 	peek(tools).push(props);
 	tools.set(peek(tools));
+}
+
+export function tryCallMethod(tool: Tool, fn: ToolMethodFn) {
+	const tower = peek(selectedTower);
+
+	if (tool.needsTower) {
+		if (!tower) return;
+	}
+
+	const ctx = createToolContext({ tower });
+	fn(ctx);
 }

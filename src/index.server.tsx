@@ -14,13 +14,16 @@ setDefaultLogger(
 
 info("Starting up!");
 
-import Fusion from "@rbxts/fusion";
+import Fusion, { Children } from "@rbxts/fusion";
 import Iris from "@rbxts/iris";
 import { IS_DEV } from "constants";
 import { createDebug } from "iris/debug";
+import { Notifications } from "notifications";
 import { plugin, Toolbar, ToolbarButton } from "plugin";
 import { App } from "ui/app/app";
 import { scope } from "ui/scoped";
+
+const CoreGui = game.GetService("CoreGui");
 
 plugin.Unloading.Once(() => {
 	trace("Shutting down!");
@@ -45,6 +48,11 @@ new Toolbar(scope, "Ethereal")
 	)
 	.button(new ToolbarButton(scope, "Settings", "etherealSettings", "Configure Ethereal.", assets.icons.gear))
 	.build();
+
+info("Creating notifications");
+scope.Hydrate(CoreGui)({
+	[Children]: <Notifications scope={scope} />,
+});
 
 if (IS_DEV) {
 	info("Creating debug window");

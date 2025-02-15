@@ -1,22 +1,24 @@
 import Fusion, { UsedAs } from "@rbxts/fusion";
+import { selectedTower } from "lib/tower";
 import { Button, ButtonAlignX, ButtonStyle } from "ui/components/foundational/button";
 import { Muted } from "ui/components/foundational/muted";
-import { Fragment, Show } from "ui/components/fusion";
+import { Padding } from "ui/components/foundational/padding";
+import { Show } from "ui/components/fusion";
 import { Scoped } from "ui/scoped";
+import { theme } from "ui/theme";
 
 export interface TowerSelectorProps extends Scoped {
-	instance: UsedAs<Maybe<Instance>>;
 	isSelecting: UsedAs<boolean>;
 	onClick: () => void;
 	onDeselected: () => void;
 }
 
-export function TowerSelector({ scope, instance, isSelecting, onClick, onDeselected }: TowerSelectorProps) {
+export function TowerSelector({ scope, isSelecting, onClick, onDeselected }: TowerSelectorProps) {
 	return (
 		<frame
 			scope={scope}
 			AutomaticSize={Enum.AutomaticSize.Y}
-			BackgroundTransparency={1}
+			BackgroundColor3={theme(scope, "bg")}
 			Size={UDim2.fromScale(1, 0)}
 		>
 			<uilistlayout
@@ -26,10 +28,11 @@ export function TowerSelector({ scope, instance, isSelecting, onClick, onDeselec
 				Padding={new UDim(0, 4)}
 				SortOrder={Enum.SortOrder.LayoutOrder}
 			/>
+			<Padding scope={scope} padding={new UDim(0, 6)} />
 			<Muted scope={scope} text="Selected tower:" />
 			<Show
 				scope={scope}
-				when={scope.Computed((use) => use(instance) === undefined)}
+				when={scope.Computed((use) => use(selectedTower) === undefined)}
 				children={(scope) => [
 					<Button
 						scope={scope}
@@ -56,7 +59,7 @@ export function TowerSelector({ scope, instance, isSelecting, onClick, onDeselec
 							style={ButtonStyle.Secondary}
 							flexMode={Enum.UIFlexMode.Fill}
 							alignX={ButtonAlignX.Center}
-							label={scope.Computed((use) => use(instance)?.Name ?? "Click to select tower")}
+							label={scope.Computed((use) => use(selectedTower)?.Name ?? "Click to select tower")}
 							onClick={onClick}
 						/>
 						<Button scope={scope} style={ButtonStyle.Muted} label="Deselect" onClick={onDeselected} />

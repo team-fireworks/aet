@@ -10,5 +10,13 @@ registerTool({
 
 	source: ROOT_SOURCE,
 
-	methods: new Map([[Methods.Default, (ctx) => {}]]),
+	methods: new Map([
+		[
+			Methods.Default,
+			(ctx) => {
+				print(ctx.frame);
+				print("i said gg eight times and i got banned. steam fix ur moderation");
+			},
+		],
+	]),
 });

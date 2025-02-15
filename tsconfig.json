@@ -5,7 +5,7 @@
         "downlevelIteration": true,
         "jsx": "react",
         "jsxFactory": "Fusion.jsx",
-        "jsxFragmentFactory": "Fusion.fragment",
+        "jsxFragmentFactory": "Fusion.Fragment",
         "module": "commonjs",
         "moduleResolution": "Node",
         "noLib": true,
