@@ -12,3 +12,7 @@ export interface BaseProps {
 	zIndex?: UsedAs<number>;
 	layoutOrder?: UsedAs<number>;
 }
+
+export interface FlexProps {
+	flexMode?: UsedAs<Enum.UIFlexMode>;
+}

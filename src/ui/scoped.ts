@@ -1,25 +1,27 @@
-import Fusion, { scoped } from "@rbxts/fusion";
+// From Ethereal, licenced under The 3-Clause BSD License.
+
+import Fusion, { Computed, scoped, Spring, Use } from "@rbxts/fusion";
 
 export const methods = {
-	spawnTask: <Args extends unknown[]>(
-		scope: Fusion.Scope,
-		fn: (...args: Args) => unknown,
-		...args: Args
-	): (() => void) => {
+	spawnTask<Args extends unknown[]>(this: Fusion.Scope, fn: (...args: Args) => unknown, ...args: Args): () => void {
 		const thread = task.spawn(fn, ...args);
 
 		function destroy() {
 			task.cancel(thread);
 		}
 
-		scope.push(destroy);
+		this.push(destroy);
 		return destroy;
 	},
-	// spawnPromise: async <Args extends unknown[], Returns>(
-	// 	scope: Fusion.Scope,
-	// 	fn: (...args: Args) => Returns,
-	// 	...args: Args
-	// ): Promise<Returns> => {},
+
+	computedSpring<S, T>(
+		this: Fusion.Scope<S>,
+		processor: (use: Use, scope: Fusion.Scope<S>) => T,
+		speed = 30,
+		damping = 1,
+	) {
+		return Spring(scope, Computed(this, processor), speed, damping);
+	},
 };
 
 export const scope = scoped(Fusion, methods);

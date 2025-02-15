@@ -1,0 +1,13 @@
+asset_dir = "assets"
+exclude_assets = []
+write_dir = "src"
+
+[creator]
+type = "user"
+id = 1275426298
+
+[codegen]
+output_name = "assets"
+typescript = true
+style = "nested"
+strip_extension = true

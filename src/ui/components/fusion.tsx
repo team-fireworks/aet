@@ -1,4 +1,4 @@
-import Fusion, { Child, Scope, Use, UsedAs } from "@rbxts/fusion";
+import Fusion, { Child, Computed, Scope, StateObject, Use, UsedAs } from "@rbxts/fusion";
 
 export interface ForValuesProps<V, S> {
 	scope: Scope<S>;
@@ -29,4 +29,26 @@ export interface ForPairsProps<K, V, S> {
 
 export function ForPairs<K, V, S>({ scope, each, children }: ForPairsProps<K, V, S>): UsedAs<Child> {
 	return Fusion.ForPairs(scope, each, children) as never;
+}
+
+export interface ShowProps<S> {
+	scope: Scope<S>;
+	when: UsedAs<boolean>;
+	children: (scope: Scope<S>) => Child;
+	fallback?: (scope: Scope<S>) => Child;
+}
+
+export function Show<S>({ scope, when, children, fallback }: ShowProps<S>): StateObject<Child> {
+	return Computed(scope, (use, scope) => {
+		if (use(when)) {
+			return children(scope);
+		}
+		if (fallback) {
+			return fallback(scope);
+		}
+	});
+}
+
+export function Fragment(arg: unknown[]) {
+	return arg;
 }

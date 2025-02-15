@@ -7,6 +7,22 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@rbxts/fusion':
+        specifier: npm:@rbxts/fusion-0.3-temp@^0.7/2
+        version: link:npm:@rbxts/fusion-0.3-temp@^0.7/2
+      '@rbxts/object-utils':
+        specifier: ^1.0.4
+        version: 1.0.4
+      '@rbxts/ripple':
+        specifier: ^0.9.3
+        version: 0.9.3
+      '@rbxts/rust-classes':
+        specifier: ^0.13.0
+        version: 0.13.0
+      '@rbxts/semver':
+        specifier: ^1.0.0
+        version: 1.0.0
     devDependencies:
       '@rbxts/compiler-types':
         specifier: 3.0.0-types.0
@@ -14,6 +30,9 @@ importers:
       '@rbxts/types':
         specifier: ^1.0.817
         version: 1.0.817
+      '@rbxts/ui-labs':
+        specifier: ^2.3.5
+        version: 2.3.7
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.24.0
         version: 8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.0)(typescript@5.7.3))(eslint@9.20.0)(typescript@5.7.3)
@@ -121,8 +140,23 @@ packages:
   '@rbxts/compiler-types@3.0.0-types.0':
     resolution: {integrity: sha512-VGOHJPoL7+56NTatMGqQj3K7xWuzEV+aP4QD5vZiHu+bcff3kiTmtoadaF6NkJrmwfFAvbsd4Dg764ZjWNceag==}
 
+  '@rbxts/object-utils@1.0.4':
+    resolution: {integrity: sha512-dLLhf022ipV+9i910sOE7kl9losKHoon0WgeerHqVMQA5EYsLUsVT2AxhJuhk8MiDn5oJ2GiFofE/LadY9TpJQ==}
+
+  '@rbxts/ripple@0.9.3':
+    resolution: {integrity: sha512-GmwjQl7a8pvGPGQYLmaAcf2RBPpneOL5P1+U8CzTHt9tBhCdk0TEJ/MQoTv9JnHD62RMBE1jogQBvuGgl9VXAg==}
+
+  '@rbxts/rust-classes@0.13.0':
+    resolution: {integrity: sha512-xbszbjccrRzwGMSIPoES3GlSg4XKCsTGb/J6B3UNo89+SBMFrWT/hZWf2zf3K1g2FJetOQg3W6xGMLfybJB1IA==}
+
+  '@rbxts/semver@1.0.0':
+    resolution: {integrity: sha512-5BRIHf0gp2sZ0HAkDdN0e0JiODdjLeORyIs7yvEpOA4UaqVoYLqfQUG9TjG2dJK+tKfcZSRO3GsNeCr1Vz3ocQ==}
+
   '@rbxts/types@1.0.817':
     resolution: {integrity: sha512-4h4sskib4RpHdzqAvhKRIAdtaRBMXjGl85TQkbxAYRi2oLdgGCSCpIFyPfm4b5UNDqTWR1xGq3aoOldHkU2D8A==}
+
+  '@rbxts/ui-labs@2.3.7':
+    resolution: {integrity: sha512-LCcMWUO3ZABVxqpjM34/Eh45f3o5JHLbZcwgQ/OCVBVO+qBnJ51gCBu4zusjXLAHfPtLl5GRffs4LTBzhvv8wQ==}
 
   '@roblox-ts/luau-ast@2.0.0':
     resolution: {integrity: sha512-cmMi093IdwBOLVxwuordhM8AmtbyTIyRpsTbB0D/JauidW4SXsQRQowSwWjHo4QP0DRJBXvOIlxtqEQi50uNzQ==}
@@ -876,7 +910,17 @@ snapshots:
 
   '@rbxts/compiler-types@3.0.0-types.0': {}
 
+  '@rbxts/object-utils@1.0.4': {}
+
+  '@rbxts/ripple@0.9.3': {}
+
+  '@rbxts/rust-classes@0.13.0': {}
+
+  '@rbxts/semver@1.0.0': {}
+
   '@rbxts/types@1.0.817': {}
+
+  '@rbxts/ui-labs@2.3.7': {}
 
   '@roblox-ts/luau-ast@2.0.0': {}
 
