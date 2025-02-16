@@ -9,7 +9,7 @@ import { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 import { createLayoutOrder } from "utils/ui";
 import { Nav } from "./nav";
-import { TowerSelector } from "./tower-selector";
+import { TowerSelector } from "./towerSelector";
 
 // HACK: no selection service?
 // import { Selection } from "@rbxts/services";

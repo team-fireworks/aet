@@ -25,7 +25,7 @@ import { scope } from "ui/scoped";
 
 const CoreGui = game.GetService("CoreGui");
 
-const BUILT_IN_TOOLS = script.WaitForChild("lib").WaitForChild("builtins");
+const BUILT_IN_TOOLS = script.WaitForChild("builtins");
 
 plugin.Unloading.Once(() => {
 	trace("Shutting down!");

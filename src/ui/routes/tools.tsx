@@ -30,6 +30,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 	const thisActions = scope.Computed(
 		(use) => use(toolActionsState).get(use(tool)) ?? new Map<string, Array<() => void>>(),
 	);
+
 	const buttons = (
 		<ForPairs
 			scope={scope}
@@ -65,7 +66,6 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 			<uilistlayout
 				scope={scope}
 				FillDirection={Enum.FillDirection.Vertical}
-				Padding={new UDim(0, 1)}
 				SortOrder={Enum.SortOrder.LayoutOrder}
 			/>
 			<uistroke scope={scope} Color={theme(scope, "border")} />
@@ -79,7 +79,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 					scope={scope}
 					FillDirection={Enum.FillDirection.Horizontal}
 					VerticalAlignment={Enum.VerticalAlignment.Center}
-					Padding={new UDim(0, 4)}
+					Padding={new UDim(0, 8)}
 					SortOrder={Enum.SortOrder.LayoutOrder}
 				/>
 				<frame
@@ -98,7 +98,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 180 : 0), undefined, 0.8)}
 					/>
 				</frame>
-				<Padding scope={scope} padding={new UDim(0, 6)} paddingBottom={new UDim(0, 5)} />
+				<Padding scope={scope} padding={new UDim(0, 6)} />
 				<Paragraph
 					scope={scope}
 					text={scope.Computed((use) => use(tool).label)}
@@ -123,7 +123,8 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						Padding={new UDim(0, 4)}
 						SortOrder={Enum.SortOrder.LayoutOrder}
 					/>
-					{scope.Computed((use) => (use(thisActions).size() === 1 ? buttons : []))}
+					{/* {scope.Computed((use) => (use(thisActions).size() === 1 ? buttons : []))} */}
+					{buttons}
 				</frame>
 			</imagebutton>
 			<frame
@@ -174,7 +175,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 							/>
 						)}
 					/>
-					{scope.Computed((use) => (use(thisActions).size() > 1 ? buttons : []))}
+					{/* {scope.Computed((use) => (use(thisActions).size() > 1 ? buttons : []))} */}
 				</frame>
 			</frame>
 		</frame>
