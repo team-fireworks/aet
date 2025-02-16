@@ -1,70 +1,95 @@
-# All-in-one building plugin for Eternal Towers of Hell
+<h1>
+    All-in-one building plugin for
+    <image src="https://raw.githubusercontent.com/znotfireman/ethereal/refs/heads/main/assets/images/etoh.png" width="100px"></image>
+</h1>
 
-Ethereal is a building suite for Eternal Towers of Hell.
+## About
 
-Forget about Archimedes, Elttob Reclass, Elttob Relight, GeomTools, the JToH
-Kit tools, the community's Scripting Hub; Ethereal can do it all.
+> [!WARNING]
+>
+> The plugin doesn't work yet and is missing alot of features. The first alpha
+> release is expected by March.
 
-It (will, this isn't done) include:
+Ethereal is an all-in-one building plugin for Eternal Towers of Hell. The
+mission is to consolidate utilities for tower building and provide a
+centralized, up-to-date foundation for future work.
 
-- Setup and migrate v5.5 kits
+Highlights:
+
+- Setup, upgrade, and downgrade v6/v5.5/v5.4/v5.3/v5.2/v5.1 kits
+- Built-in archimedes, tightropes, reclassing, and geometry tools
 - Insert, modify, and inspect ClientObjects with great documentation
-- Built-in archimedes, tightropes, and geometry tools
 - Insert common sounds and decals
-- Autocomplete for LightingConfigurations
-- Consolidate attachment particle emitters into single parts
-- Headless runtime API for hooking onto Ethereal
-- Headless suite API for extending Ethereal with your own functionality
+- LightingConfiguration script autocomplete
+- Runtime API for hooking onto Ethereal
+- Plugin API for extending Ethereal with your own tools
 
-## Suite API
+### About tools
+
+Ethereal exposes an API for other plugins to register tools, which contains
+arguments and methods. Tools are sandboxed and disallowed from using `plugin`
+APIs. Tools however receive a `ToolContext` API inside methods with the selected
+tower, unwrapping the tool's arguments, and common utilities.
+
+Take a look:
 
 ```Luau
--- ethereal ships with dedicated packages for it's headless suite APIs
 local Ethereal = require(plugin.Packages.Ethereal)
 
--- request APIs
-local et = Ethereal.assertRequest(plugin, {
+local et = Ethereal.request(plugin, {
     name = "My Ethereal plugin",
     icon = "rbxassetid://1234567890",
     permissions = {
-        Ethereal.Permissions.RegisterActions,
         Ethereal.Permissions.RegisterTools,
-        Ethereal.Permissions.RegisterExtensions,
     }
 })
 
 print(`Hello Ethereal version {et.version.tostring()}!`)
 
--- actions are simple functions that can be run
--- ie. trimming client object values, fixing conveyor beams
--- these can also be bookmarked and used as a keybindable plugin action
-et.registerAction {
+et.registerTool {
     id = "trimClientObjectValues",
     name = "Trim ClientObject Values",
     description = "Deletes double ClientObject values which breaks the kit",
 
-    requiresTower = true,
+    needsTower = true,
 
-    run = function(ctx)
-        assert(ctx.tower, "required for typechecking")
-        for _, v in ctx.tower.ClientSidedObjects:GetDescendants() do
-            if not v.Parent or not v.Name == "ClientObject" or not v:IsA("ValueObject") then
-                continue
-            end
+    methods = {
+        [Ethereal.Methods.Default] = function(ctx)
+            assert(ctx.tower, "required for typechecking")
+            for _, v in ctx.tower.ClientSidedObjects:GetDescendants() do
+                if not v.Parent or not v.Name == "ClientObject" or not v:IsA("ValueObject") then
+                    continue
+                end
 
-            for _, c in v.Parent:GetDescendants() do
-                if c.Name == "ClientObject" and c:IsA("ValueObject") and v ~= c then
-                    c:Destroy()
+                for _, c in v.Parent:GetDescendants() do
+                    if c.Name == "ClientObject" and c:IsA("ValueObject") and v ~= c then
+                        c:Destroy()
+                    end
                 end
             end
         end
-    end
+    }
 }
-
--- tools are have a dedicatded menu and are more reserved for advanced uses
--- ie. gradient coloring a frame, setting up tower kits, custom archimedes
--- these can be bookmarked and opened with a keybindable plugin action
-
--- extensions run in the background with configurable settings & can be toggled
--- ie. automatically anchoring parts, coloring killbrick particles
 ```
+
+### About the plugin
+
+The Ethereal plugin implements the tools APIs and provides a one-stop interface
+where users can enable, disable, and configure tools. Secondly, the plugin also
+instantiates the runtime and plugin APIs. Finally, the plugin also implements
+common tools, including those from the JToH Kit Tools and other plugin
+functionality like Archimedes, GeomTools, and the Elttob Suite.
+
+## Contributing
+
+TBA
+
+### Code
+
+### Website
+
+### Tools
+
+## License
+
+Ethereal is licensed under the terms of the [GNU General Public License v3.0](./LICENSE.md).

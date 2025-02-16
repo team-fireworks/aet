@@ -1,6 +1,7 @@
-// From Ethereal, licenced under The 3-Clause BSD License.
+// From Ethereal, licensed under the GNU General Public License v3.0
 
-import Fusion, { Computed, scoped, Spring, Use } from "@rbxts/fusion";
+import Fusion, { Computed, scoped, Spring, Use, UsedAs } from "@rbxts/fusion";
+import { delay } from "./fusion";
 
 export const methods = {
 	spawnTask<Args extends unknown[]>(this: Fusion.Scope, fn: (...args: Args) => unknown, ...args: Args): () => void {
@@ -21,6 +22,10 @@ export const methods = {
 		damping = 1,
 	) {
 		return Spring(scope, Computed(this, processor), speed, damping);
+	},
+
+	delay<T>(this: Fusion.Scope, watching: UsedAs<T>, delaySeconds: number) {
+		return delay(this, watching, delaySeconds);
 	},
 };
 

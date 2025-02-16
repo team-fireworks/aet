@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
 import { sans } from "ui/fonts";
 import type { Scoped } from "ui/scoped";

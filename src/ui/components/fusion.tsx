@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import Fusion, { Child, Computed, Scope, StateObject, Use, UsedAs } from "@rbxts/fusion";
 
 export interface ForValuesProps<V, S> {

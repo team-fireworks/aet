@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import Fusion, { peek, Scope, UsedAs } from "@rbxts/fusion";
 import { scope } from "./scoped";
 

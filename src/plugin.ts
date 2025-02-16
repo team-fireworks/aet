@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import { Child, Children, Hydrate, peek, Scope, UsedAs, Value } from "@rbxts/fusion";
 
 export const plugin = script.FindFirstAncestorWhichIsA("Plugin")!;

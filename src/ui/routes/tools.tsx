@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import Fusion, { peek, UsedAs } from "@rbxts/fusion";
 import { nameSortedTools, Tool, tryCallMethod } from "lib";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
@@ -18,7 +20,29 @@ export interface ToolListingProps extends Scoped {
 
 export function ToolListing({ scope, tool }: ToolListingProps) {
 	const collapsed = scope.Value(false);
+	const collapsedSpring = scope.computedSpring((use) => (use(collapsed) ? 1 : 0));
 	const hover = scope.Value(false);
+	const contentAbsoluteSize = scope.Value(Vector2.zero);
+
+	const buttons = (
+		<ForPairs
+			scope={scope}
+			each={scope.Computed((use) => use(tool).methods)}
+			children={(use, scope, method, fn) =>
+				$tuple(
+					[],
+					<Button
+						scope={scope}
+						style={ButtonStyle.Primary}
+						label={method.label}
+						onClick={() => {
+							tryCallMethod(use(tool), fn);
+						}}
+					/>,
+				)
+			}
+		/>
+	);
 
 	return (
 		<frame
@@ -26,6 +50,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 			AutomaticSize={Enum.AutomaticSize.Y}
 			BackgroundColor3={theme(scope, "bgLight")}
 			ClipsDescendants={false}
+			Name={scope.Computed((use) => use(`ToolListing(${use(tool).id})`))}
 			Size={UDim2.fromScale(1, 0)}
 			OnEvent:MouseEnter={() => hover.set(true)}
 			OnEvent:MouseLeave={() => hover.set(false)}
@@ -64,59 +89,88 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						anchorPoint={new Vector2(0.5, 0.5)}
 						position={UDim2.fromScale(0.5, 0.5)}
 						size={UDim2.fromOffset(20, 20)}
-						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 180 : 0), undefined, 0.6)}
+						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 180 : 0), undefined, 0.8)}
 					/>
 				</frame>
-				<Padding scope={scope} padding={new UDim(0, 6)} />
-				<Paragraph scope={scope} text={scope.Computed((use) => use(tool).name)} padding={new UDim()} />
-			</imagebutton>
-			<Show
-				scope={scope}
-				when={collapsed}
-				children={(scope) => (
-					<frame
+				<Padding scope={scope} padding={new UDim(0, 6)} paddingBottom={new UDim(0, 5)} />
+				<Paragraph
+					scope={scope}
+					text={scope.Computed((use) => use(tool).name)}
+					padding={new UDim()}
+					layoutOrder={1}
+				/>
+				<Muted
+					scope={scope}
+					text={scope.Computed((use) => use(tool).description)}
+					textTransparency={collapsedSpring}
+					padding={new UDim()}
+					layoutOrder={2}
+				/>
+				<frame scope={scope} LayoutOrder={3}>
+					<uiflexitem scope={scope} FlexMode={Enum.UIFlexMode.Fill} />
+				</frame>
+				<frame scope={scope} AutomaticSize={Enum.AutomaticSize.XY} BackgroundTransparency={1} LayoutOrder={4}>
+					<uilistlayout
 						scope={scope}
-						AutomaticSize={Enum.AutomaticSize.Y}
-						BackgroundTransparency={1}
-						Size={UDim2.fromScale(1, 0)}
-					>
-						<uilistlayout
-							scope={scope}
-							FillDirection={Enum.FillDirection.Vertical}
-							Padding={new UDim(0, 4)}
-							SortOrder={Enum.SortOrder.LayoutOrder}
-						/>
-						<Padding
-							scope={scope}
-							paddingX={new UDim(0, 8)}
-							paddingTop={new UDim(0, 2)}
-							paddingBottom={new UDim(0, 6)}
-						/>
-						<Muted
-							scope={scope}
-							text={scope.Computed((use) => use(tool).description)}
-							padding={new UDim()}
-						/>
-						<ForPairs
-							scope={scope}
-							each={scope.Computed((use) => use(tool).methods)}
-							children={(use, scope, method, fn) =>
-								$tuple(
-									[],
-									<Button
-										scope={scope}
-										style={ButtonStyle.Primary}
-										label={method.label}
-										onClick={() => {
-											tryCallMethod(use(tool), fn);
-										}}
-									/>,
-								)
-							}
-						/>
-					</frame>
+						FillDirection={Enum.FillDirection.Horizontal}
+						VerticalAlignment={Enum.VerticalAlignment.Center}
+						Padding={new UDim(0, 4)}
+						SortOrder={Enum.SortOrder.LayoutOrder}
+					/>
+					{scope.Computed((use) => (use(tool).methods.size() === 1 ? buttons : []))}
+				</frame>
+			</imagebutton>
+			<frame
+				scope={scope}
+				BackgroundTransparency={1}
+				ClipsDescendants={true}
+				Size={scope.computedSpring(
+					(use) => new UDim2(1, 0, 0, use(collapsed) ? use(contentAbsoluteSize).Y : 0),
 				)}
-			/>
+			>
+				<frame
+					scope={scope}
+					AutomaticSize={Enum.AutomaticSize.Y}
+					BackgroundTransparency={1}
+					Size={UDim2.fromScale(1, 0)}
+					Out:AbsoluteSize={contentAbsoluteSize}
+				>
+					<uilistlayout
+						scope={scope}
+						FillDirection={Enum.FillDirection.Vertical}
+						Padding={new UDim(0, 4)}
+						SortOrder={Enum.SortOrder.LayoutOrder}
+					/>
+					<Padding
+						scope={scope}
+						paddingX={new UDim(0, 8)}
+						paddingTop={new UDim(0, 2)}
+						paddingBottom={new UDim(0, 6)}
+					/>
+					<Muted scope={scope} text={scope.Computed((use) => use(tool).description)} padding={new UDim()} />
+					<Muted
+						scope={scope}
+						text={scope.Computed((use) =>
+							use(tool).source.root
+								? "This tool is included with Ethereal!"
+								: `This tool was externally created by ${use(tool).source.name}`,
+						)}
+						padding={new UDim()}
+					/>
+					<Show
+						scope={scope}
+						when={scope.Computed((use) => use(tool).args !== undefined)}
+						children={(scope) => (
+							<ForValues
+								scope={scope}
+								each={scope.Computed((use) => use(tool).args!)}
+								children={(_, scope, v) => <Muted scope={scope} text={v.label} padding={new UDim()} />}
+							/>
+						)}
+					/>
+					{scope.Computed((use) => (use(tool).methods.size() > 1 ? buttons : []))}
+				</frame>
+			</frame>
 		</frame>
 	);
 }
@@ -130,7 +184,7 @@ export function Tools({ scope }: Scoped) {
 			Size={UDim2.fromScale(1, 0)}
 		>
 			<uilistlayout scope={scope} FillDirection={Enum.FillDirection.Vertical} Padding={new UDim(0, 4)} />
-			<Padding scope={scope} padding={new UDim(0, 6)} />
+			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
 			<ForValues
 				scope={scope}
 				each={nameSortedTools}

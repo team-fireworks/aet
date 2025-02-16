@@ -1,4 +1,4 @@
-// From Ethereal, licenced under The 3-Clause BSD License.
+// From Ethereal, licensed under the GNU General Public License v3.0
 // Derived from https://github.com/roblaudio/ocmusic-browser/blob/main/src/shared/log.ts
 // Inspired by https://crates.io/crates/log
 

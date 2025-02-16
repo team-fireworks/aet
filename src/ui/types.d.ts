@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import { Child, Children, UsedAs } from "@rbxts/fusion";
 
 export interface LayoutProps {

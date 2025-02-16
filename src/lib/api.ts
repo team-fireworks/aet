@@ -10,6 +10,43 @@ export class ToolMethod {
 	) {}
 }
 
+export interface BaseToolArgument {
+	kind: string;
+	name: string;
+	label: string;
+	description?: string;
+}
+
+interface GenericToolArgument<K extends string, T> extends BaseToolArgument {
+	kind: K;
+	default: T;
+}
+
+export type ToolBooleanArgument = GenericToolArgument<"boolean", boolean>;
+// TODO: these are unimplemented
+export type ToolStringArgument = GenericToolArgument<"string", string>;
+export type ToolVector2Argument = GenericToolArgument<"vector2", Vector2>;
+export type ToolVector3Argument = GenericToolArgument<"vector3", Vector3>;
+export type ToolColorArgument = GenericToolArgument<"color", Color3>;
+export type ToolColorSequenceArgument = GenericToolArgument<"colorSequence", ColorSequence>;
+export type ToolKeyCodeArgument = GenericToolArgument<"keyCode", Enum.KeyCode>;
+
+export interface ToolSelectArgument<T> extends BaseToolArgument {
+	kind: "select";
+	default: T;
+	options: Array<{ value: T; label: string }>;
+}
+
+export type ToolArgument =
+	| ToolBooleanArgument
+	| ToolStringArgument
+	| ToolVector2Argument
+	| ToolVector3Argument
+	| ToolColorArgument
+	| ToolColorSequenceArgument
+	| ToolKeyCodeArgument
+	| ToolSelectArgument<unknown>;
+
 export namespace Methods {
 	export const Default = new ToolMethod("Run");
 	export const Background = new ToolMethod("Background", false);
@@ -23,18 +60,18 @@ export interface Source {
 	root: boolean;
 }
 
-// export interface ToolContextSetting<T> {
+// export interface ToolContextArgument<T> {
 // 	unwrap(): T;
 // 	unwrapOr<U>(defaultValue: U): T | U;
-// 	assertNonNil(): ToolContextSetting<NonNullable<T>>;
-// 	assertString(): ToolContextSetting<string>;
-// 	assertNumber(): ToolContextSetting<number>;
-// 	assertBoolean(): ToolContextSetting<boolean>;
-// 	assertKeyCode(): ToolContextSetting<Enum.KeyCode>;
+// 	assertNonNil(): ToolContextArgument<NonNullable<T>>;
+// 	assertString(): ToolContextArgument<string>;
+// 	assertNumber(): ToolContextArgument<number>;
+// 	assertBoolean(): ToolContextArgument<boolean>;
+// 	assertKeyCode(): ToolContextArgument<Enum.KeyCode>;
 // }
 
 // export interface ToolContext {
-// 	setting(name: string): ToolContextSetting<unknown>;
+// 	Argument(name: string): ToolContextArgument<unknown>;
 // }
 
 type ToolMethodFn = (ctx: ToolContext) => void;
@@ -51,6 +88,7 @@ export interface Tool {
 	needsIngame?: boolean;
 	needsTower?: boolean;
 
+	args?: ToolArgument[];
 	methods: Map<ToolMethod, ToolMethodFn>;
 }
 

@@ -17,11 +17,12 @@
         "target": "ESNext",
         "typeRoots": [
             "node_modules/@rbxts",
-            "types"
+            "./types"
         ],
         // configurable
         "types": [
-            "types/plugin"
+            "types/plugin",
+            "services/plugin"
         ],
         "rootDir": "src",
         "outDir": "out",

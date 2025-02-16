@@ -16,6 +16,7 @@ export interface NavTabProps extends Scoped {
 }
 
 export function NavTab({ scope, icon, label, highlighted, onClick }: NavTabProps) {
+	const order = createLayoutOrder();
 	const hover = scope.Value(false);
 
 	return (
@@ -36,9 +37,10 @@ export function NavTab({ scope, icon, label, highlighted, onClick }: NavTabProps
 				FillDirection={Enum.FillDirection.Horizontal}
 				VerticalAlignment={Enum.VerticalAlignment.Center}
 				HorizontalAlignment={Enum.HorizontalAlignment.Center}
+				SortOrder={Enum.SortOrder.LayoutOrder}
 			/>
-			<Icon scope={scope} icon={icon} size={UDim2.fromOffset(18, 18)} />
-			<Paragraph scope={scope} text={label} paddingLeft={new UDim(0, 4)} />
+			<Icon scope={scope} icon={icon} size={UDim2.fromOffset(18, 18)} layoutOrder={order()} />
+			<Paragraph scope={scope} text={label} paddingLeft={new UDim(0, 4)} layoutOrder={order()} />
 		</imagebutton>
 	);
 }

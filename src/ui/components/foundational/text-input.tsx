@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
 import { tween, useMotion } from "ui/ripple";
 import type { Scoped } from "ui/scoped";

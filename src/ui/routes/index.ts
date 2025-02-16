@@ -1,10 +1,10 @@
-// From Ethereal, licenced under The 3-Clause BSD License.
+// From Ethereal, licensed under the GNU General Public License v3.0
 // Based on https://github.com/roblaudio/ocmusic-browser/blob/main/src/client/ui/routes/index.ts
 
 import { Child, Contextual, Value } from "@rbxts/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
 import { scope, Scoped } from "ui/scoped";
-import { Resources } from "./resources";
+import { Kits } from "./kits";
 import { Settings } from "./settings";
 import { Tools } from "./tools";
 
@@ -24,10 +24,25 @@ export const ROUTES = {
 		render: Tools,
 		icon: fontAwesome.wrench,
 	},
-	resources: {
-		label: "Resources",
-		render: Resources,
-		icon: fontAwesome.swatchbook,
+	images: {
+		label: "Images",
+		render: noop,
+		icon: fontAwesome.image,
+	},
+	sounds: {
+		label: "Sounds",
+		render: noop,
+		icon: fontAwesome.soundFull,
+	},
+	clientObjects: {
+		label: "Client Objects",
+		render: noop,
+		icon: fontAwesome.wandMagicSparkles,
+	},
+	kits: {
+		label: "Kits",
+		render: Kits,
+		icon: fontAwesome.toolbox,
 	},
 	settings: {
 		label: "Settings",
@@ -38,7 +53,7 @@ export const ROUTES = {
 
 export type RouteKey = keyof typeof ROUTES;
 
-export const NAV_ROUTES: RouteKey[] = ["tools", "resources", "settings"];
+export const NAV_ROUTES: RouteKey[] = ["tools", "images", "sounds", "clientObjects", "kits", "settings"];
 
 export const currentRouteContext = Contextual(scope.Value<Route>(ROUTES.tools));
 export function unwrapRouteContext(): Value<Route> {

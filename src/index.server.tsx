@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 if (!script.FindFirstAncestorWhichIsA("Plugin")) throw "Ethereal must be run as a plugin.";
 
 const [rootTrace] = debug.info(1, "s");
@@ -35,7 +37,7 @@ new Toolbar(scope, "Ethereal")
 	.button(
 		new ToolbarButton(
 			scope,
-			"Ethereal",
+			"Launch Ethereal",
 			"etherealMain",
 			"Tool suite for Eternal Towers of Hell",
 			assets.images.ethereal,
@@ -46,7 +48,6 @@ new Toolbar(scope, "Ethereal")
 			<App scope={scope} />,
 		),
 	)
-	.button(new ToolbarButton(scope, "Settings", "etherealSettings", "Configure Ethereal.", assets.icons.gear))
 	.build();
 
 info("Creating notifications");

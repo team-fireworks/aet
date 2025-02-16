@@ -1,4 +1,4 @@
-// From Ethereal, licenced under The 3-Clause BSD License.
+// From Ethereal, licensed under the GNU General Public License v3.0
 
 import { Methods, registerTool, ROOT_SOURCE } from "lib/api";
 
@@ -9,6 +9,15 @@ registerTool({
 	tags: [],
 
 	source: ROOT_SOURCE,
+
+	args: [
+		{
+			kind: "boolean",
+			name: "toggleTest",
+			label: "Testing woww",
+			default: false,
+		},
+	],
 
 	methods: new Map([
 		[

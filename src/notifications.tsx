@@ -1,3 +1,5 @@
+// From Ethereal, licensed under the GNU General Public License v3.0
+
 import Fusion from "@rbxts/fusion";
 import { Scoped } from "ui/scoped";
 
