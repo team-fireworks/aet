@@ -5,6 +5,34 @@ import { Heading } from "ui/components/foundational/heading";
 import { Padding } from "ui/components/foundational/padding";
 import { Scoped } from "ui/scoped";
 
+// interface KitGrouped {
+// 	kind: "group";
+// 	label: string;
+// 	description: string;
+// 	kits: Omit<Kit, "description">[];
+// }
+
+// interface Kit {
+// 	kind: "kit";
+// 	label: string;
+// 	description: string;
+// 	thumbnailAsset: string;
+// 	authorIds: number[];
+// }
+
+// const KITS: (KitGrouped | Kit)[] = [
+// 	{
+// 		kind: "group",
+// 		label: "Ethereal",
+// 		description: "string",
+// 		kits: [
+// 			{
+// 				kind: "kit",
+// 			},
+// 		],
+// 	},
+// ];
+
 export function Kits({ scope }: Scoped) {
 	return (
 		<scrollingframe

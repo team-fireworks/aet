@@ -1,7 +1,7 @@
 // From Ethereal, licensed under the GNU General Public License v3.0
 
 import Fusion, { peek, UsedAs } from "@rbxts/fusion";
-import { nameSortedTools, Tool, tryCallMethod } from "lib";
+import { LibTool, onToolActionsChanged, onToolChanged, toolActions, tools } from "lib";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
 import { Muted } from "ui/components/foundational/muted";
 import { Padding } from "ui/components/foundational/padding";
@@ -9,13 +9,16 @@ import { Paragraph } from "ui/components/foundational/paragraph";
 import { Round } from "ui/components/foundational/round";
 import { ForPairs, ForValues, Show } from "ui/components/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
-import { Scoped } from "ui/scoped";
+import { scope, Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 
 const TOOL_LISTING_COLLAPSED_HEIGHT = 32;
 
+const toolActionsState = scope.Value(toolActions);
+scope.push(onToolActionsChanged(() => toolActionsState.set(toolActions)));
+
 export interface ToolListingProps extends Scoped {
-	tool: UsedAs<Tool>;
+	tool: UsedAs<LibTool>;
 }
 
 export function ToolListing({ scope, tool }: ToolListingProps) {
@@ -24,19 +27,22 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 	const hover = scope.Value(false);
 	const contentAbsoluteSize = scope.Value(Vector2.zero);
 
+	const thisActions = scope.Computed(
+		(use) => use(toolActionsState).get(use(tool)) ?? new Map<string, Array<() => void>>(),
+	);
 	const buttons = (
 		<ForPairs
 			scope={scope}
-			each={scope.Computed((use) => use(tool).methods)}
-			children={(use, scope, method, fn) =>
+			each={thisActions}
+			children={(use, scope, name, callbacks) =>
 				$tuple(
 					[],
 					<Button
 						scope={scope}
 						style={ButtonStyle.Primary}
-						label={method.label}
+						label={name}
 						onClick={() => {
-							tryCallMethod(use(tool), fn);
+							for (const v of callbacks) task.spawn(v);
 						}}
 					/>,
 				)
@@ -50,7 +56,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 			AutomaticSize={Enum.AutomaticSize.Y}
 			BackgroundColor3={theme(scope, "bgLight")}
 			ClipsDescendants={false}
-			Name={scope.Computed((use) => use(`ToolListing(${use(tool).id})`))}
+			Name={scope.Computed((use) => use(`ToolListing(${use(tool).name})`))}
 			Size={UDim2.fromScale(1, 0)}
 			OnEvent:MouseEnter={() => hover.set(true)}
 			OnEvent:MouseLeave={() => hover.set(false)}
@@ -95,13 +101,13 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 				<Padding scope={scope} padding={new UDim(0, 6)} paddingBottom={new UDim(0, 5)} />
 				<Paragraph
 					scope={scope}
-					text={scope.Computed((use) => use(tool).name)}
+					text={scope.Computed((use) => use(tool).label)}
 					padding={new UDim()}
 					layoutOrder={1}
 				/>
 				<Muted
 					scope={scope}
-					text={scope.Computed((use) => use(tool).description)}
+					text={scope.Computed((use) => use(tool).overview)}
 					textTransparency={collapsedSpring}
 					padding={new UDim()}
 					layoutOrder={2}
@@ -117,7 +123,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						Padding={new UDim(0, 4)}
 						SortOrder={Enum.SortOrder.LayoutOrder}
 					/>
-					{scope.Computed((use) => (use(tool).methods.size() === 1 ? buttons : []))}
+					{scope.Computed((use) => (use(thisActions).size() === 1 ? buttons : []))}
 				</frame>
 			</imagebutton>
 			<frame
@@ -168,7 +174,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 							/>
 						)}
 					/>
-					{scope.Computed((use) => (use(tool).methods.size() > 1 ? buttons : []))}
+					{scope.Computed((use) => (use(thisActions).size() > 1 ? buttons : []))}
 				</frame>
 			</frame>
 		</frame>
@@ -176,6 +182,9 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 }
 
 export function Tools({ scope }: Scoped) {
+	const toolValue = scope.Value(tools);
+	onToolChanged(() => toolValue.set(tools));
+
 	return (
 		<scrollingframe
 			scope={scope}
@@ -187,7 +196,7 @@ export function Tools({ scope }: Scoped) {
 			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
 			<ForValues
 				scope={scope}
-				each={nameSortedTools}
+				each={scope.Computed((use) => use(toolValue).sort((lhs, rhs) => lhs.name < rhs.name))}
 				children={(_, scope, v) => <ToolListing scope={scope} tool={v} />}
 			/>
 		</scrollingframe>

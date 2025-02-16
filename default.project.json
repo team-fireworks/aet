@@ -6,8 +6,11 @@
     ],
     "tree": {
         "$className": "Actor",
+        "COPYRIGHT": {
+            "$path": "COPYRIGHT.luau"
+        },
         "LICENSE": {
-            "$path": "licenses/LICENSE-BSD-2-Clause.luau"
+            "$path": "LICENSE.luau"
         },
         "ethereal": {
             "$path": "out",

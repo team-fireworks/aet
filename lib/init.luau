@@ -71,6 +71,10 @@ export type EtherealTool = {
 	overview: string,
 	description: string,
 
+	needsEdit: boolean?,
+	needsRun: boolean?,
+	needsTower: boolean?,
+
 	args: { EtherealArgument },
 
 	run: (run: EtherealRunContext) -> Cleanup?,
