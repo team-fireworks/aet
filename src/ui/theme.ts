@@ -22,10 +22,14 @@ export interface Theme {
 	fgDarker: Color3;
 	fgDarkest: Color3;
 
-	red: Color3;
-	gold: Color3;
-	green: Color3;
-	blue: Color3;
+	primary: Color3;
+	primaryLight: Color3;
+	secondary: Color3;
+	secondaryLight: Color3;
+	tertiary: Color3;
+	tertiaryLight: Color3;
+	quaternary: Color3;
+	quaternaryLight: Color3;
 
 	buttonPrimaryBg: Color3;
 	buttonPrimaryHover: Color3;
@@ -68,10 +72,14 @@ export const THEMES = {
 		fgDarker: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.7),
 		fgDarkest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.65),
 
-		red: Color3.fromHSV(ETHEREAL_RED_HUE, ETHEREAL_RED_SATURATION, 0.9),
-		gold: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.9),
-		green: Color3.fromHSV(ETHEREAL_GREEN_HUE, ETHEREAL_GREEN_SATURATION, 0.9),
-		blue: Color3.fromHSV(ETHEREAL_BLUE_HUE, ETHEREAL_BLUE_SATURATION, 0.9),
+		primary: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.8),
+		primaryLight: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.85),
+		secondary: Color3.fromHSV(ETHEREAL_RED_HUE, ETHEREAL_RED_SATURATION, 0.8),
+		secondaryLight: Color3.fromHSV(ETHEREAL_RED_HUE, ETHEREAL_RED_SATURATION, 0.85),
+		tertiary: Color3.fromHSV(ETHEREAL_GREEN_HUE, ETHEREAL_GREEN_SATURATION, 0.8),
+		tertiaryLight: Color3.fromHSV(ETHEREAL_GREEN_HUE, ETHEREAL_GREEN_SATURATION, 0.85),
+		quaternary: Color3.fromHSV(ETHEREAL_BLUE_HUE, ETHEREAL_BLUE_SATURATION, 0.8),
+		quaternaryLight: Color3.fromHSV(ETHEREAL_BLUE_HUE, ETHEREAL_BLUE_SATURATION, 0.85),
 
 		// TODO: replace this in btn component with more accent themes
 		buttonPrimaryBg: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.9),

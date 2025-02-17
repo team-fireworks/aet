@@ -24,7 +24,13 @@ export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProp
 		use(
 			theme(
 				scope,
-				use(order) % 4 === 0 ? "blue" : use(order) % 3 === 0 ? "green" : use(order) % 2 === 0 ? "gold" : "red",
+				use(order) % 4 === 0
+					? "quaternary"
+					: use(order) % 3 === 0
+						? "tertiary"
+						: use(order) % 2 === 0
+							? "secondary"
+							: "primary",
 			),
 		),
 	);

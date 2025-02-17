@@ -14,4 +14,9 @@ return {
 		ethereal = "rbxasset://.asphalt-ethanol/images/ethereal.1dfd8b142660f346719f350e7a877eca.png",
 		etoh = "rbxasset://.asphalt-ethanol/images/etoh.93735367d28759da424dbc2723cb0026.png",
 	},
+	sfx = {
+		click = "rbxasset://.asphalt-ethanol/sfx/click.da815722c4e9550204156ceb371073cc.ogg",
+		hover = "rbxasset://.asphalt-ethanol/sfx/hover.8f3a3893ee67c30f0f324f60fae23e39.ogg",
+		softClick = "rbxasset://.asphalt-ethanol/sfx/softClick.7e7f3890b37f6ff5bbd1b13ed6645482.ogg",
+	},
 }

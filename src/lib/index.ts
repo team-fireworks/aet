@@ -1,6 +1,7 @@
 import { peek } from "@rbxts/fusion";
 import SiftDictionary from "@rbxts/sift/out/Dictionary";
 import { selectedTower } from "lib/tower";
+import { debug } from "log";
 import { plugin } from "plugin";
 import { scope } from "ui/scoped";
 import { event } from "utils/event";
@@ -29,6 +30,7 @@ export const toolActions = new Map<LibTool, Action[]>();
 export const [onToolActionsChanged, toolActionsChanged] = event<[tool: LibTool]>();
 
 export const toolArgs = scope.Value(new Map<LibTool, Map<string, unknown>>());
+scope.Observer(toolArgs).onBind(() => debug(`TOOL ARGS: ${peek(toolArgs)}`));
 
 // FUTURE: bad type, needs recursive Luau type restrictions to be lifted
 export class ArgumentContext<T> implements LibArgumentContext<T> {

@@ -1,14 +1,16 @@
 // From Ethereal, licensed under the GNU General Public License v3.0
 
-import Fusion, { peek, UsedAs } from "@rbxts/fusion";
+import Fusion, { Child, peek, UsedAs } from "@rbxts/fusion";
 import assets from "assets";
-import { Action, LibTool, onToolActionsChanged, onToolChanged, toolActions, tools } from "lib";
+import { Action, LibTool, onToolActionsChanged, onToolChanged, toolActions, toolArgs, tools } from "lib";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
 import { HintContainer } from "ui/components/foundational/hint";
 import { Muted } from "ui/components/foundational/muted";
 import { Padding } from "ui/components/foundational/padding";
 import { Paragraph } from "ui/components/foundational/paragraph";
 import { Round } from "ui/components/foundational/round";
+import { Scroller } from "ui/components/foundational/scroller";
+import { Toggle } from "ui/components/foundational/toggle";
 import { ForValues, Show } from "ui/components/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
 import { scope, Scoped } from "ui/scoped";
@@ -163,7 +165,6 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						paddingTop={new UDim(0, 2)}
 						paddingBottom={new UDim(0, 6)}
 					/>
-					<Muted scope={scope} text={scope.Computed((use) => use(tool).description)} padding={new UDim()} />
 					<Show
 						scope={scope}
 						when={scope.Computed((use) => use(tool).args !== undefined)}
@@ -171,10 +172,48 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 							<ForValues
 								scope={scope}
 								each={scope.Computed((use) => use(tool).args!)}
-								children={(_, scope, v) => <Muted scope={scope} text={v.label} padding={new UDim()} />}
+								children={(_, scope, v) => {
+									let control: Maybe<Child>;
+									switch (v.kind) {
+										case "boolean":
+											control = (
+												<Toggle
+													scope={scope}
+													toggled={scope.Computed((use) => {
+														// debug(`TOOL ARGS: ${use(toolArgs)}`);
+														return use(toolArgs).get(use(tool))!.get(v.name)! as boolean;
+													})}
+													onToggle={() => {
+														const args = peek(toolArgs).get(peek(tool))!;
+														args.set(v.name, !args.get(v.name));
+														toolArgs.set(peek(toolArgs));
+													}}
+												/>
+											);
+									}
+
+									return (
+										<frame
+											scope={scope}
+											AutomaticSize={Enum.AutomaticSize.XY}
+											BackgroundTransparency={1}
+										>
+											<uilistlayout
+												scope={scope}
+												FillDirection={Enum.FillDirection.Horizontal}
+												VerticalAlignment={Enum.VerticalAlignment.Center}
+												Padding={new UDim(0, 6)}
+												SortOrder={Enum.SortOrder.LayoutOrder}
+											/>
+											<Paragraph scope={scope} text={v.label} padding={new UDim()} />
+											{control}
+										</frame>
+									);
+								}}
 							/>
 						)}
 					/>
+					<Muted scope={scope} text={scope.Computed((use) => use(tool).description)} padding={new UDim()} />
 					{/* {scope.Computed((use) => (use(thisActions).size() > 1 ? buttons : []))} */}
 				</frame>
 			</frame>
@@ -187,12 +226,7 @@ export function Tools({ scope }: Scoped) {
 	onToolChanged(() => toolValue.set(tools));
 
 	return (
-		<scrollingframe
-			scope={scope}
-			AutomaticSize={Enum.AutomaticSize.Y}
-			BackgroundTransparency={1}
-			Size={UDim2.fromScale(1, 0)}
-		>
+		<Scroller scope={scope} automaticSize={Enum.AutomaticSize.Y} size={UDim2.fromScale(1, 1)}>
 			<uilistlayout scope={scope} FillDirection={Enum.FillDirection.Vertical} Padding={new UDim(0, 4)} />
 			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
 			<ForValues
@@ -200,6 +234,6 @@ export function Tools({ scope }: Scoped) {
 				each={scope.Computed((use) => use(toolValue).sort((lhs, rhs) => lhs.name < rhs.name))}
 				children={(_, scope, v) => <ToolListing scope={scope} tool={v} />}
 			/>
-		</scrollingframe>
+		</Scroller>
 	);
 }
