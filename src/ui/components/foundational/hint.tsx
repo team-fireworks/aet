@@ -31,6 +31,7 @@ export function HintGui({ scope, widget }: HintGuiProps) {
 			AnchorPoint={new Vector2(0, 1)}
 			BackgroundTransparency={1}
 			Position={scope.Computed((use) => UDim2.fromOffset(use(mousePosition).X, use(mousePosition).Y))}
+			Name="HintGui"
 			ZIndex={9999}
 			Interactable={false}
 		>
@@ -43,6 +44,7 @@ export function HintGui({ scope, widget }: HintGuiProps) {
 							scope={scope}
 							AutomaticSize={Enum.AutomaticSize.XY}
 							BackgroundColor3={theme(scope, "bg")}
+							Name="Hint"
 						>
 							<uistroke scope={scope} Color={theme(scope, "border")} />
 							<Padding scope={scope} padding={new UDim(0, 4)} />
@@ -92,6 +94,7 @@ export function HintContainer({ scope, children, text }: HintContainerProps) {
 			OnEvent:MouseEnter={() => hover.set(true)}
 			OnEvent:MouseLeave={() => hover.set(false)}
 			Out:AbsolutePosition={absolutePosition}
+			Name="HintContainer"
 		>
 			{children}
 		</frame>

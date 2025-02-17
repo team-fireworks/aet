@@ -74,6 +74,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 				Size={new UDim2(1, 0, 0, TOOL_LISTING_COLLAPSED_HEIGHT)}
 				BackgroundTransparency={1}
 				OnEvent:Activated={() => collapsed.set(!peek(collapsed))}
+				Name="Overview"
 			>
 				<uilistlayout
 					scope={scope}
@@ -124,10 +125,16 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 					padding={new UDim()}
 					layoutOrder={2}
 				/>
-				<frame scope={scope} LayoutOrder={3}>
+				<frame scope={scope} LayoutOrder={3} Name="Spacer">
 					<uiflexitem scope={scope} FlexMode={Enum.UIFlexMode.Fill} />
 				</frame>
-				<frame scope={scope} AutomaticSize={Enum.AutomaticSize.XY} BackgroundTransparency={1} LayoutOrder={4}>
+				<frame
+					scope={scope}
+					AutomaticSize={Enum.AutomaticSize.XY}
+					BackgroundTransparency={1}
+					LayoutOrder={4}
+					Name="Actions"
+				>
 					<uilistlayout
 						scope={scope}
 						FillDirection={Enum.FillDirection.Horizontal}
@@ -145,6 +152,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 				Size={scope.computedSpring(
 					(use) => new UDim2(1, 0, 0, use(collapsed) ? use(contentAbsoluteSize).Y : 0),
 				)}
+				Name="Details"
 			>
 				<frame
 					scope={scope}
@@ -226,7 +234,7 @@ export function Tools({ scope }: Scoped) {
 	onToolChanged(() => toolValue.set(tools));
 
 	return (
-		<Scroller scope={scope} automaticSize={Enum.AutomaticSize.Y} size={UDim2.fromScale(1, 1)}>
+		<Scroller scope={scope} automaticSize={Enum.AutomaticSize.Y} size={UDim2.fromScale(1, 1)} name="Tools">
 			<uilistlayout scope={scope} FillDirection={Enum.FillDirection.Vertical} Padding={new UDim(0, 4)} />
 			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
 			<ForValues

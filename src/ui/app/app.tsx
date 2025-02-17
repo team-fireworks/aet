@@ -58,7 +58,7 @@ export function App({ scope }: AppProps) {
 				Padding={new UDim(0, 4)}
 			/>
 			<Nav scope={scope} />
-			<frame scope={scope} BackgroundTransparency={1} Size={UDim2.fromScale(1, 1)}>
+			<frame scope={scope} BackgroundTransparency={1} Size={UDim2.fromScale(1, 1)} Name="RouteContainer">
 				<uiflexitem scope={scope} FlexMode={Enum.UIFlexMode.Fill} />
 				{scope.Computed((use, scope) => use(displayedRoute).render({ scope: scope }))}
 			</frame>

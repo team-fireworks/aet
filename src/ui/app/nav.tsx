@@ -47,6 +47,7 @@ export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProp
 			BackgroundTransparency={scope.computedSpring((use) => (use(highlighted) ? 0 : use(hover) ? 0.85 : 1))}
 			ClipsDescendants={true}
 			LayoutOrder={order}
+			Name={scope.Computed((use) => `NavTab(${use(route).label})`)}
 			Size={new UDim2(0, 0, 0, 32)}
 			OnEvent:Activated={() => {
 				sourceIconRotation.addVelocity(120);
@@ -94,6 +95,7 @@ export function Nav({ scope }: NavProps) {
 			scope={scope}
 			AutomaticSize={Enum.AutomaticSize.Y}
 			BackgroundColor3={theme(scope, "bgLight")}
+			Name="Nav"
 			Size={UDim2.fromScale(1, 0)}
 		>
 			<uilistlayout

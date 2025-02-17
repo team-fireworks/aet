@@ -19,6 +19,7 @@ export function TowerSelector({ scope, isSelecting, onClick, onDeselected }: Tow
 			scope={scope}
 			AutomaticSize={Enum.AutomaticSize.Y}
 			BackgroundColor3={theme(scope, "bg")}
+			Name="TowerSelector"
 			Size={UDim2.fromScale(1, 0)}
 		>
 			<uilistlayout
