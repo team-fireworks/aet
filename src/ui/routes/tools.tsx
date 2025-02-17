@@ -1,13 +1,13 @@
 // From Ethereal, licensed under the GNU General Public License v3.0
 
 import Fusion, { peek, UsedAs } from "@rbxts/fusion";
-import { LibTool, onToolActionsChanged, onToolChanged, toolActions, tools } from "lib";
+import { Action, LibTool, onToolActionsChanged, onToolChanged, toolActions, tools } from "lib";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
 import { Muted } from "ui/components/foundational/muted";
 import { Padding } from "ui/components/foundational/padding";
 import { Paragraph } from "ui/components/foundational/paragraph";
 import { Round } from "ui/components/foundational/round";
-import { ForPairs, ForValues, Show } from "ui/components/fusion";
+import { ForValues, Show } from "ui/components/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
 import { scope, Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
@@ -27,27 +27,23 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 	const hover = scope.Value(false);
 	const contentAbsoluteSize = scope.Value(Vector2.zero);
 
-	const thisActions = scope.Computed(
-		(use) => use(toolActionsState).get(use(tool)) ?? new Map<string, Array<() => void>>(),
-	);
+	const thisActions = scope.Computed((use) => use(toolActionsState).get(use(tool)) ?? new Array<Action>());
 
 	const buttons = (
-		<ForPairs
+		<ForValues
 			scope={scope}
 			each={thisActions}
-			children={(use, scope, name, callbacks) =>
-				$tuple(
-					[],
-					<Button
-						scope={scope}
-						style={ButtonStyle.Primary}
-						label={name}
-						onClick={() => {
-							for (const v of callbacks) task.spawn(v);
-						}}
-					/>,
-				)
-			}
+			children={(use, scope, { index, name, callbacks }) => (
+				<Button
+					scope={scope}
+					style={ButtonStyle.Primary}
+					label={name}
+					layoutOrder={index}
+					onClick={() => {
+						for (const v of callbacks) task.spawn(v);
+					}}
+				/>
+			)}
 		/>
 	);
 

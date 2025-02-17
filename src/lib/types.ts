@@ -88,3 +88,9 @@ export interface RunRequest {
 	tool: LibTool;
 	args: Map<string, { value: unknown }>;
 }
+
+export interface Action {
+	index: number;
+	name: string;
+	callbacks: Array<() => void>;
+}

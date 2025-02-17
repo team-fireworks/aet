@@ -11,7 +11,7 @@ return {
 		wrench = "rbxasset://.asphalt-ethanol/icons/wrench.cd53f5e00f758a987d571b57072b662b.png",
 	},
 	images = {
-		ethereal = "rbxasset://.asphalt-ethanol/images/ethereal.72d0e72cb062823ff35b3cb2a4ed9566.png",
+		ethereal = "rbxasset://.asphalt-ethanol/images/ethereal.da096f26691d4a080c3df8a9fdadc5ff.png",
 		etoh = "rbxasset://.asphalt-ethanol/images/etoh.93735367d28759da424dbc2723cb0026.png",
 	},
 }

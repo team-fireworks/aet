@@ -4,7 +4,7 @@ import { selectedTower } from "lib/tower";
 import { plugin } from "plugin";
 import { event } from "utils/event";
 import { TowerInstance } from "./tower";
-import { LibArgumentContext, LibRunContext, LibTool, LibToolSource, RunRequest } from "./types";
+import { Action, LibArgumentContext, LibRunContext, LibTool, LibToolSource, RunRequest } from "./types";
 
 export * from "./tower";
 export * from "./types";
@@ -24,7 +24,7 @@ export const currentlyRunning = new Set<LibTool>();
 // export const [onToolRemoving, toolRemoving] = event<[tool: LibTool]>();
 export const [onToolChanged, toolChanged] = event<[tool: LibTool]>();
 
-export const toolActions = new Map<LibTool, Map<string, Array<() => void>>>();
+export const toolActions = new Map<LibTool, Action[]>();
 export const [onToolActionsChanged, toolActionsChanged] = event<[tool: LibTool]>();
 
 // FUTURE: bad type, needs recursive Luau type restrictions to be lifted
@@ -93,18 +93,28 @@ export class RunContext implements LibRunContext {
 	}
 
 	onAction(buttonLabel: string, callback: () => void): Cleanup {
-		let allActions = toolActions.get(this._run.tool) ?? new Map();
-		let actionCallbacks = allActions.get(buttonLabel) ?? [];
+		let actions = toolActions.get(this._run.tool) ?? [];
+		let thisAction = actions.find((v) => v.name === buttonLabel);
 
-		actionCallbacks.push(callback);
-		allActions.set(buttonLabel, actionCallbacks);
-		toolActions.set(this._run.tool, allActions);
+		if (!thisAction) {
+			const newAction: Action = {
+				index: toolActions.size(),
+				name: buttonLabel,
+				callbacks: [],
+			};
+
+			actions.push(newAction);
+			thisAction = newAction;
+		}
+
+		thisAction.callbacks.push(callback);
+		toolActions.set(this._run.tool, actions);
 		toolActionsChanged(this._run.tool);
 
 		return () => {
-			const i = actionCallbacks.indexOf(callback);
+			const i = thisAction.callbacks.indexOf(callback);
 			if (i === -1) return;
-			actionCallbacks.remove(i);
+			thisAction.callbacks.remove(i);
 			toolActionsChanged(this._run.tool);
 		};
 	}
