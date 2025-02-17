@@ -22,6 +22,7 @@ export enum TextAlignY {
 export interface MutedProps extends BaseProps, LayoutProps, Scoped, PaddingProps {
 	text?: UsedAs<string>;
 	textTransparency?: UsedAs<number>;
+	textWrapped?: UsedAs<boolean>;
 	rich?: UsedAs<boolean>;
 
 	// TODO implement
@@ -42,6 +43,7 @@ export function Muted({
 	layoutOrder,
 
 	text,
+	textWrapped = true,
 	textTransparency,
 	rich = true,
 	outTextBounds,
@@ -72,7 +74,7 @@ export function Muted({
 			TextColor3={theme(scope, "fgDark")}
 			TextTransparency={textTransparency}
 			TextSize={14}
-			TextWrapped={true}
+			TextWrapped={textWrapped}
 			TextXAlignment={scope.Computed((use) => {
 				switch (use(alignX)) {
 					case TextAlignX.Left:

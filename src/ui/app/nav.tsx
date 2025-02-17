@@ -8,7 +8,7 @@ import { NAV_ROUTES, Route, ROUTES, unwrapRouteContext } from "ui/routes";
 import { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 
-const HIGHLIGHT_HEIGHT = 4;
+const HIGHLIGHT_HEIGHT = 6;
 
 export interface NavTabProps extends Scoped {
 	route: UsedAs<Route>;
@@ -29,7 +29,8 @@ export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProp
 		),
 	);
 
-	// const sourceIconRotation = scope.Spring(0, 30, 1);
+	// FIXME: fusion needs this to be a state object?
+	const sourceIconRotation = scope.computedSpring(() => 0);
 
 	return (
 		<imagebutton
@@ -42,7 +43,7 @@ export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProp
 			LayoutOrder={order}
 			Size={new UDim2(0, 0, 0, 32)}
 			OnEvent:Activated={() => {
-				// sourceIconRotation.addVelocity(5);
+				sourceIconRotation.addVelocity(120);
 				onClick();
 			}}
 			OnEvent:MouseEnter={() => hover.set(true)}

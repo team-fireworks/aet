@@ -4,6 +4,7 @@ import Fusion, { peek, UsedAs } from "@rbxts/fusion";
 import assets from "assets";
 import { Action, LibTool, onToolActionsChanged, onToolChanged, toolActions, tools } from "lib";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
+import { HintContainer } from "ui/components/foundational/hint";
 import { Muted } from "ui/components/foundational/muted";
 import { Padding } from "ui/components/foundational/padding";
 import { Paragraph } from "ui/components/foundational/paragraph";
@@ -92,15 +93,21 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						anchorPoint={new Vector2(0.5, 0.5)}
 						position={UDim2.fromScale(0.5, 0.5)}
 						size={UDim2.fromOffset(20, 20)}
-						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 180 : 0), undefined, 0.8)}
+						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 180 : 0), undefined, 2 / 3)}
 					/>
 				</frame>
 				<Padding scope={scope} padding={new UDim(0, 6)} />
-				<imagelabel
+				<HintContainer
 					scope={scope}
-					BackgroundTransparency={1}
-					Image={assets.images.ethereal}
-					Size={UDim2.fromOffset(16, 16)}
+					children={
+						<imagelabel
+							scope={scope}
+							BackgroundTransparency={1}
+							Image={assets.images.ethereal}
+							Size={UDim2.fromOffset(16, 16)}
+						/>
+					}
+					text="This tool comes included with Ethereal!"
 				/>
 				<Paragraph
 					scope={scope}
