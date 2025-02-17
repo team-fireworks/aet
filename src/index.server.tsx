@@ -62,7 +62,7 @@ new Toolbar(scope, "Ethereal")
 			scope,
 			"Launch Ethereal",
 			"etherealMain",
-			"Tool suite for Eternal Towers of Hell",
+			"Full-featured Eternal Towers of Hell companion plugin.",
 			assets.images.ethereal,
 		).widget(
 			"Ethereal",

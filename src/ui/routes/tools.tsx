@@ -1,6 +1,7 @@
 // From Ethereal, licensed under the GNU General Public License v3.0
 
 import Fusion, { peek, UsedAs } from "@rbxts/fusion";
+import assets from "assets";
 import { Action, LibTool, onToolActionsChanged, onToolChanged, toolActions, tools } from "lib";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
 import { Muted } from "ui/components/foundational/muted";
@@ -33,7 +34,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 		<ForValues
 			scope={scope}
 			each={thisActions}
-			children={(use, scope, { index, name, callbacks }) => (
+			children={(_, scope, { index, name, callbacks }) => (
 				<Button
 					scope={scope}
 					style={ButtonStyle.Primary}
@@ -95,6 +96,12 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 					/>
 				</frame>
 				<Padding scope={scope} padding={new UDim(0, 6)} />
+				<imagelabel
+					scope={scope}
+					BackgroundTransparency={1}
+					Image={assets.images.ethereal}
+					Size={UDim2.fromOffset(16, 16)}
+				/>
 				<Paragraph
 					scope={scope}
 					text={scope.Computed((use) => use(tool).label)}
@@ -119,7 +126,6 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						Padding={new UDim(0, 4)}
 						SortOrder={Enum.SortOrder.LayoutOrder}
 					/>
-					{/* {scope.Computed((use) => (use(thisActions).size() === 1 ? buttons : []))} */}
 					{buttons}
 				</frame>
 			</imagebutton>
@@ -151,15 +157,6 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						paddingBottom={new UDim(0, 6)}
 					/>
 					<Muted scope={scope} text={scope.Computed((use) => use(tool).description)} padding={new UDim()} />
-					<Muted
-						scope={scope}
-						text={scope.Computed((use) =>
-							use(tool).source.root
-								? "This tool is included with Ethereal!"
-								: `This tool was externally created by ${use(tool).source.name}`,
-						)}
-						padding={new UDim()}
-					/>
 					<Show
 						scope={scope}
 						when={scope.Computed((use) => use(tool).args !== undefined)}

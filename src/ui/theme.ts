@@ -22,6 +22,11 @@ export interface Theme {
 	fgDarker: Color3;
 	fgDarkest: Color3;
 
+	red: Color3;
+	gold: Color3;
+	green: Color3;
+	blue: Color3;
+
 	buttonPrimaryBg: Color3;
 	buttonPrimaryHover: Color3;
 	buttonPrimaryFg: Color3;
@@ -30,29 +35,48 @@ export interface Theme {
 	buttonDangerFg: Color3;
 }
 
+export type ThemeKey = keyof Theme;
+
+export const ETHEREAL_GRAY_HUE = 200 / 360;
+export const ETHEREAL_GRAY_SATURATION = 0.02;
+export const ETHEREAL_RED_HUE = 0 / 360;
+export const ETHEREAL_RED_SATURATION = 0.8;
+export const ETHEREAL_GOLD_HUE = 40 / 360;
+export const ETHEREAL_GOLD_SATURATION = 0.7;
+export const ETHEREAL_GREEN_HUE = 100 / 360;
+export const ETHEREAL_GREEN_SATURATION = 1;
+export const ETHEREAL_BLUE_HUE = 200 / 360;
+export const ETHEREAL_BLUE_SATURATION = 1;
+
 export const THEMES = {
 	dark: {
 		name: "Dark",
 
-		border: Color3.fromHex("242424"),
-		bg: Color3.fromHex("#2A2A2A"),
-		bgLight: Color3.fromHex("#2F2F2F"),
-		bgLighter: Color3.fromHex("#3A3A3A"),
-		bgLightest: Color3.fromHex("#3F3F3F"),
-		bgDark: Color3.fromHex("242424"),
-		bgDarker: Color3.fromHex("#1A1A1A"),
-		bgDarkest: Color3.fromHex("#0F0F0F"),
-		fg: Color3.fromHex("EEEEEE"),
-		fgLight: Color3.fromHex("EEEEEE"),
-		fgLighter: Color3.fromHex("EEEEEE"),
-		fgLightest: Color3.fromHex("EEEEEE"),
-		fgDark: Color3.fromHex("DDDDDD"),
-		fgDarker: Color3.fromHex("CCCCCC"),
-		fgDarkest: Color3.fromHex("BBBBBB"),
+		border: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.15 - 0.025),
+		bg: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.15),
+		bgLight: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.2),
+		bgLighter: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.25),
+		bgLightest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.3),
+		bgDark: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.1),
+		bgDarker: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.05),
+		bgDarkest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.025),
+		fg: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.8),
+		fgLight: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.85),
+		fgLighter: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.9),
+		fgLightest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.95),
+		fgDark: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.75),
+		fgDarker: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.7),
+		fgDarkest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.65),
 
-		buttonPrimaryBg: Color3.fromHSV(40 / 360, 0.75, 0.9),
-		buttonPrimaryHover: Color3.fromHSV(40 / 360, 0.75, 1),
-		buttonPrimaryFg: Color3.fromHSV(40 / 360, 0.75, 0.1),
+		red: Color3.fromHSV(ETHEREAL_RED_HUE, ETHEREAL_RED_SATURATION, 0.9),
+		gold: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.9),
+		green: Color3.fromHSV(ETHEREAL_GREEN_HUE, ETHEREAL_GREEN_SATURATION, 0.9),
+		blue: Color3.fromHSV(ETHEREAL_BLUE_HUE, ETHEREAL_BLUE_SATURATION, 0.9),
+
+		// TODO: replace this in btn component with more accent themes
+		buttonPrimaryBg: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.9),
+		buttonPrimaryHover: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 1),
+		buttonPrimaryFg: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.2),
 		buttonDangerBg: Color3.fromHSV(0 / 360, 0.75, 0.8),
 		buttonDangerHover: Color3.fromHSV(0 / 360, 0.75, 0.9),
 		buttonDangerFg: Color3.fromHSV(0 / 360, 0.75, 0.3),

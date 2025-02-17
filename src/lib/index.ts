@@ -98,7 +98,7 @@ export class RunContext implements LibRunContext {
 
 		if (!thisAction) {
 			const newAction: Action = {
-				index: toolActions.size(),
+				index: actions.size() + 1,
 				name: buttonLabel,
 				callbacks: [],
 			};

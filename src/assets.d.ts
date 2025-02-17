@@ -11,7 +11,7 @@ declare const assets: {
 		wrench: "rbxasset://.asphalt-ethanol/icons/wrench.cd53f5e00f758a987d571b57072b662b.png";
 	};
 	images: {
-		ethereal: "rbxasset://.asphalt-ethanol/images/ethereal.da096f26691d4a080c3df8a9fdadc5ff.png";
+		ethereal: "rbxasset://.asphalt-ethanol/images/ethereal.1dfd8b142660f346719f350e7a877eca.png";
 		etoh: "rbxasset://.asphalt-ethanol/images/etoh.93735367d28759da424dbc2723cb0026.png";
 	};
 };
