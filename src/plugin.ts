@@ -55,6 +55,7 @@ export class ToolbarButton<S> {
 					Title: title,
 					Name: name,
 					Enabled: isToggled,
+					ZIndexBehavior: Enum.ZIndexBehavior.Sibling,
 					[Children]: child,
 				});
 

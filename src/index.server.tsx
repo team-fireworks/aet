@@ -16,11 +16,12 @@ setDefaultLogger(
 
 info("Starting up!");
 
-import Fusion, { Children } from "@rbxts/fusion";
-import { runTool, toolActions, tools } from "lib";
+import Fusion, { Children, peek } from "@rbxts/fusion";
+import { runTool, tools } from "lib";
 import { Notifications } from "notifications";
-import { plugin, Toolbar, ToolbarButton } from "plugin";
+import { plugin } from "plugin";
 import { App } from "ui/app/app";
+import { HintGui } from "ui/components/foundational/hint";
 import { scope } from "ui/scoped";
 
 const CoreGui = game.GetService("CoreGui");
@@ -47,31 +48,37 @@ const builtinModules = BUILT_IN_TOOLS.GetDescendants().filter((v) => classIs(v, 
 info(`Requiring builtin tool modules: ${builtinModules.map((v) => v.Name).join(", ")}`);
 for (const v of builtinModules) require(v);
 
-for (const v of tools)
-	runTool({
-		tool: v,
-		args: new Map(),
-	});
-
-print(toolActions);
+info("Running initial tools");
+for (const v of tools) runTool({ tool: v });
 
 info("Creating plugin toolbar");
-new Toolbar(scope, "Ethereal")
-	.button(
-		new ToolbarButton(
-			scope,
-			"Launch Ethereal",
-			"etherealMain",
-			"Full-featured Eternal Towers of Hell companion plugin.",
-			assets.images.ethereal,
-		).widget(
-			"Ethereal",
-			"etherealMain",
-			new DockWidgetPluginGuiInfo(Enum.InitialDockState.Float, false, false, 400, 300, 400, 300),
-			<App scope={scope} />,
-		),
-	)
-	.build();
+const toolbar = plugin.CreateToolbar("Ethereal");
+const button = toolbar.CreateButton(
+	"ethereal",
+	"Full-featured Eternal Towers of Hell companion plugin",
+	assets.images.ethereal,
+	"Launch Ethereal",
+);
+
+const widget = plugin.CreateDockWidgetPluginGui(
+	"etherealMain",
+	new DockWidgetPluginGuiInfo(Enum.InitialDockState.Float, false, false, 400, 300, 400, 300),
+);
+const isWidgetOpen = scope.Value(false);
+
+scope.Hydrate(widget)({
+	Name: "ethereal",
+	Title: "Ethereal",
+	Enabled: isWidgetOpen,
+	[Children]: [<App scope={scope} />, <HintGui scope={scope} widget={widget} />],
+});
+
+scope.push(
+	toolbar,
+	button,
+	widget,
+	button.Click.Connect(() => isWidgetOpen.set(!peek(isWidgetOpen))),
+);
 
 info("Creating notifications");
 scope.Hydrate(CoreGui)({

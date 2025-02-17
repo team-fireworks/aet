@@ -86,7 +86,6 @@ export type Lib = {
 
 export interface RunRequest {
 	tool: LibTool;
-	args: Map<string, { value: unknown }>;
 }
 
 export interface Action {

@@ -25,7 +25,9 @@
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",
         "@rbxts/iris": "^2.3.1-ts.1",
         "@rbxts/object-utils": "^1.0.4",
+        "@rbxts/rust-classes": "^0.13.0",
         "@rbxts/semver": "^1.0.0",
+        "@rbxts/services": "^1.5.5",
         "@rbxts/sift": "^0.0.9",
         "@rbxts/t": "^3.1.1"
     },
