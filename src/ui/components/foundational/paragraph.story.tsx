@@ -14,35 +14,22 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { IS_DEV } from "constants";
-import { createBuiltinTool } from "lib";
-import { debug } from "log";
+import Fusion from "@rbxts/fusion";
+import { fusionStory } from "uilabs";
+import { Paragraph } from "./paragraph";
 
-if (IS_DEV) {
-	createBuiltinTool({
-		name: "argTest",
-		label: "Argument Testing",
-		overview: "EToH Deletion 2025",
-		description: "EToH Deletion 2025",
-
-		args: [
-			{
-				name: "booleanArg",
-				label: "Boolean argument",
-				kind: "boolean",
-				default: false,
-			},
-		],
-
-		run: (ctx) => {
-			ctx.onAction("Dump arguments", () => {
-				debug(`booleanArg: ${ctx.arg("booleanArg").now()}`);
-			});
-
-			ctx.onAction("Assert arguments", () => {
-				debug("Asserting booleanArg is boolean");
-				ctx.arg("booleanArg").assertBoolean();
-			});
-		},
-	});
-}
+export = fusionStory({
+	controls: {
+		text:
+			"Tower of Complexity and Volatility (ToCaV) is a Terrifying " +
+			"difficulty, ascension-based Tower located in Zone 10. It was " +
+			"made by Miantoz1980, ImNotFireMan123 and ConfirmedIlluminatix. " +
+			"This tower is known for its time manipulation gimmicks. It can " +
+			"be played in its own place here.",
+		rich: true,
+		textWrapped: true,
+	},
+	story: ({ scope, controls }) => (
+		<Paragraph scope={scope} text={controls.text} textWrapped={controls.textWrapped} rich={controls.rich} />
+	),
+});

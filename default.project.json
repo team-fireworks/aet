@@ -1,29 +1,26 @@
 {
-    "name": "ethereal",
-    "globIgnorePaths": [
-        "**/package.json",
-        "**/tsconfig.json"
-    ],
-    "tree": {
-        "$className": "Actor",
-        "COPYRIGHT": {
-            "$path": "COPYRIGHT.luau"
-        },
-        "LICENSE": {
-            "$path": "LICENSE.luau"
-        },
-        "ethereal": {
-            "$path": "out",
-            "include": {
-                "$className": "Folder",
-                "$path": "include",
-                "node_modules": {
-                    "$className": "Folder",
-                    "@rbxts": {
-                        "$path": "node_modules/@rbxts"
-                    }
-                }
-            }
-        }
-    }
+	"name": "ethereal",
+	"globIgnorePaths": ["**/package.json", "**/tsconfig.json"],
+	"tree": {
+		"$className": "Actor",
+		"COPYRIGHT": {
+			"$path": "COPYRIGHT.luau"
+		},
+		"LICENSE": {
+			"$path": "LICENSE.luau"
+		},
+		"ethereal": {
+			"$path": "out",
+			"include": {
+				"$className": "Folder",
+				"$path": "include",
+				"node_modules": {
+					"$className": "Folder",
+					"@rbxts": {
+						"$path": "node_modules/@rbxts"
+					}
+				}
+			}
+		}
+	}
 }

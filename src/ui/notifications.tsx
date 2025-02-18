@@ -14,35 +14,11 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { IS_DEV } from "constants";
-import { createBuiltinTool } from "lib";
-import { debug } from "log";
+import Fusion from "@rbxts/fusion";
+import { Scoped } from "ui/scoped";
 
-if (IS_DEV) {
-	createBuiltinTool({
-		name: "argTest",
-		label: "Argument Testing",
-		overview: "EToH Deletion 2025",
-		description: "EToH Deletion 2025",
+const CoreGui = game.GetService("CoreGui");
 
-		args: [
-			{
-				name: "booleanArg",
-				label: "Boolean argument",
-				kind: "boolean",
-				default: false,
-			},
-		],
-
-		run: (ctx) => {
-			ctx.onAction("Dump arguments", () => {
-				debug(`booleanArg: ${ctx.arg("booleanArg").now()}`);
-			});
-
-			ctx.onAction("Assert arguments", () => {
-				debug("Asserting booleanArg is boolean");
-				ctx.arg("booleanArg").assertBoolean();
-			});
-		},
-	});
+export function Notifications({ scope }: Scoped) {
+	return <screengui scope={scope} Name="etherealNotifications"></screengui>;
 }

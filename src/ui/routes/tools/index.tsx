@@ -15,49 +15,26 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion from "@rbxts/fusion";
-import { Heading } from "ui/components/foundational/heading";
+import { onToolChanged, tools } from "lib";
 import { Padding } from "ui/components/foundational/padding";
+import { Scroller } from "ui/components/foundational/scroller";
+import { ForValues } from "ui/components/fusion";
+import { ToolListing } from "ui/routes/tools/listing";
 import { Scoped } from "ui/scoped";
 
-// interface KitGrouped {
-// 	kind: "group";
-// 	label: string;
-// 	description: string;
-// 	kits: Omit<Kit, "description">[];
-// }
+export function Tools({ scope }: Scoped) {
+	const toolValue = scope.Value(tools);
+	onToolChanged(() => toolValue.set(tools));
 
-// interface Kit {
-// 	kind: "kit";
-// 	label: string;
-// 	description: string;
-// 	thumbnailAsset: string;
-// 	authorIds: number[];
-// }
-
-// const KITS: (KitGrouped | Kit)[] = [
-// 	{
-// 		kind: "group",
-// 		label: "Ethereal",
-// 		description: "string",
-// 		kits: [
-// 			{
-// 				kind: "kit",
-// 			},
-// 		],
-// 	},
-// ];
-
-export function Kits({ scope }: Scoped) {
 	return (
-		<scrollingframe
-			scope={scope}
-			AutomaticSize={Enum.AutomaticSize.Y}
-			BackgroundTransparency={1}
-			Size={UDim2.fromScale(1, 0)}
-		>
+		<Scroller scope={scope} automaticSize={Enum.AutomaticSize.Y} size={UDim2.fromScale(1, 1)} name="Tools">
 			<uilistlayout scope={scope} FillDirection={Enum.FillDirection.Vertical} Padding={new UDim(0, 4)} />
 			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
-			<Heading scope={scope} text="Tower Kits" />
-		</scrollingframe>
+			<ForValues
+				scope={scope}
+				each={scope.Computed((use) => use(toolValue).sort((lhs, rhs) => lhs.name < rhs.name))}
+				children={(_, scope, v) => <ToolListing scope={scope} tool={v} />}
+			/>
+		</Scroller>
 	);
 }

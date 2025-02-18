@@ -1,33 +1,27 @@
 {
-    "compilerOptions": {
-        // required
-        "allowSyntheticDefaultImports": true,
-        "downlevelIteration": true,
-        "jsx": "react",
-        "jsxFactory": "Fusion.jsx",
-        "jsxFragmentFactory": "Fusion.Fragment",
-        "module": "commonjs",
-        "moduleResolution": "Node",
-        "noLib": true,
-        "resolveJsonModule": true,
-        "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleDetection": "force",
-        "strict": true,
-        "target": "ESNext",
-        "typeRoots": [
-            "node_modules/@rbxts",
-            "./types"
-        ],
-        // configurable
-        "types": [
-            "types/plugin",
-            "services/plugin"
-        ],
-        "rootDir": "src",
-        "outDir": "out",
-        "baseUrl": "src",
-        "incremental": true,
-        "tsBuildInfoFile": "out/tsconfig.tsbuildinfo"
-    }
+	"compilerOptions": {
+		// required
+		"allowSyntheticDefaultImports": true,
+		"downlevelIteration": true,
+		"jsx": "react",
+		"jsxFactory": "Fusion.jsx",
+		"jsxFragmentFactory": "Fusion.Fragment",
+		"module": "commonjs",
+		"moduleResolution": "Node",
+		"noLib": true,
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"moduleDetection": "force",
+		"strict": true,
+		"target": "ESNext",
+		"typeRoots": ["node_modules/@rbxts", "./types"],
+		// configurable
+		"types": ["types/plugin", "services/plugin"],
+		"rootDir": "src",
+		"outDir": "out",
+		"baseUrl": "src",
+		"incremental": true,
+		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo"
+	}
 }

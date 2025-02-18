@@ -68,6 +68,7 @@ export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProp
 			<Paragraph
 				scope={scope}
 				text={scope.Computed((use) => use(route).label!)}
+				textWrapped={false}
 				paddingLeft={new UDim(0, 4)}
 				anchorPoint={new Vector2(0, 0.5)}
 				position={new UDim2(0, 18, 0.5, 0)}

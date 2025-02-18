@@ -1,10 +1,24 @@
-// From Ethereal, licensed under the GNU General Public License v3.0
+// Eternal is a full-featured companion plugin for Eternal Towers of Hell
+// Copyright (C) 2025 znotfireman
+//
+// This program is free software: you can redistribute it and/or modify it unde
+// the terms of the GNU General Public License as published by the Free Software
+// Foundation, either version 3 of the License, or (at your option) any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+// details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
 import { sans } from "ui/fonts";
 import type { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
-import { BaseProps, LayoutProps } from "ui/types";
+import type { BaseProps, LayoutProps } from "ui/types";
 import { Padding, PaddingProps } from "../foundational/padding";
 
 export enum TextAlignX {
@@ -23,6 +37,7 @@ export interface ParagraphProps extends BaseProps, LayoutProps, Scoped, PaddingP
 	text?: UsedAs<string>;
 	textColor?: UsedAs<Color3>;
 	textTransparency?: UsedAs<number>;
+	textWrapped?: UsedAs<boolean>;
 	rich?: UsedAs<boolean>;
 
 	// TODO implement
@@ -45,6 +60,7 @@ export function Paragraph({
 	text,
 	textColor,
 	textTransparency,
+	textWrapped = true,
 	rich = true,
 	outTextBounds,
 	alignX = TextAlignX.Left,
@@ -74,6 +90,7 @@ export function Paragraph({
 			TextColor3={textColor ?? theme(scope, "fg")}
 			TextSize={16}
 			TextTransparency={textTransparency}
+			TextWrapped={textWrapped}
 			TextXAlignment={scope.Computed((use) => {
 				switch (use(alignX)) {
 					case TextAlignX.Left:

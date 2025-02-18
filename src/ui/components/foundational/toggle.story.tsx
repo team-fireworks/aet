@@ -14,35 +14,16 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { IS_DEV } from "constants";
-import { createBuiltinTool } from "lib";
-import { debug } from "log";
+import Fusion, { peek } from "@rbxts/fusion";
+import { debug, RobloxLogger, setDefaultLogger } from "log";
+import { fusionStory } from "uilabs";
+import { Toggle } from "./toggle";
 
-if (IS_DEV) {
-	createBuiltinTool({
-		name: "argTest",
-		label: "Argument Testing",
-		overview: "EToH Deletion 2025",
-		description: "EToH Deletion 2025",
-
-		args: [
-			{
-				name: "booleanArg",
-				label: "Boolean argument",
-				kind: "boolean",
-				default: false,
-			},
-		],
-
-		run: (ctx) => {
-			ctx.onAction("Dump arguments", () => {
-				debug(`booleanArg: ${ctx.arg("booleanArg").now()}`);
-			});
-
-			ctx.onAction("Assert arguments", () => {
-				debug("Asserting booleanArg is boolean");
-				ctx.arg("booleanArg").assertBoolean();
-			});
-		},
-	});
-}
+export = fusionStory({
+	story: ({ scope }) => {
+		setDefaultLogger(new RobloxLogger({}));
+		const toggled = scope.Value(false);
+		scope.Observer(toggled).onBind(() => debug(peek(toggled) ? "Is toggled" : "Not toggled"));
+		return <Toggle scope={scope} toggled={toggled} onToggle={() => toggled.set(!peek(toggled))} />;
+	},
+});

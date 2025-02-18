@@ -1,15 +1,31 @@
+// Eternal is a full-featured companion plugin for Eternal Towers of Hell
+// Copyright (C) 2025 znotfireman
+//
+// This program is free software: you can redistribute it and/or modify it unde
+// the terms of the GNU General Public License as published by the Free Software
+// Foundation, either version 3 of the License, or (at your option) any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+// details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program. If not, see <https://www.gnu.org/licenses/>.
+
 import { peek } from "@rbxts/fusion";
 import SiftDictionary from "@rbxts/sift/out/Dictionary";
 import { selectedTower } from "lib/tower";
+import type { Action, LibArgumentContext, LibRunContext, LibTool, LibToolSource, RunRequest } from "lib/types";
 import { debug } from "log";
 import { plugin } from "plugin";
 import { scope } from "ui/scoped";
 import { event } from "utils/event";
 import { TowerInstance } from "./tower";
-import type { Action, LibArgumentContext, LibRunContext, LibTool, LibToolSource, RunRequest } from "./types";
 
 export * from "./tower";
-export * from "./types";
+export type * from "./types";
 
 type Cleanup = () => void;
 

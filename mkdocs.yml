@@ -3,4 +3,4 @@
 site_name: Ethereal
 site_url: https://znotfireman.github.io/ethereal
 theme:
-  name: material
+    name: material

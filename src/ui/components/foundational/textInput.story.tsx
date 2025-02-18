@@ -14,35 +14,27 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { IS_DEV } from "constants";
-import { createBuiltinTool } from "lib";
-import { debug } from "log";
+import Fusion, { peek } from "@rbxts/fusion";
+import { RobloxLogger, setDefaultLogger } from "log";
+import { fusionStory } from "uilabs";
+import { TextInput } from "./textInput";
 
-if (IS_DEV) {
-	createBuiltinTool({
-		name: "argTest",
-		label: "Argument Testing",
-		overview: "EToH Deletion 2025",
-		description: "EToH Deletion 2025",
+export = fusionStory({
+	controls: {
+		placeholder: "Type here",
+	},
+	story: ({ controls, scope }) => {
+		setDefaultLogger(new RobloxLogger({}));
 
-		args: [
-			{
-				name: "booleanArg",
-				label: "Boolean argument",
-				kind: "boolean",
-				default: false,
-			},
-		],
-
-		run: (ctx) => {
-			ctx.onAction("Dump arguments", () => {
-				debug(`booleanArg: ${ctx.arg("booleanArg").now()}`);
-			});
-
-			ctx.onAction("Assert arguments", () => {
-				debug("Asserting booleanArg is boolean");
-				ctx.arg("booleanArg").assertBoolean();
-			});
-		},
-	});
-}
+		const value = scope.Value("");
+		scope.Observer(value).onBind(() => `TextInput value: ${peek(value)}`);
+		return (
+			<TextInput
+				scope={scope}
+				placeholder={controls.placeholder}
+				value={value}
+				size={UDim2.fromOffset(128, 24)}
+			/>
+		);
+	},
+});

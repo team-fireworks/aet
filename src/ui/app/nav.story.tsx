@@ -14,35 +14,10 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { IS_DEV } from "constants";
-import { createBuiltinTool } from "lib";
-import { debug } from "log";
+import Fusion from "@rbxts/fusion";
+import { fusionStory } from "uilabs";
+import { Nav } from "./nav";
 
-if (IS_DEV) {
-	createBuiltinTool({
-		name: "argTest",
-		label: "Argument Testing",
-		overview: "EToH Deletion 2025",
-		description: "EToH Deletion 2025",
-
-		args: [
-			{
-				name: "booleanArg",
-				label: "Boolean argument",
-				kind: "boolean",
-				default: false,
-			},
-		],
-
-		run: (ctx) => {
-			ctx.onAction("Dump arguments", () => {
-				debug(`booleanArg: ${ctx.arg("booleanArg").now()}`);
-			});
-
-			ctx.onAction("Assert arguments", () => {
-				debug("Asserting booleanArg is boolean");
-				ctx.arg("booleanArg").assertBoolean();
-			});
-		},
-	});
-}
+export = fusionStory({
+	story: ({ scope }) => <Nav scope={scope} />,
+});

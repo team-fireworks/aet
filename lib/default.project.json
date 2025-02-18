@@ -1,6 +1,6 @@
 {
-    "name": "ethereal",
-    "tree": {
-        "$path": "init.luau"
-    }
+	"name": "ethereal",
+	"tree": {
+		"$path": "init.luau"
+	}
 }

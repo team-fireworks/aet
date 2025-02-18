@@ -1,4 +1,18 @@
-// From Ethereal, licensed under the GNU General Public License v3.0
+// Eternal is a full-featured companion plugin for Eternal Towers of Hell
+// Copyright (C) 2025 znotfireman
+//
+// This program is free software: you can redistribute it and/or modify it unde
+// the terms of the GNU General Public License as published by the Free Software
+// Foundation, either version 3 of the License, or (at your option) any later
+// version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+// details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program. If not, see <https://www.gnu.org/licenses/>.
 
 if (!script.FindFirstAncestorWhichIsA("Plugin")) throw "Ethereal must be run as a plugin.";
 
@@ -17,14 +31,13 @@ setDefaultLogger(
 info("Starting up!");
 
 import Fusion, { Children, peek } from "@rbxts/fusion";
+import { CoreGui } from "@rbxts/services";
 import { runTool, tools } from "lib";
-import { Notifications } from "notifications";
 import { plugin } from "plugin";
 import { App } from "ui/app/app";
 import { HintGui } from "ui/components/foundational/hint";
+import { Notifications } from "ui/notifications";
 import { scope } from "ui/scoped";
-
-const CoreGui = game.GetService("CoreGui");
 
 const BUILT_IN_TOOLS = script.WaitForChild("builtins");
 
@@ -60,10 +73,12 @@ const button = toolbar.CreateButton(
 	"Launch Ethereal",
 );
 
+info("Creating app");
 const widget = plugin.CreateDockWidgetPluginGui(
 	"etherealMain",
 	new DockWidgetPluginGuiInfo(Enum.InitialDockState.Float, false, false, 400, 300, 400, 300),
 );
+
 const isWidgetOpen = scope.Value(false);
 
 scope.Hydrate(widget)({
@@ -81,8 +96,8 @@ scope.push(
 );
 
 info("Creating notifications");
-scope.Hydrate(CoreGui)({
-	[Children]: <Notifications scope={scope} />,
-});
+<folder scope={scope} Name="etherealNotifications" Parent={CoreGui}>
+	<Notifications scope={scope} />
+</folder>;
 
 info("Startup finished!");

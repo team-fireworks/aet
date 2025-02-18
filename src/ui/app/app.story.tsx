@@ -1,19 +1,10 @@
-// import Fusion, { Children } from "@rbxts/fusion";
-// import { InferGenericProps } from "@rbxts/ui-labs";
-// import { scope } from "ui/scoped";
-// import { App } from "./app";
+// import { Environment } from "@rbxts/ui-labs";
+// import * as PluginModule from "plugin";
+// import { fusionStory } from "uilabs";
 
-// const controls = {};
-
-// export = {
-// 	controls: controls,
-// 	render: (props: InferGenericProps<typeof controls>) => {
-// 		const storyScope = scope.deriveScope();
-
-// 		storyScope.Hydrate(props.target)({
-// 			[Children]: <App scope={storyScope} />,
-// 		});
-
-// 		return () => storyScope.doCleanup();
+// export = fusionStory({
+// 	story: ({ scope, controls }) => {
+// 		// FIXME: this is so disgusting
+// 		PluginModule.plugin = Environment.Plugin;
 // 	},
-// };
+// });
