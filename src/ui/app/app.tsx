@@ -88,13 +88,13 @@ export function App({ scope }: AppProps) {
 					if (peek(isSelecting)) {
 						isSelecting.set(false);
 						const selection = Selection.Get();
-						if (selection.size() > 0) trySelectTower(selection[0]);
+						if (selection.size() > 0) trySelectTower(selection[0]!);
 						return;
 					}
 
 					const selection = Selection.Get();
 					if (selection.size() > 0) {
-						trySelectTower(selection[0]);
+						trySelectTower(selection[0]!);
 						return;
 					}
 

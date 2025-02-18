@@ -1,27 +1,38 @@
 {
-	"compilerOptions": {
-		// required
-		"allowSyntheticDefaultImports": true,
-		"downlevelIteration": true,
-		"jsx": "react",
-		"jsxFactory": "Fusion.jsx",
-		"jsxFragmentFactory": "Fusion.Fragment",
-		"module": "commonjs",
-		"moduleResolution": "Node",
-		"noLib": true,
-		"resolveJsonModule": true,
-		"experimentalDecorators": true,
-		"forceConsistentCasingInFileNames": true,
-		"moduleDetection": "force",
-		"strict": true,
-		"target": "ESNext",
-		"typeRoots": ["node_modules/@rbxts", "./types"],
-		// configurable
-		"types": ["types/plugin", "services/plugin"],
-		"rootDir": "src",
-		"outDir": "out",
-		"baseUrl": "src",
-		"incremental": true,
-		"tsBuildInfoFile": "out/tsconfig.tsbuildinfo"
-	}
+    "compilerOptions": {
+        "incremental": true,
+        "tsBuildInfoFile": "out/tsconfig.tsbuildinfo",
+        "target": "ESNext",
+        "jsx": "react",
+        "jsxFactory": "Fusion.jsx",
+        "jsxFragmentFactory": "Fusion.Fragment",
+        "moduleDetection": "force",
+        "noLib": true,
+        "experimentalDecorators": true,
+        "baseUrl": "src",
+        "rootDir": "src",
+        "module": "commonjs",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "typeRoots": [
+            "node_modules/@rbxts",
+            "./types"
+        ],
+        "types": [
+            "types/plugin",
+            "services/plugin"
+        ],
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "downlevelIteration": true,
+        "outDir": "out/",
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "exclude": [
+        "./eslint.config.ts",
+        "./commitlint.config.ts"
+    ]
 }

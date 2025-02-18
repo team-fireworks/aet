@@ -58,7 +58,7 @@ export function fusionStory<C extends Controls>({
 
 				subscribe(((values: Record<string, unknown>) => {
 					for (const [k, v] of pairs(values)) {
-						storyControls[k].set(v as never);
+						storyControls[k]!.set(v as never);
 					}
 				}) as never);
 			}
