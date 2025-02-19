@@ -2,17 +2,23 @@
 
 site_name: Ethereal
 site_url: https://znotfireman.github.io/ethereal
+repo_url: https://github.com/znotfireman/ethereal
 
 theme:
+  logo: "images/ethereal.png"
   name: material
+  custom_dir: docs/overrides
+  font:
+    text: Source Sans Pro
+    code: Inconsolata
   palette:
     - media: "(prefers-color-scheme: dark)"
-      scheme: etherealdoc-dark
+      scheme: ethereal-dark
       toggle:
         icon: octicons/sun-24
         title: Switch to light theme
     - media: "(prefers-color-scheme: light)"
-      scheme: etherealdoc-light
+      scheme: ethereal-light
       toggle:
         icon: octicons/moon-24
         title: Switch to dark theme
@@ -21,15 +27,20 @@ theme:
     - navigation.indexes
     - navigation.top
     - navigation.tabs
+    - navigation.tabs.sticky
 
 extra_css:
-  - theme/etherealdoc.css
+  - theme/article.css
+  - theme/ethereal.css
+  - theme/header.css
+  - theme/nav.css
 
 nav:
   - Home: index.md
+  - Download: download.md
   - Docs:
     - docs/index.md
-    - Installation: docs/installation.md
+    - Motivation: docs/motivation.md
     - Referece:
         - Plugin API: docs/reference/plugin-api.md
         - Runtime API: docs/reference/plugin-api.md

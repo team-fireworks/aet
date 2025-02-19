@@ -1,0 +1,76 @@
+:root {
+    --ethereal-base-hue: 200;
+    --ethereal-base-saturation: 2%;
+    --ethereal-primary-hue: 40;
+    --ethereal-primary-saturation: 90%;
+}
+
+* {
+    --md-default-bg-color: var(--ethereal-bg);
+
+    --md-default-bg-color: var(--ethereal-bg);
+    --md-default-bg-color--light: var(--ethereal-bg-light);
+    --md-default-bg-color--lighter: var(--ethereal-bg-lighter);
+    --md-default-bg-color--lightest: var(--ethereal-bg-lightest);
+
+    --md-default-fg-color: var(--ethereal-fg);
+    --md-default-fg-color--light: var(--ethereal-fg-light);
+    --md-default-fg-color--lighter: var(--ethereal-fg-lighter);
+    --md-default-fg-color--lightest: var(--ethereal-fg-lightest);
+
+    --md-primary-fg-color: var(--ethereal-primary-fg);
+    --md-primary-fg-color--light: var(--ethereal-primary-fg-light);
+    --md-primary-fg-color--dark: var(--ethereal-primary-fg-dark);
+    --md-primary-bg-color: var(--ethereal-primary);
+    --md-primary-bg-color--light: var(--ethereal-primary-light);
+
+    --md-accent-fg-color: var(--ethereal-primary-fg);
+    --md-accent-fg-color--transparent: var(--ethereal-primary-fg-light);
+    --md-accent-bg-color: var(--ethereal-primary);
+    --md-accent-bg-color--light: var(--ethereal-primary-light);
+
+    --md-typeset-color: var(--ethereal-fg);
+    --md-typeset-a-color: var(--ethereal-primary);
+}
+
+[data-md-color-scheme="ethereal-light"] {}
+
+[data-md-color-scheme="ethereal-dark"] {
+    --ethereal-border: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) calc(15% - 2.5%));
+
+    --ethereal-bg: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 15%);
+    --ethereal-bg-light: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 20%);
+    --ethereal-bg-lighter: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 25%);
+    --ethereal-bg-lightest: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 30%);
+
+    --ethereal-fg: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 80%);
+    --ethereal-fg-light: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 85%);
+    --ethereal-fg-lighter: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 90%);
+    --ethereal-fg-lightest: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 95%);
+
+    --ethereal-primary: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 60%);
+    --ethereal-primary-light: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 65%);
+    --ethereal-primary-lighter: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 70%);
+    --ethereal-primary-lightest: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 75%);
+    --ethereal-primary-dark: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 40%);
+    --ethereal-primary-darker: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 35%);
+    --ethereal-primary-darkest: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 30%);
+
+    --ethereal-primary-fg: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 15%);
+    --ethereal-primary-fg-light: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 20%);
+    --ethereal-primary-fg-lighter: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 25%);
+    --ethereal-primary-fg-lightest: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 30%);
+    --ethereal-primary-fg-dark: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 10%);
+}
+
+[data-md-color-scheme="ethereal-light"] .ethereal-dark-theme-only,
+[data-md-color-scheme="ethereal-dark"] .ethereal-light-theme-only,
+[data-md-color-scheme="ethereal-light"] img[src$="#only-dark"],
+[data-md-color-scheme="ethereal-dark"] img[src$="#only-light"] {
+    display: none !important;
+}
+
+[data-md-color-scheme="ethereal-light"] img[src$="#only-light"],
+[data-md-color-scheme="ethereal-dark"] img[src$="#only-dark"] {
+    display: initial;
+}
