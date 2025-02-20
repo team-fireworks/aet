@@ -14,32 +14,86 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
+import Object from "@rbxts/object-utils";
+import { Selection } from "@rbxts/services";
 import { createBuiltinTool } from "lib";
 
-function deleteCoValues(parent: Instance, checkAgainst: Instance) {
-	for (const child of parent.GetDescendants()) {
-		if (child.Name === "ClientObject" && child !== checkAgainst) child.Destroy();
-	}
-}
+const COLLISION_GROUP_TO_ID = {
+	Default: 0,
+	Player: 1,
+	OtherPlayers: 2,
+	OnlyCollideWithPlayers: 3,
+	DoNotCollideWithPlayers: 4,
+	DoNotCollideWithSelf: 5,
+	OnlyCollideWithPlayers2: 6,
+	NeverCollide: 7,
+};
+
+const ID_TO_COLLISION_GROUP = new Map(Object.entries(COLLISION_GROUP_TO_ID).map(([k, v]) => [v, k]));
 
 createBuiltinTool({
 	name: "cgiToScg",
 	label: "CollisionGroupIds to SetCollisionGroup Values",
-	overview: "Converts CollisionGroupIds properties to a new SetCollisionGroup IntValue",
-	description: "Converts CollisionGroupIds properties to a new SetCollisionGroup IntValue",
+	overview: "Converts CollisionGroupIds to SetCollisionGroup StringValues.",
+	description:
+		"Converts parts with the deprecated CollisionGroupId property to a matching SetCollisionGroup StringValue.",
 
 	args: [
 		{
-			name: "checkClass",
-			label: "Check for BoolValues?",
+			name: "overwrite",
+			label: "Overwrite existing SetCollisionGroup values?",
 			kind: "boolean",
 			default: false,
 		},
 	],
 
 	run: (ctx) => {
-		ctx.onAction("Unanchor All", () => {});
-		ctx.onAction("Unanchor Children", () => {});
-		ctx.onAction("Unanchor Descendants", () => {});
+		function createSCG(value: keyof typeof COLLISION_GROUP_TO_ID) {
+			const scg = new Instance("StringValue");
+			scg.Name = "SetCollisionGroup";
+			scg.Value = value;
+			return scg;
+		}
+
+		function convert(instances: Instance[]) {
+			for (const v of instances) {
+				if (!v.IsA("BasePart")) continue;
+
+				const thisId = (v as never as { CollisionGroupId: number }).CollisionGroupId;
+				const existing = v.FindFirstChild("SetCollisionGroup");
+
+				if (existing) {
+					if (classIs(existing, "StringValue") && ctx.arg("overwrite").assertBoolean().now()) continue;
+					existing.Destroy();
+				}
+
+				for (const [id] of pairs(ID_TO_COLLISION_GROUP)) {
+					if (thisId !== id) continue;
+					(v as never as { CollisionGroupId: number }).CollisionGroupId = 0;
+
+					let breakLoop = false;
+					switch (id) {
+						case 2:
+							v.CanCollide = false;
+							breakLoop = true;
+							break;
+						case 3:
+							createSCG("OnlyCollideWithPlayers").Parent = v;
+							breakLoop = true;
+							break;
+						case 4:
+							createSCG("DoNotCollideWithPlayers").Parent = v;
+							breakLoop = true;
+							break;
+					}
+
+					if (breakLoop) break;
+				}
+			}
+		}
+
+		ctx.onAction("Convert All", () => convert(ctx.tower!.GetDescendants()));
+
+		ctx.onAction("Convert Selection", () => convert(Selection.Get()));
 	},
 });
