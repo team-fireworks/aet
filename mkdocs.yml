@@ -2,50 +2,57 @@
 
 site_name: Ethereal
 site_url: https://znotfireman.github.io/ethereal
+repo_name: znotfireman/ethereal
 repo_url: https://github.com/znotfireman/ethereal
 
 theme:
-  logo: "images/ethereal.png"
-  name: material
-  custom_dir: docs/overrides
-  font:
-    text: Source Sans Pro
-    code: Inconsolata
-  palette:
-    - media: "(prefers-color-scheme: dark)"
-      scheme: ethereal-dark
-      toggle:
-        icon: octicons/sun-24
-        title: Switch to light theme
-    - media: "(prefers-color-scheme: light)"
-      scheme: ethereal-light
-      toggle:
-        icon: octicons/moon-24
-        title: Switch to dark theme
-  features:
-    - navigation.sections
-    - navigation.indexes
-    - navigation.top
-    - navigation.tabs
-    - navigation.tabs.sticky
+    logo: "images/ethereal.png"
+    name: material
+    custom_dir: docs/overrides
+    font:
+        text: Source Sans Pro
+        code: Inconsolata
+    palette:
+        - media: "(prefers-color-scheme: dark)"
+          scheme: ethereal-dark
+          toggle:
+              icon: octicons/sun-24
+              title: Switch to light theme
+        - media: "(prefers-color-scheme: light)"
+          scheme: ethereal-light
+          toggle:
+              icon: octicons/moon-24
+              title: Switch to dark theme
+    features:
+        - navigation.sections
+        - navigation.indexes
+        - navigation.top
+        - navigation.tabs
+        - navigation.tabs.sticky
 
 extra_css:
-  - theme/article.css
-  - theme/ethereal.css
-  - theme/header.css
-  - theme/nav.css
+    - theme/admonitions.css
+    - theme/article.css
+    - theme/ethereal.css
+    - theme/header.css
+    - theme/nav.css
 
 nav:
-  - Home: index.md
-  - Download: download.md
-  - Docs:
-    - docs/index.md
-    - Motivation: docs/motivation.md
-    - Referece:
-        - Plugin API: docs/reference/plugin-api.md
-        - Runtime API: docs/reference/plugin-api.md
+    - Home: index.md
+    - Download: download.md
+    - Docs:
+          - docs/index.md
+          - Packages: docs/packages.md
+          - Plugin API:
+                - docs/plugin-api/index.md
+                - Your First Tool: docs/plugin-api/your-first-tool.md
+                - Best Practices: docs/plugin-api/best-practices.md
+                - Reference: docs/plugin-api/reference.md
+          - Runtime API:
+                - docs/runtime-api/index.md
+                - Reference: docs/runtime-api/reference.md
 
 markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
+    - admonition
+    - pymdownx.details
+    - pymdownx.superfences

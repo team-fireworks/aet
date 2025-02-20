@@ -1,14 +1,16 @@
 * {
-    --ethereal-header-bg: var(--ethereal-primary);
-    --ethereal-header-fg: var(--ethereal-primary-fg);
-    --ethereal-header-item-bg: var(--ethereal-primary);
-    --ethereal-header-item-hover-bg: var(--ethereal-primary-light);
+    --ethereal-header-bg: var(--ethereal-bg-light);
+    --ethereal-header-fg: var(--ethereal-fg);
+    --ethereal-header-item-bg: var(--ethereal-bg-light);
+    --ethereal-header-item-hover-bg: var(--ethereal-bg-lighter);
+    --ethereal-header-item-highlight: var(--ethereal-primary);
 }
 
 .md-header {
     background-color: var(--ethereal-header-bg);
+    color: var(--ethereal-header-fg);
     box-shadow: none;
-    border-bottom: 0.1rem solid var(--ethereal-primary-dark);
+    border-bottom: 0.1rem solid var(--ethereal-border);
 
     .md-header__title {
         margin: 0;
@@ -45,10 +47,12 @@
             --tab-bottom: calc(-1 * var(--tab-height));
 
             position: relative;
-            padding: 0 calc(var(--tab-x-padding) / 2);
+            padding: 0;
 
             >a {
                 color: var(--ethereal-header-fg) !important;
+                margin: 0;
+                padding: 0.8rem calc(var(--tab-x-padding) / 2);
                 transition: none;
 
                 &:hover {
@@ -56,13 +60,13 @@
                 }
             }
 
-            background-color &::after {
+            &::after {
                 display: block;
                 content: "";
 
                 width: calc(100% - var(--tab-x-padding));
                 height: var(--tab-height);
-                background-color: var(--ethereal-header-item-bg);
+                background-color: var(--ethereal-header-item-highlight);
 
                 border-radius: 0.25rem 0.25rem 0 0;
 

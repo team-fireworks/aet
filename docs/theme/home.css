@@ -1,6 +1,6 @@
 * {
-    --md-default-bg-color: var(--ethereal-primary);
-    --ethereal-header-bg: var(--ethereal-primary);
+    --md-default-bg-color: var(--ethereal-bg);
+    --ethereal-header-bg: var(--ethereal-bg);
 }
 
 .md-header {
@@ -8,29 +8,49 @@
 }
 
 .ethereal-home {
-    color: var(--ethereal-primary-fg);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     font-size: 1.25rem;
-    gap: 0;
+    gap: 0.125rem;
 
     h1 {
-        color: var(--ethereal-primary-fg);
         display: inline-flex;
         font-size: 3rem;
         gap: 0.5rem;
+        align-items: center;
+        justify-content: center;
+        text-wrap: nowrap;
 
-        img {
-            object-fit: cover;
-            width: 10rem;
+        >a {
+            display: inline-block;
+            width: 8rem;
+
+            >img {
+                width: 100%;
+            }
         }
+    }
+
+    small {
+        opacity: 50%;
+        font-size: 0.75rem;
+    }
+
+    .ethereal-home-button {
+        --button-bg: #FFFFFF;
+        --button-fg: var(--ethereal-primary-fg-light);
+
+        --button-hover-bg: var(--ethereal-primary-lighter);
+        --button-hover-fg: var(--ethereal-primary-fg-lighter);
+
+        --button-border: var(--ethereal-primary-dark);
     }
 
     .ethereal-home-thumbnail {
         width: 100vw;
-        max-width: calc(100vw - 6rem);
+        max-width: calc(100vw - 12rem);
         margin-top: 1rem;
         border-radius: 1rem;
     }
