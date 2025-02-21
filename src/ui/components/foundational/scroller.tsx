@@ -43,15 +43,15 @@ export function Scroller({
 				CanvasSize={new UDim2(1, 0, 1, 0)}
 				ScrollingDirection={Enum.ScrollingDirection.XY}
 				AutomaticCanvasSize={Enum.AutomaticSize.Y}
-				ScrollBarImageTransparency={1}
-				ScrollBarThickness={0}
+				// ScrollBarImageTransparency={1}
+				// ScrollBarThickness={0}
 				Out:AbsoluteCanvasSize={absoluteCanvasSize}
 				Out:AbsoluteWindowSize={absoluteWindowSize}
 				Out:CanvasPosition={canvasPosition}
 			>
 				{children}
 			</scrollingframe>
-			<frame
+			{/* <frame
 				scope={scope}
 				AnchorPoint={new Vector2(1, 0)}
 				BackgroundTransparency={0.5}
@@ -65,7 +65,7 @@ export function Scroller({
 						(use) => new UDim2(0.5, 0, use(canvasPosition).Y / use(absoluteWindowSize).Y, 0),
 					)}
 				></imagebutton>
-			</frame>
+			</frame> */}
 		</frame>
 	);
 }

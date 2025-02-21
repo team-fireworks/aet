@@ -18,8 +18,7 @@
 import { Child, Contextual, Value } from "@rbxts/fusion";
 import { scope, Scoped } from "scoped";
 import { fontAwesome, Icon } from "ui/components/icons";
-import { Kits } from "./kits";
-import { Settings } from "./settings";
+import { Placeholder } from "./placeholder";
 import { Tools } from "./tools";
 
 export interface Route {
@@ -40,27 +39,27 @@ export const ROUTES = {
 	},
 	images: {
 		label: "Images",
-		render: noop,
+		render: Placeholder,
 		icon: fontAwesome.image,
 	},
 	sounds: {
 		label: "Sounds",
-		render: noop,
+		render: Placeholder,
 		icon: fontAwesome.soundFull,
 	},
 	clientObjects: {
 		label: "Client Objects",
-		render: noop,
+		render: Placeholder,
 		icon: fontAwesome.wandMagicSparkles,
 	},
 	kits: {
 		label: "Kits",
-		render: Kits,
+		render: Placeholder,
 		icon: fontAwesome.toolbox,
 	},
 	settings: {
 		label: "Settings",
-		render: Settings,
+		render: Placeholder,
 		icon: fontAwesome.gear,
 	},
 } satisfies Record<string, Route>;
