@@ -1,196 +1,247 @@
-// Eternal is a full-featured companion plugin for Eternal Towers of Hell
-// Copyright (C) 2025 znotfireman
-//
-// This program is free software: you can redistribute it and/or modify it unde
-// the terms of the GNU General Public License as published by the Free Software
-// Foundation, either version 3 of the License, or (at your option) any later
-// version.
-//
-// This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public License along with
-// this program. If not, see <https://www.gnu.org/licenses/>.
-
-import { peek } from "@rbxts/fusion";
-import SiftDictionary from "@rbxts/sift/out/Dictionary";
+import type { Argument, Lib, NewToolProps, ToolAction } from "@rbxts/ethereal-for-plugins";
+import { peek, Scope, scoped, Value } from "@rbxts/fusion";
+import { Dictionary } from "@rbxts/sift";
+import assets from "assets";
 import { selectedTower } from "lib/tower";
-import type { Action, LibArgumentContext, LibRunContext, LibTool, LibToolSource, RunRequest } from "lib/types";
-import { debug } from "log";
 import { plugin } from "plugin";
-import { scope } from "ui/scoped";
-import { event } from "utils/event";
-import { TowerInstance } from "./tower";
+import { scope } from "scoped";
 
-export * from "./tower";
-export type * from "./types";
-
-type Cleanup = () => void;
-
-export const ROOT_TOOL_SOURCE: LibToolSource = {
-	name: "ethereal",
-	label: "Ethereal",
-	plugin: plugin,
-	root: true,
-};
-
-export const tools: LibTool[] = [];
-export const currentlyRunning = new Set<LibTool>();
-// export const [onToolAdded, toolAdded] = event<[tool: LibTool]>();
-// export const [onToolRemoving, toolRemoving] = event<[tool: LibTool]>();
-export const [onToolChanged, toolChanged] = event<[tool: LibTool]>();
-
-export const toolActions = new Map<LibTool, Action[]>();
-export const [onToolActionsChanged, toolActionsChanged] = event<[tool: LibTool]>();
-
-export const toolArgs = scope.Value(new Map<LibTool, Map<string, unknown>>());
-scope.Observer(toolArgs).onBind(() => debug(`TOOL ARGS: ${peek(toolArgs)}`));
-
-// FUTURE: bad type, needs recursive Luau type restrictions to be lifted
-export class ArgumentContext<T> implements LibArgumentContext<T> {
-	constructor(
-		readonly argName: string,
-		private _run: RunRequest,
-	) {}
-
-	onChange(callback: (newValue: T) => void): Cleanup {
-		throw "not yet implemented";
-	}
-
-	now(): T {
-		return peek(toolArgs).get(this._run.tool)!.get(this.argName)! as T;
-	}
-
-	nowOr<U>(defaultValue: U): T | U {
-		return this.now() ?? defaultValue;
-	}
-
-	assertBoolean(): LibArgumentContext<boolean> {
-		if (!typeIs(this.now(), "boolean"))
-			throw `Expected ${fullNameOf(this._run.tool)} argument ${this.argName} to be a boolean, got ${typeOf(this.now())}`;
-		return this as never;
-	}
-
-	assertColor3(): LibArgumentContext<Color3> {
-		if (!typeIs(this.now(), "Color3"))
-			throw `Expected ${fullNameOf(this._run.tool)} argument ${this.argName} to be a Color3, got ${typeOf(this.now())}`;
-		return this as never;
-	}
-
-	assertVector2(): LibArgumentContext<Vector2> {
-		if (!typeIs(this.now(), "Vector2"))
-			throw `Expected ${fullNameOf(this._run.tool)} argument ${this.argName} to be a Vector2, got ${typeOf(this.now())}`;
-		return this as never;
-	}
-
-	assertVector3(): LibArgumentContext<Vector3> {
-		if (!typeIs(this.now(), "Vector3"))
-			throw `Expected ${fullNameOf(this._run.tool)} argument ${this.argName} to be a Vector3, got ${typeOf(this.now())}`;
-		return this as never;
-	}
-
-	assertColorSequence(): LibArgumentContext<ColorSequence> {
-		if (!typeIs(this.now(), "ColorSequence"))
-			throw `Expected ${fullNameOf(this._run.tool)} argument ${this.argName} to be a ColorSequence, got ${typeOf(this.now())}`;
-		return this as never;
-	}
+export enum TowerKind {
+	EternalTowersOfHell = "etoh",
+	MultiTowerKitV4 = "mtkv4",
+	MultiTowerKitV3 = "mtkv3",
+	/// @deprecated not yet implemented
+	TotalFireTowers = "tft",
 }
 
-export class RunContext implements LibRunContext {
-	readonly coFolder?: Instance;
-	readonly obby?: Instance;
-	readonly frame?: Instance;
-	readonly winPad?: Instance;
-	readonly spawnLocation?: Instance;
+export interface LibSource {
+	id: string;
+	name: string;
+	icon: string;
+	plugin: Plugin;
 
-	constructor(
-		private _run: RunRequest,
-		readonly tower?: TowerInstance,
-	) {
-		this.coFolder = tower?.ClientSidedObjects;
-		this.obby = tower?.Obby;
-		this.frame = tower?.Frame;
-		this.winPad = tower?.Obby.WinPad;
-		this.spawnLocation = tower?.SpawnLocation;
+	_scope: Scope;
+	_ethereal: boolean;
+}
+
+export interface LibArgument {
+	label: string;
+	kind: string;
+	value: Value<unknown>;
+}
+
+export interface LibAction {
+	label: string;
+	onClickCallbacks: Set<() => void>;
+}
+
+export interface LibTool extends NewToolProps {
+	_arguments: LibArgument[];
+	_actions: LibAction[];
+	_source: LibSource;
+	_scope: Scope;
+	_lib: Lib;
+}
+
+export function newSource(source: { id: string; name: string; icon: string }, isEthereal: boolean = false): LibSource {
+	const sourceScope = scoped();
+	scope.push(sourceScope);
+
+	return {
+		id: source.id,
+		name: source.name,
+		icon: source.icon,
+		plugin: plugin,
+
+		_scope: sourceScope,
+		_ethereal: isEthereal,
+	};
+}
+
+export const ETHEREAL_SOURCE = newSource({ id: "ethereal", name: "Ethereal", icon: assets.images.ethereal }, true);
+
+export const tools = scope.Value(new Set<LibTool>());
+
+export function newAction(action: LibAction): ToolAction {
+	return Dictionary.freezeDeep<ToolAction>({
+		onClick(callback) {
+			action.onClickCallbacks.add(callback);
+			return () => {
+				action.onClickCallbacks.delete(callback);
+			};
+		},
+	}) as ToolAction;
+}
+
+export function newArg(arg: LibArgument): Argument<unknown> {
+	return Dictionary.freezeDeep<Argument<unknown>>({
+		now() {
+			return peek(arg.value);
+		},
+
+		onChange(callback) {
+			throw `not yet implemented`;
+		},
+
+		onBind(callback) {
+			throw `not yet implemented`;
+		},
+	}) as Argument<unknown>;
+}
+
+export function newLib(
+	libScope: Scope,
+	{ id, name, overview, description, _arguments, _actions, _source }: LibTool,
+): Lib {
+	const fullname = `@${_source.id}/${id}`;
+
+	function createArg(label: string, kind: string, value: unknown) {
+		const a: LibArgument = {
+			kind,
+			label,
+			value: Value(libScope, value),
+		};
+
+		_arguments.push(a);
+		tools.set(peek(tools));
+		return newArg(a);
 	}
 
-	arg(argName: string): LibArgumentContext<unknown> {
-		return new ArgumentContext(argName, this._run);
-	}
+	// NOTE: using table.freeze over Sift to not freeze the scope
+	return table.freeze({
+		scope: libScope,
 
-	confirm(): boolean {
-		throw "not yet implemented";
-	}
+		tower() {
+			const t = peek(selectedTower);
+			if (!t) return undefined;
 
-	notify(): void {
-		throw "not yet implemented";
-	}
+			return table.freeze({
+				instance: t,
 
-	onAction(buttonLabel: string, callback: () => void): Cleanup {
-		let actions = toolActions.get(this._run.tool) ?? [];
-		let thisAction = actions.find((v) => v.name === buttonLabel);
+				coFolder: t.ClientSidedObjects,
+				obby: t.Obby,
+				frame: t.Frame,
+				spawn: t.SpawnLocation,
+				winpad: t.Obby.WinPad,
+			});
+		},
 
-		if (!thisAction) {
-			const newAction: Action = {
-				index: actions.size() + 1,
-				name: buttonLabel,
-				callbacks: [],
+		args: table.freeze({
+			boolean(arg) {
+				return createArg(arg.label, "boolean", arg.default) as never;
+			},
+
+			select(arg) {
+				throw "not yet implemented";
+			},
+
+			string(arg) {
+				throw "not yet implemented";
+			},
+
+			number(arg) {
+				throw "not yet implemented";
+			},
+
+			numberSeqeunce(arg) {
+				throw "not yet implemented";
+			},
+
+			color(arg) {
+				throw "not yet implemented";
+			},
+
+			colorSequence(arg) {
+				throw "not yet implemented";
+			},
+
+			vector2(arg) {
+				throw "not yet implemented";
+			},
+
+			vector3(arg) {
+				throw "not yet implemented";
+			},
+
+			cframe(arg) {
+				throw "not yet implemented";
+			},
+		}),
+
+		self: table.freeze({
+			id,
+			name,
+			overview,
+			description,
+
+			fullname: fullname,
+
+			source: table.freeze({
+				id: _source.id,
+				name: _source.name,
+				icon: _source.icon,
+				plugin: _source.plugin,
+			}),
+		}),
+
+		widget() {
+			throw "not yet implemented";
+		},
+
+		action({ label }) {
+			const a: LibAction = {
+				label,
+				onClickCallbacks: new Set(),
 			};
 
-			actions.push(newAction);
-			thisAction = newAction;
-		}
+			_actions.push(a);
+			tools.set(peek(tools));
+			return newAction(a);
+		},
 
-		thisAction.callbacks.push(callback);
-		toolActions.set(this._run.tool, actions);
-		toolActionsChanged(this._run.tool);
+		notify() {
+			throw "not yet implemented";
+		},
 
-		return () => {
-			const i = thisAction.callbacks.indexOf(callback);
-			if (i === -1) return;
-			thisAction.callbacks.remove(i);
-			toolActionsChanged(this._run.tool);
-		};
-	}
+		popup() {
+			throw "not yet implemented";
+		},
 
-	onKeyPressed(keycodes: Enum.KeyCode[], callback: () => void): Cleanup {
-		throw "not yet implemented";
-	}
-
-	onStop(keycodes: Enum.KeyCode[], callback: () => void): Cleanup {
-		throw "not yet implemented";
-	}
+		confirm() {
+			throw "not yet implemented";
+		},
+	});
 }
 
-export function fullNameOf(tool: LibTool) {
-	return `@${tool.source.name}/${tool.name}`;
+export function newTool(source: LibSource, tool: NewToolProps) {
+	const toolScope = scoped();
+	scope.push(toolScope);
+
+	const t: LibTool = {
+		id: tool.id,
+		name: tool.name,
+		overview: tool.overview,
+		description: tool.description,
+
+		needsTower: tool.needsTower,
+		needsEdit: tool.needsEdit,
+		needsRunning: tool.needsRunning,
+
+		init: tool.init,
+
+		_arguments: [],
+		_actions: [],
+		_source: source,
+		_scope: toolScope,
+
+		_lib: undefined as never,
+	};
+
+	t._lib = newLib(toolScope, t);
+	peek(tools).add(t);
+	tools.set(peek(tools));
 }
 
-export function createBuiltinTool(props: Omit<LibTool, "source">) {
-	const tool = SiftDictionary.copyDeep(props) as LibTool;
-	tool.source = ROOT_TOOL_SOURCE;
-	tools.push(tool);
-
-	const args = new Map<string, unknown>();
-	for (const a of tool.args) {
-		args.set(a.name, a.default);
-	}
-
-	// NOTE: this is okay because Fusion always recompute tables
-	peek(toolArgs).set(tool, args);
-	toolArgs.set(peek(toolArgs));
-
-	toolChanged(tool);
-}
-
-export async function runTool(run: RunRequest) {
-	if (currentlyRunning.has(run.tool)) return;
-	const ctx = new RunContext(run, peek(selectedTower));
-
-	currentlyRunning.add(run.tool);
-	const [ok, result] = pcall((run: RunRequest, ctx: RunContext) => run.tool.run(ctx), run, ctx);
-	if (!ok) warn(`Failed to run ${fullNameOf(run.tool)}, the tool won't clean up': ${result}`);
-	currentlyRunning.delete(run.tool);
+export async function initTool(tool: LibTool) {
+	tool.init(tool._lib);
 }

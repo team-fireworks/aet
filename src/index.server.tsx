@@ -32,12 +32,12 @@ info("Starting up!");
 
 import Fusion, { Children, peek } from "@rbxts/fusion";
 import { CoreGui } from "@rbxts/services";
-import { runTool, tools } from "lib";
+import { initTool, tools } from "lib";
 import { plugin } from "plugin";
+import { scope } from "scoped";
 import { App } from "ui/app/app";
 import { HintGui } from "ui/components/foundational/hint";
 import { Notifications } from "ui/notifications";
-import { scope } from "ui/scoped";
 
 const BUILT_IN_TOOLS = script.WaitForChild("builtins");
 
@@ -62,7 +62,7 @@ info(`Requiring builtin tool modules: ${builtinModules.map((v) => v.Name).join("
 for (const v of builtinModules) require(v);
 
 info("Running initial tools");
-for (const v of tools) runTool({ tool: v });
+for (const v of peek(tools)) initTool(v);
 
 info("Creating plugin toolbar");
 const toolbar = plugin.CreateToolbar("Ethereal");

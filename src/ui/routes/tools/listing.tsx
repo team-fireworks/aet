@@ -16,7 +16,8 @@
 
 import Fusion, { Child, peek, UsedAs } from "@rbxts/fusion";
 import assets from "assets";
-import { Action, LibTool, onToolActionsChanged, toolActions, toolArgs } from "lib";
+import { LibAction, LibTool } from "lib";
+import { Scoped } from "scoped";
 import { Button, ButtonStyle } from "ui/components/foundational/button";
 import { HintContainer } from "ui/components/foundational/hint";
 import { Muted } from "ui/components/foundational/muted";
@@ -24,15 +25,11 @@ import { Padding } from "ui/components/foundational/padding";
 import { Paragraph } from "ui/components/foundational/paragraph";
 import { Round } from "ui/components/foundational/round";
 import { Toggle } from "ui/components/foundational/toggle";
-import { ForValues, Show } from "ui/components/fusion";
+import { ForPairs, ForValues, Show } from "ui/components/fusion";
 import { fontAwesome, Icon } from "ui/components/icons";
-import { scope, Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 
 const TOOL_LISTING_COLLAPSED_HEIGHT = 32;
-
-const toolActionsState = scope.Value(toolActions);
-scope.push(onToolActionsChanged(() => toolActionsState.set(toolActions)));
 
 export interface ToolListingProps extends Scoped {
 	tool: UsedAs<LibTool>;
@@ -44,23 +41,27 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 	const hover = scope.Value(false);
 	const contentAbsoluteSize = scope.Value(Vector2.zero);
 
-	const thisActions = scope.Computed((use) => use(toolActionsState).get(use(tool)) ?? new Array<Action>());
+	const thisActions = scope.Computed((use) => use(tool)._actions);
 
 	const buttons = (
-		<ForValues
+		<ForPairs
 			scope={scope}
-			each={thisActions}
-			children={(_, scope, { index, name, callbacks }) => (
-				<Button
-					scope={scope}
-					style={ButtonStyle.Primary}
-					label={name}
-					layoutOrder={index}
-					onClick={() => {
-						for (const v of callbacks) task.spawn(v);
-					}}
-				/>
-			)}
+			// ???
+			each={thisActions as never as Map<number, LibAction>}
+			children={(_, scope, index, { label, onClickCallbacks }) =>
+				$tuple(
+					[],
+					<Button
+						scope={scope}
+						style={ButtonStyle.Primary}
+						label={label}
+						layoutOrder={index}
+						onClick={() => {
+							for (const v of onClickCallbacks) task.spawn(v);
+						}}
+					/>,
+				)
+			}
 		/>
 	);
 
@@ -127,7 +128,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 				/>
 				<Paragraph
 					scope={scope}
-					text={scope.Computed((use) => use(tool).label)}
+					text={scope.Computed((use) => use(tool).name)}
 					padding={new UDim()}
 					layoutOrder={1}
 				/>
@@ -188,27 +189,21 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 					/>
 					<Show
 						scope={scope}
-						when={scope.Computed((use) => use(tool).args !== undefined)}
+						when={scope.Computed((use) => use(tool)._arguments !== undefined)}
 						children={(scope) => (
 							<ForValues
 								scope={scope}
-								each={scope.Computed((use) => use(tool).args!)}
+								each={scope.Computed((use) => use(tool)._arguments!)}
 								children={(_, scope, v) => {
 									let control: Maybe<Child>;
+
 									switch (v.kind) {
 										case "boolean":
 											control = (
 												<Toggle
 													scope={scope}
-													toggled={scope.Computed((use) => {
-														// debug(`TOOL ARGS: ${use(toolArgs)}`);
-														return use(toolArgs).get(use(tool))!.get(v.name)! as boolean;
-													})}
-													onToggle={() => {
-														const args = peek(toolArgs).get(peek(tool))!;
-														args.set(v.name, !args.get(v.name));
-														toolArgs.set(peek(toolArgs));
-													}}
+													toggled={v.value as UsedAs<boolean>}
+													onToggle={() => v.value.set(!peek(v.value))}
 												/>
 											);
 									}

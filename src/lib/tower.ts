@@ -1,60 +1,63 @@
-// Eternal is a full-featured companion plugin for Eternal Towers of Hell
-// Copyright (C) 2025 znotfireman
-//
-// This program is free software: you can redistribute it and/or modify it unde
-// the terms of the GNU General Public License as published by the Free Software
-// Foundation, either version 3 of the License, or (at your option) any later
-// version.
-//
-// This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public License along with
-// this program. If not, see <https://www.gnu.org/licenses/>.
+import { TowerInstance } from "@rbxts/ethereal-for-plugins";
+import { ServerStorage } from "@rbxts/services";
+import { scope } from "scoped";
 
-import { ServerStorage, Workspace } from "@rbxts/services";
-import { scope } from "ui/scoped";
+const DEFAULT_TOWER_INSTANCE_NAME = "Ethereal Default Tower (delete to reset)";
+const MINIMUM_REQUIRES_MET_TO_CLASSIFY = 3;
 
-export interface TowerObbyInstance extends Instance {
-	WinPad: BasePart;
-}
+/// Checks if an instance is a tower. Assume it is not a tower at all if it
+/// doesn't need three of the required:
+///
+/// - ClientSidedObjects folder
+/// - Obby folder
+/// - Frame folder
+/// - SpawnLocation part
+/// - WinPad inside Obby folder
+export function isTower(inst: Instance): LuaTuple<[ok: false, reason: string] | [ok: true]> {
+	let requirementsMet = 0;
 
-export interface TowerInstance extends Instance {
-	ClientSidedObjects: Instance;
-	Obby: TowerObbyInstance;
-	Frame: Instance;
-	SpawnLocation: BasePart;
-}
-
-const DEFAULT_TOWER_INSTANCE_NAME = "__ethereal_defaultTower";
-const SERVICES = new Set(game.GetChildren());
-
-// TODO: we need better error handling here
-export function isTower(inst: Instance): LuaTuple<[isTower: boolean, reason: Maybe<string>]> {
-	if (inst === Workspace) return $tuple(false, "Towers should not be unparented in the Workspace.");
-	if (SERVICES.has(inst as never)) return $tuple(false, "Services are not a tower.");
-
-	if (!inst.FindFirstChild("ClientSidedObjects"))
-		return $tuple(
-			false,
-			"No ClientSidedObjects folder. If you're building a purist tower, create an empty folder.",
-		);
+	const coFolder = inst.FindFirstChild("ClientSidedObjects");
+	if (coFolder) requirementsMet += 1;
 
 	const obby = inst.FindFirstChild("Obby");
-	if (!obby) return $tuple(false, "No Obby folder.");
-	if (!inst.FindFirstChild("Frame"))
-		return $tuple(false, "No Frame folder. If you're building a frameless tower, create an empty model.");
+	if (obby) requirementsMet += 1;
 
-	if (!obby.FindFirstChild("WinPad")) return $tuple(false, "No WinPad inside Obby folder.");
+	const frame = inst.FindFirstChild("Frame");
+	if (frame) requirementsMet += 1;
 
 	const spawn = inst.FindFirstChild("SpawnLocation");
-	if (!spawn) return $tuple(false, "No SpawnLocation found. Create a new part to mark the start of the tower.");
-	if (!spawn.IsA("BasePart"))
-		return $tuple(false, `Expected SpawnLocation to be a base part, got a ${spawn.ClassName}`);
+	if (spawn && spawn.IsA("BasePart")) requirementsMet += 1;
 
-	return $tuple(true, undefined);
+	const winpad = obby?.FindFirstChild("WinPad");
+	if (winpad && winpad.IsA("BasePart")) requirementsMet += 1;
+
+	if (requirementsMet < MINIMUM_REQUIRES_MET_TO_CLASSIFY)
+		return $tuple(false as false, "This is not a tower, Ethereal is for Eternal Towers of Hell towers.");
+
+	if (!coFolder)
+		return $tuple(
+			false as false,
+			"No ClientSidedObjects folder found. If you're building a purist tower, create an empty folder.",
+		);
+
+	if (!obby) return $tuple(false as false, "No Obby folder found.");
+
+	if (!frame)
+		return $tuple(
+			false as false,
+			"No Frame model found. If you're building a frameless tower, create an empty Model.",
+		);
+
+	if (!spawn) return $tuple(false as false, "No SpawnLocation found. Create one to mark the start of the tower.");
+	if (!spawn.IsA("BasePart"))
+		return $tuple(false as false, `Expected SpawnLocation to be a base part, got a ${spawn.ClassName}`);
+
+	if (!winpad)
+		return $tuple(false as false, "No WinPad inside Obby folder found. Create one to mark the end of the tower.");
+	if (!winpad.IsA("BasePart"))
+		return $tuple(false as false, `Expected WinPad to be a base part, got a ${winpad.ClassName}`);
+
+	return $tuple(true as true);
 }
 
 function getDefaultTowerObjectValue(): ObjectValue {
@@ -77,6 +80,10 @@ export function getDefaultTower(): Maybe<TowerInstance> {
 
 export function setDefaultTower(inst: Instance) {
 	getDefaultTowerObjectValue().Value = inst;
+}
+
+export function deleteDefaultTower(inst: Instance) {
+	getDefaultTowerObjectValue().Destroy();
 }
 
 export const selectedTower = scope.Value<Maybe<TowerInstance>>(getDefaultTower());

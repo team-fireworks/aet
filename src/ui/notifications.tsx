@@ -15,7 +15,7 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion from "@rbxts/fusion";
-import { Scoped } from "ui/scoped";
+import { Scoped } from "scoped";
 
 const CoreGui = game.GetService("CoreGui");
 

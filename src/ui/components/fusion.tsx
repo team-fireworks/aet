@@ -62,6 +62,7 @@ export function Show<S>({ scope, when, children, fallback }: ShowProps<S>): Stat
 		if (fallback) {
 			return fallback(scope);
 		}
+		return undefined;
 	});
 }
 

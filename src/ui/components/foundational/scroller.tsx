@@ -1,5 +1,5 @@
 import Fusion, { Children } from "@rbxts/fusion";
-import { Scoped } from "ui/scoped";
+import { Scoped } from "scoped";
 import type { BaseProps, ChildrenProps, LayoutProps } from "ui/types";
 
 export interface ScrollerProps extends BaseProps, LayoutProps, Scoped, ChildrenProps {}

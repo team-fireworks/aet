@@ -15,33 +15,21 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import { IS_DEV } from "constants";
-import { createBuiltinTool } from "lib";
+import { ETHEREAL_SOURCE, newTool } from "lib";
 import { debug } from "log";
 
 if (IS_DEV) {
-	createBuiltinTool({
-		name: "argTest",
-		label: "Argument Testing",
+	newTool(ETHEREAL_SOURCE, {
+		id: "argTest",
+		name: "Argument Testing",
 		overview: "EToH Deletion 2025",
 		description: "EToH Deletion 2025",
 
-		args: [
-			{
-				name: "booleanArg",
-				label: "Boolean argument",
-				kind: "boolean",
-				default: false,
-			},
-		],
+		init: (lib) => {
+			const booleanArg = lib.args.boolean({ label: "Boolean argument", default: false });
 
-		run: (ctx) => {
-			ctx.onAction("Dump arguments", () => {
-				debug(`booleanArg: ${ctx.arg("booleanArg").now()}`);
-			});
-
-			ctx.onAction("Assert arguments", () => {
-				debug("Asserting booleanArg is boolean");
-				ctx.arg("booleanArg").assertBoolean();
+			lib.action({ label: "Dump arguments" }).onClick(() => {
+				debug(`booleanArg: ${booleanArg.now()}`);
 			});
 		},
 	});

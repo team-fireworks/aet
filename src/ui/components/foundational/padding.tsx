@@ -15,7 +15,7 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { UsedAs } from "@rbxts/fusion";
-import { Scoped } from "ui/scoped";
+import { Scoped } from "scoped";
 
 export interface PaddingProps extends Scoped {
 	padding?: UsedAs<UDim>;

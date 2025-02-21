@@ -1,11 +1,11 @@
 import Fusion, { UsedAs } from "@rbxts/fusion";
+import { Scoped } from "scoped";
 import { Padding } from "ui/components/foundational/padding";
 import { Paragraph } from "ui/components/foundational/paragraph";
 import { Round } from "ui/components/foundational/round";
 import { ForValues } from "ui/components/fusion";
 import { Icon } from "ui/components/icons";
 import { NAV_ROUTES, Route, ROUTES, unwrapRouteContext } from "ui/routes";
-import { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 
 const HIGHLIGHT_HEIGHT = 6;

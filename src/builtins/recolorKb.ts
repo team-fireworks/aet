@@ -14,33 +14,22 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { createBuiltinTool } from "lib";
-import { warn } from "log";
+import { Selection } from "@rbxts/services";
+import { ETHEREAL_SOURCE, newTool } from "lib";
 
 const TAGS = new Set(["kills", "ouch", "instakills", "poisons", "double"]);
 
-createBuiltinTool({
-	name: "recolorKbParticles",
-	label: "Recolor Kill Brick Particles",
+newTool(ETHEREAL_SOURCE, {
+	id: "recolorKbParticles",
+	name: "Recolor Kill Brick Particles",
 	overview: "Colors all ParticleEmitters inside kill bricks to the kill brick's color.",
 	description: "Colors all ParticleEmitters inside kill bricks to the kill brick's color.",
 
 	needsTower: true,
 
-	args: [
-		{
-			name: "onlyKbFolder",
-			label: "Only KillBrick folder?",
-			kind: "boolean",
-			default: true,
-		},
-	],
-
-	run: (ctx) => {
-		ctx.onAction("Recolor All", () => {
-			if (!ctx.coFolder) return;
-
-			for (const v of ctx.coFolder.GetDescendants()) {
+	init: (lib) => {
+		function recolor(instances: Instance[]) {
+			for (const v of instances) {
 				if (!v.IsA("BasePart")) continue;
 
 				let hasTag = false;
@@ -54,56 +43,22 @@ createBuiltinTool({
 				if (!hasTag) continue;
 
 				for (const c of v.GetChildren()) {
-					warn(c);
 					if (classIs(c, "ParticleEmitter")) c.Color = new ColorSequence(v.Color);
 				}
 			}
+		}
+
+		lib.action({ label: "Recolor All" }).onClick(() => {
+			if (lib.tower()) recolor(lib.tower()!.coFolder.GetDescendants());
 		});
 
-		ctx.onAction("Recolor Selection", () => {
-			if (!ctx.coFolder) return;
-
-			for (const v of ctx.coFolder.GetDescendants()) {
-				if (!v.IsA("BasePart")) continue;
-
-				let hasTag = false;
-				for (const t of TAGS) {
-					if (v.FindFirstChild(t)) {
-						hasTag = true;
-						break;
-					}
-				}
-
-				if (!hasTag) continue;
-
-				for (const c of v.GetChildren()) {
-					warn(c);
-					if (classIs(c, "ParticleEmitter")) c.Color = new ColorSequence(v.Color);
-				}
-			}
+		lib.action({ label: "Recolor Selection" }).onClick(() => {
+			recolor(Selection.Get());
 		});
 
-		ctx.onAction("Recolor KillBrick folder", () => {
-			if (!ctx.coFolder) return;
-
-			for (const v of ctx.coFolder.GetDescendants()) {
-				if (!v.IsA("BasePart")) continue;
-
-				let hasTag = false;
-				for (const t of TAGS) {
-					if (v.FindFirstChild(t)) {
-						hasTag = true;
-						break;
-					}
-				}
-
-				if (!hasTag) continue;
-
-				for (const c of v.GetChildren()) {
-					warn(c);
-					if (classIs(c, "ParticleEmitter")) c.Color = new ColorSequence(v.Color);
-				}
-			}
+		lib.action({ label: "Recolor KillBricks" }).onClick(() => {
+			const kb = lib.tower()?.instance.FindFirstChild("KillBricks");
+			if (kb) recolor(kb.GetDescendants());
 		});
 	},
 });

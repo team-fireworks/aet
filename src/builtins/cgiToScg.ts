@@ -16,7 +16,7 @@
 
 import Object from "@rbxts/object-utils";
 import { Selection } from "@rbxts/services";
-import { createBuiltinTool } from "lib";
+import { ETHEREAL_SOURCE, newTool } from "lib";
 
 const COLLISION_GROUP_TO_ID = {
 	Default: 0,
@@ -31,23 +31,16 @@ const COLLISION_GROUP_TO_ID = {
 
 const ID_TO_COLLISION_GROUP = new Map(Object.entries(COLLISION_GROUP_TO_ID).map(([k, v]) => [v, k]));
 
-createBuiltinTool({
-	name: "cgiToScg",
-	label: "CollisionGroupIds to SetCollisionGroup Values",
+newTool(ETHEREAL_SOURCE, {
+	id: "cgiToScg",
+	name: "CollisionGroupIds to SetCollisionGroup Values",
 	overview: "Converts CollisionGroupIds to SetCollisionGroup StringValues.",
 	description:
 		"Converts parts with the deprecated CollisionGroupId property to a matching SetCollisionGroup StringValue.",
 
-	args: [
-		{
-			name: "overwrite",
-			label: "Overwrite existing SetCollisionGroup values?",
-			kind: "boolean",
-			default: false,
-		},
-	],
+	init: (lib) => {
+		const overwrite = lib.args.boolean({ label: "Overwrite existing SetCollisionGroup values?", default: false });
 
-	run: (ctx) => {
 		function createSCG(value: keyof typeof COLLISION_GROUP_TO_ID) {
 			const scg = new Instance("StringValue");
 			scg.Name = "SetCollisionGroup";
@@ -63,7 +56,7 @@ createBuiltinTool({
 				const existing = v.FindFirstChild("SetCollisionGroup");
 
 				if (existing) {
-					if (classIs(existing, "StringValue") && ctx.arg("overwrite").assertBoolean().now()) continue;
+					if (classIs(existing, "StringValue") && overwrite.now()) continue;
 					existing.Destroy();
 				}
 
@@ -92,8 +85,11 @@ createBuiltinTool({
 			}
 		}
 
-		ctx.onAction("Convert All", () => convert(ctx.tower!.GetDescendants()));
+		lib.action({ label: "Convert All" }).onClick(() => {
+			assert(lib.tower());
+			convert(lib.tower()!.instance.GetDescendants());
+		});
 
-		ctx.onAction("Convert Selection", () => convert(Selection.Get()));
+		lib.action({ label: "Convert Selection" }).onClick(() => convert(Selection.Get()));
 	},
 });

@@ -15,7 +15,7 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { Children, UsedAs } from "@rbxts/fusion";
-import { Scoped } from "ui/scoped";
+import { Scoped } from "scoped";
 import type { BaseProps, ChildrenProps, LayoutProps } from "ui/types";
 
 export interface AccordianProps extends Scoped, BaseProps, LayoutProps, ChildrenProps {

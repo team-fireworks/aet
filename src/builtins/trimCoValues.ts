@@ -14,7 +14,8 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { createBuiltinTool } from "lib";
+import { Selection } from "@rbxts/services";
+import { ETHEREAL_SOURCE, newTool } from "lib";
 
 function deleteCoValues(parent: Instance, checkAgainst: Instance) {
 	for (const child of parent.GetDescendants()) {
@@ -22,35 +23,23 @@ function deleteCoValues(parent: Instance, checkAgainst: Instance) {
 	}
 }
 
-createBuiltinTool({
-	name: "trimCoValues",
-	label: "Trim ClientObject Values",
+newTool(ETHEREAL_SOURCE, {
+	id: "trimCoValues",
+	name: "Trim ClientObject Values",
 	overview: "Deletes unnecessary ClientObject Values, which break old tower kits.",
 	description: "Deletes unnecessary ClientObject Values, which break old tower kits.",
 
-	needsTower: true,
-
-	args: [
-		{
-			name: "checkClass",
-			label: "Check for BoolValues?",
-			kind: "boolean",
-			default: false,
-		},
-	],
-
-	run: (ctx) => {
-		ctx.onAction("Trim All", () => {
-			if (!ctx.coFolder) return;
-			for (const descendant of ctx.coFolder.GetDescendants()) {
+	init: (lib) => {
+		lib.action({ label: "Trim All" }).onClick(() => {
+			if (!lib.tower()) return;
+			for (const descendant of lib.tower()!.coFolder.GetDescendants()) {
 				if (!descendant.Parent || descendant.Name !== "ClientObject") continue;
 				deleteCoValues(descendant.Parent!, descendant);
 			}
 		});
 
-		ctx.onAction("Trim Selection", () => {
-			if (!ctx.coFolder) return;
-			for (const descendant of ctx.coFolder.GetDescendants()) {
+		lib.action({ label: "Trim Selection" }).onClick(() => {
+			for (const descendant of Selection.Get()) {
 				if (!descendant.Parent || descendant.Name !== "ClientObject") continue;
 				deleteCoValues(descendant.Parent!, descendant);
 			}

@@ -17,7 +17,7 @@
 import Fusion, { UsedAs } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { icons } from "assets";
-import { Scoped } from "ui/scoped";
+import { Scoped } from "scoped";
 import { theme } from "ui/theme";
 import type { BaseProps, LayoutProps } from "ui/types";
 

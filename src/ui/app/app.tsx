@@ -19,8 +19,8 @@
 
 import Fusion, { peek } from "@rbxts/fusion";
 import { isTower, selectedTower, setDefaultTower } from "lib/tower";
+import { Scoped } from "scoped";
 import { unwrapRouteContext } from "ui/routes";
-import { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 import { createLayoutOrder } from "utils/ui";
 import { Nav } from "./nav";

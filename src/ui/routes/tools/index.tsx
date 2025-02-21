@@ -15,24 +15,22 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion from "@rbxts/fusion";
-import { onToolChanged, tools } from "lib";
+import Object from "@rbxts/object-utils";
+import { tools } from "lib";
+import { Scoped } from "scoped";
 import { Padding } from "ui/components/foundational/padding";
 import { Scroller } from "ui/components/foundational/scroller";
 import { ForValues } from "ui/components/fusion";
 import { ToolListing } from "ui/routes/tools/listing";
-import { Scoped } from "ui/scoped";
 
 export function Tools({ scope }: Scoped) {
-	const toolValue = scope.Value(tools);
-	onToolChanged(() => toolValue.set(tools));
-
 	return (
 		<Scroller scope={scope} automaticSize={Enum.AutomaticSize.Y} size={UDim2.fromScale(1, 1)} name="Tools">
 			<uilistlayout scope={scope} FillDirection={Enum.FillDirection.Vertical} Padding={new UDim(0, 4)} />
 			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
 			<ForValues
 				scope={scope}
-				each={scope.Computed((use) => use(toolValue).sort((lhs, rhs) => lhs.name < rhs.name))}
+				each={scope.Computed((use) => Object.keys(use(tools)).sort((lhs, rhs) => lhs.name < rhs.name))}
 				children={(_, scope, v) => <ToolListing scope={scope} tool={v} />}
 			/>
 		</Scroller>

@@ -16,8 +16,8 @@
 // Based on https://github.com/roblaudio/ocmusic-browser/blob/main/src/client/ui/routes/index.ts
 
 import { Child, Contextual, Value } from "@rbxts/fusion";
+import { scope, Scoped } from "scoped";
 import { fontAwesome, Icon } from "ui/components/icons";
-import { scope, Scoped } from "ui/scoped";
 import { Kits } from "./kits";
 import { Settings } from "./settings";
 import { Tools } from "./tools";

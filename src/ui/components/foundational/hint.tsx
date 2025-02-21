@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import Fusion, { Child, peek } from "@rbxts/fusion";
 import type { UsedAs } from "@rbxts/fusion";
+import Fusion, { Child, peek } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { RunService } from "@rbxts/services";
-import { scope, Scoped } from "ui/scoped";
+import { scope, Scoped } from "scoped";
 import { theme } from "ui/theme";
 import { Show } from "../fusion";
 import { Muted } from "./muted";

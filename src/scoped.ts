@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import Fusion, { Computed, scoped, Spring, Use, UsedAs } from "@rbxts/fusion";
-import { delay } from "./fusion";
+import Fusion, { Computed, scoped, Spring, Use } from "@rbxts/fusion";
+// import { delay } from "./fusion";
 
 export const methods = {
 	spawnTask<Args extends unknown[]>(this: Fusion.Scope, fn: (...args: Args) => unknown, ...args: Args): () => void {
@@ -38,9 +38,9 @@ export const methods = {
 		return Spring(scope, Computed(this, processor), speed, damping);
 	},
 
-	delay<T>(this: Fusion.Scope, watching: UsedAs<T>, delaySeconds: number) {
-		return delay(this, watching, delaySeconds);
-	},
+	// delay<T>(this: Fusion.Scope, watching: UsedAs<T>, delaySeconds: number) {
+	// 	return delay(this, watching, delaySeconds);
+	// },
 };
 
 export const scope = scoped(Fusion, methods);

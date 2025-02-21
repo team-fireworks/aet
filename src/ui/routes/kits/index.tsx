@@ -15,9 +15,9 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion from "@rbxts/fusion";
+import { Scoped } from "scoped";
 import { Heading } from "ui/components/foundational/heading";
 import { Padding } from "ui/components/foundational/padding";
-import { Scoped } from "ui/scoped";
 
 // interface KitGrouped {
 // 	kind: "group";

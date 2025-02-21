@@ -15,8 +15,8 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
+import type { Scoped } from "scoped";
 import { sans } from "ui/fonts";
-import type { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 import type { BaseProps, LayoutProps } from "ui/types";
 import { Padding, PaddingProps } from "../foundational/padding";

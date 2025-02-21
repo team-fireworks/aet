@@ -15,8 +15,8 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
+import type { Scoped } from "scoped";
 import { tween, useMotion } from "ui/ripple";
-import type { Scoped } from "ui/scoped";
 import { theme } from "ui/theme";
 import type { BaseProps, FlexProps, LayoutProps } from "ui/types";
 import { PaddingProps } from "../foundational/padding";

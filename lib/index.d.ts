@@ -55,16 +55,16 @@ declare namespace Ethereal {
 	}
 
 	export interface Tower {
-		kind: TowerKind;
+		// kind: TowerKind;
 
 		instance: TowerInstance;
 		coFolder: Instance;
 		obby: Instance;
 		frame: Instance;
 		spawn: BasePart;
-		winPad: BasePart;
+		winpad: BasePart;
 
-		musicZones: TowerMusicZone[];
+		// musicZones: TowerMusicZone[];
 	}
 
 	export interface Argument<T> {
@@ -76,12 +76,12 @@ declare namespace Ethereal {
 	export interface ToolWidget {}
 
 	export interface ToolAction {
-		onClicked(callback: () => void): Cleanup;
+		onClick(callback: () => void): Cleanup;
 	}
 
 	/// Ethereal tool APIs
-	export interface ToolApi {
-		tower?: Tower;
+	export interface Lib {
+		tower(): Maybe<Tower>;
 
 		/// Arguments
 		args: {
@@ -209,10 +209,10 @@ declare namespace Ethereal {
 		needsRunning?: boolean;
 		needsTower?: boolean;
 
-		run: (fn: (tool: ToolApi) => Maybe<Cleanup>) => void;
+		init: (lib: Lib) => Maybe<Cleanup> | void;
 	}
 
-	export interface PermissionedApi {
+	export interface Permissioned {
 		newTool(props: NewToolProps): void;
 	}
 
@@ -233,7 +233,7 @@ declare namespace Ethereal {
 
 	export interface TryPermissionResultOk {
 		ok: true;
-		api: PermissionedApi;
+		api: Permissioned;
 	}
 
 	export interface TryPermissionResultErr {
@@ -244,6 +244,6 @@ declare namespace Ethereal {
 
 	export type TryPermissionResult = TryPermissionResultOk | TryPermissionResultErr;
 
-	export function permission(plugin: Plugin, props: PermissionProps): PermissionedApi;
+	export function permission(plugin: Plugin, props: PermissionProps): Permissioned;
 	export function tryPermission(plugin: Plugin, props: PermissionProps): TryPermissionResult;
 }

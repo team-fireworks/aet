@@ -15,7 +15,7 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { peek, Scope, UsedAs } from "@rbxts/fusion";
-import { scope } from "./scoped";
+import { scope } from "scoped";
 
 export interface Theme {
 	name: string;

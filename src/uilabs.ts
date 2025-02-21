@@ -16,19 +16,117 @@
 
 import { Child, Children, UsedAs, Value } from "@rbxts/fusion";
 import { Environment, InferGenericProps } from "@rbxts/ui-labs";
-import { scope, Scope } from "ui/scoped";
+import { scope, Scope } from "scoped";
 
-export type ControlType = string | number | boolean | Color3;
-// | ReturnType<typeof Slider>
-// | ReturnType<typeof RGBA>
-// | ReturnType<typeof Choose>
-// | ReturnType<typeof EnumList>;
+export interface UILabsControl {
+	EntryType: "Control";
+	Type: string;
+	ControlValue: unknown;
+}
 
-export type Controls = Record<string, ControlType>;
+export interface UILabsSliderControl extends UILabsControl {
+	Type: "Slider";
+	Min: number;
+	Max: number;
+	Step?: number;
+}
+
+export interface UILabsRGBAControl extends UILabsControl {
+	Type: "RGBA";
+	Color: Color3;
+	Transparency: number;
+}
+
+export interface UILabsChooseControl<T extends unknown[]> extends UILabsControl {
+	Type: "Choose";
+	List: T;
+	DefIndex: number;
+}
+
+export interface UILabsEnumListControl<T extends Record<string, unknown>> extends UILabsControl {
+	Type: "EnumList";
+	List: T;
+	DefIndex: string;
+}
+
+export type PrimitiveControl = string | number | boolean | Color3;
+export type Control =
+	| PrimitiveControl
+	| UILabsSliderControl
+	| UILabsRGBAControl
+	| UILabsChooseControl<unknown[]>
+	| UILabsEnumListControl<Record<string, unknown>>;
+
+export type Controls = Record<string, Control>;
+
+type InferControlUsedAs<T extends Control> = UsedAs<
+	T extends PrimitiveControl
+		? T
+		: T extends UILabsSliderControl
+			? number
+			: T extends UILabsRGBAControl
+				? { Color: Color3; Transparency: number }
+				: T extends UILabsChooseControl<infer U>
+					? U[number]
+					: T extends UILabsEnumListControl<infer U>
+						? U[string]
+						: never
+>;
+
+function newControl(controlType: string, controlValue: unknown): UILabsControl {
+	return {
+		EntryType: "Control",
+		Type: controlType,
+		ControlValue: controlValue,
+	};
+}
+
+export function slider(initial: number, min: number, max: number, step?: number): UILabsSliderControl {
+	if (max <= min) throw `Max UI Labs Slider value (${max}) must be greater than the minimum value (${min})`;
+
+	const control = newControl("Slider", initial) as UILabsSliderControl;
+
+	control.Min = min;
+	control.Max = max;
+	control.Step = step;
+
+	return control;
+}
+
+export function rgba(initial: Color3, transparency?: number): UILabsRGBAControl {
+	return newControl("RGBA", {
+		Color: initial,
+		Transparency: transparency ?? 0,
+	}) as UILabsRGBAControl;
+}
+
+export function choose<T extends unknown[]>(options: T, index?: number): UILabsChooseControl<T> {
+	if (options.size() <= 0) throw "Array given in a Choose control is empty";
+
+	if (index !== undefined && index > options.size())
+		throw `Default index (${index}) given for the array is outside of the Choose array size ({#list})`;
+
+	const control = newControl("Choose", options[index ?? 0]) as UILabsChooseControl<T>;
+	control.List = options;
+	control.DefIndex = index ?? 0;
+
+	return control;
+}
+
+export function enumList<T extends Record<string, unknown>>(list: T, initialKey: keyof T): UILabsEnumListControl<T> {
+	if (list[initialKey] === undefined)
+		throw `Key given for the EnumList list (${initialKey as string}) does not exist in the list`;
+
+	const control = newControl("EnumList", list[initialKey]) as UILabsEnumListControl<T>;
+	control.List = list;
+	control.DefIndex = initialKey as string;
+
+	return control;
+}
 
 export interface FusionStoryProps<C extends Controls> {
 	scope: Scope;
-	controls: { [K in keyof C]: UsedAs<C[K]> };
+	controls: { [K in keyof C]: InferControlUsedAs<C[K]> };
 }
 
 export interface FusionStoryConstructorProps<C extends Controls> {
@@ -50,7 +148,7 @@ export function fusionStory<C extends Controls>({
 		render: ({ target, subscribe }: InferGenericProps<never>) => {
 			const storyScope = scope.deriveScope();
 
-			const storyControls: Record<string, Value<ControlType>> = {};
+			const storyControls: Record<string, Value<unknown>> = {};
 			if (controls) {
 				for (const [k, v] of pairs(controls as Controls)) {
 					storyControls[k] = scope.Value(v);
