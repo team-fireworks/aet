@@ -1,4 +1,4 @@
-// // Eternal is a full-featured companion plugin for Eternal Towers of Hell
+// // Eternal is a full-featured companion plugin for Eternal Towers of Hell.
 // // Copyright (C) 2025 znotfireman
 // //
 // // This program is free software: you can redistribute it and/or modify it unde
