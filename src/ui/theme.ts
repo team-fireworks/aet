@@ -38,12 +38,6 @@ export interface Theme {
 
 	primary: Color3;
 	primaryLight: Color3;
-	secondary: Color3;
-	secondaryLight: Color3;
-	tertiary: Color3;
-	tertiaryLight: Color3;
-	quaternary: Color3;
-	quaternaryLight: Color3;
 
 	buttonPrimaryBg: Color3;
 	buttonPrimaryHover: Color3;
@@ -57,14 +51,8 @@ export type ThemeKey = keyof Theme;
 
 export const ETHEREAL_GRAY_HUE = 200 / 360;
 export const ETHEREAL_GRAY_SATURATION = 0.02;
-export const ETHEREAL_RED_HUE = 0 / 360;
-export const ETHEREAL_RED_SATURATION = 0.8;
-export const ETHEREAL_GOLD_HUE = 40 / 360;
-export const ETHEREAL_GOLD_SATURATION = 0.7;
-export const ETHEREAL_GREEN_HUE = 100 / 360;
-export const ETHEREAL_GREEN_SATURATION = 1;
-export const ETHEREAL_BLUE_HUE = 200 / 360;
-export const ETHEREAL_BLUE_SATURATION = 1;
+export const ETHEREAL_PRIMARY_HUE = 40 / 360;
+export const ETHEREAL_PRIMARY_SATURATION = 0.7;
 
 export const THEMES = {
 	dark: {
@@ -86,19 +74,13 @@ export const THEMES = {
 		fgDarker: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.6),
 		fgDarkest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.55),
 
-		primary: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.8),
-		primaryLight: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.85),
-		secondary: Color3.fromHSV(ETHEREAL_RED_HUE, ETHEREAL_RED_SATURATION, 0.8),
-		secondaryLight: Color3.fromHSV(ETHEREAL_RED_HUE, ETHEREAL_RED_SATURATION, 0.85),
-		tertiary: Color3.fromHSV(ETHEREAL_GREEN_HUE, ETHEREAL_GREEN_SATURATION, 0.8),
-		tertiaryLight: Color3.fromHSV(ETHEREAL_GREEN_HUE, ETHEREAL_GREEN_SATURATION, 0.85),
-		quaternary: Color3.fromHSV(ETHEREAL_BLUE_HUE, ETHEREAL_BLUE_SATURATION, 0.8),
-		quaternaryLight: Color3.fromHSV(ETHEREAL_BLUE_HUE, ETHEREAL_BLUE_SATURATION, 0.85),
+		primary: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.8),
+		primaryLight: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.85),
 
 		// TODO: replace this in btn component with more accent themes
-		buttonPrimaryBg: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.9),
-		buttonPrimaryHover: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 1),
-		buttonPrimaryFg: Color3.fromHSV(ETHEREAL_GOLD_HUE, ETHEREAL_GOLD_SATURATION, 0.2),
+		buttonPrimaryBg: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.9),
+		buttonPrimaryHover: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 1),
+		buttonPrimaryFg: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.2),
 		buttonDangerBg: Color3.fromHSV(0 / 360, 0.75, 0.8),
 		buttonDangerHover: Color3.fromHSV(0 / 360, 0.75, 0.9),
 		buttonDangerFg: Color3.fromHSV(0 / 360, 0.75, 0.3),
