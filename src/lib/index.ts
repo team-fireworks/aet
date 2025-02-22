@@ -1,5 +1,5 @@
 import type { Argument, Lib, NewToolProps, ToolAction } from "@rbxts/ethereal-for-plugins";
-import { peek, Scope, scoped, Value } from "@rbxts/fusion";
+import { Observer, peek, Scope, scoped, Value } from "@rbxts/fusion";
 import { Dictionary } from "@rbxts/sift";
 import assets from "assets";
 import { selectedTower } from "lib/tower";
@@ -14,6 +14,56 @@ export enum TowerKind {
 	TotalFireTowers = "tft",
 }
 
+export interface LibBaseArgument {
+	label: string;
+	kind: string;
+	value: Value<unknown>;
+}
+
+interface GenericLibArgument<K extends string, T> extends LibBaseArgument {
+	kind: K;
+	value: Value<T>;
+}
+
+export interface LibBooleanArgument extends GenericLibArgument<"boolean", boolean> {}
+export interface LibNumberSequenceArgument extends GenericLibArgument<"numberSequence", NumberSequence> {}
+export interface LibColorArgument extends GenericLibArgument<"color", Color3> {}
+export interface LibColorSequenceArgument extends GenericLibArgument<"colorSequence", ColorSequence> {}
+export interface LibVector2Argument extends GenericLibArgument<"vector2", Vector2> {}
+export interface LibVector3Argument extends GenericLibArgument<"vector3", Vector3> {}
+export interface LibCFrameArgument extends GenericLibArgument<"cframe", CFrame> {}
+
+export interface LibStringArgument extends GenericLibArgument<"string", string> {
+	placeholder?: string;
+	pattern?: string;
+	maxLength?: number;
+	minLength?: number;
+	maxGraphemes?: number;
+	minGraphemes?: number;
+}
+
+export interface LibNumberArgument extends GenericLibArgument<"number", number> {
+	min?: number;
+	max?: number;
+	step?: number;
+	slider?: {
+		min?: number;
+		max?: number;
+		step?: number;
+	};
+}
+
+export type LibArgument =
+	| LibBooleanArgument
+	| LibNumberSequenceArgument
+	| LibColorArgument
+	| LibColorSequenceArgument
+	| LibVector2Argument
+	| LibVector3Argument
+	| LibCFrameArgument
+	| LibStringArgument
+	| LibNumberArgument;
+
 export interface LibSource {
 	id: string;
 	name: string;
@@ -22,12 +72,6 @@ export interface LibSource {
 
 	_scope: Scope;
 	_ethereal: boolean;
-}
-
-export interface LibArgument {
-	label: string;
-	kind: string;
-	value: Value<unknown>;
 }
 
 export interface LibAction {
@@ -73,18 +117,21 @@ export function newAction(action: LibAction): ToolAction {
 	}) as ToolAction;
 }
 
-export function newArg(arg: LibArgument): Argument<unknown> {
+export function pushArg(scope: Scope, pushTo: LibArgument[], arg: LibArgument): Argument<unknown> {
+	pushTo.push(arg);
+	tools.set(peek(tools));
+
 	return Dictionary.freezeDeep<Argument<unknown>>({
 		now() {
-			return peek(arg.value);
+			return peek(arg.value as never);
 		},
 
 		onChange(callback) {
-			throw `not yet implemented`;
+			return Observer(scope, arg.value).onChange(() => callback(peek(arg.value as never)));
 		},
 
 		onBind(callback) {
-			throw `not yet implemented`;
+			return Observer(scope, arg.value).onBind(() => callback(peek(arg.value as never)));
 		},
 	}) as Argument<unknown>;
 }
@@ -94,18 +141,6 @@ export function newLib(
 	{ id, name, overview, description, _arguments, _actions, _source }: LibTool,
 ): Lib {
 	const fullname = `@${_source.id}/${id}`;
-
-	function createArg(label: string, kind: string, value: unknown) {
-		const a: LibArgument = {
-			kind,
-			label,
-			value: Value(libScope, value),
-		};
-
-		_arguments.push(a);
-		tools.set(peek(tools));
-		return newArg(a);
-	}
 
 	// NOTE: using table.freeze over Sift to not freeze the scope
 	return table.freeze({
@@ -128,7 +163,11 @@ export function newLib(
 
 		args: table.freeze({
 			boolean(arg) {
-				return createArg(arg.label, "boolean", arg.default) as never;
+				return pushArg(libScope, _arguments, {
+					kind: "boolean",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 
 			select(arg) {
@@ -136,35 +175,79 @@ export function newLib(
 			},
 
 			string(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "string",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+
+					pattern: arg.pattern,
+					placeholder: arg.placeholder,
+					minLength: arg.minLength,
+					maxLength: arg.maxLength,
+					minGraphemes: arg.minGraphemes,
+					maxGraphemes: arg.maxGraphemes,
+				}) as never;
 			},
 
 			number(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "number",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+
+					min: arg.min,
+					max: arg.max,
+					step: arg.step,
+					slider: arg.slider,
+				}) as never;
 			},
 
 			numberSeqeunce(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "numberSequence",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 
 			color(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "color",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 
 			colorSequence(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "colorSequence",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 
 			vector2(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "vector2",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 
 			vector3(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "vector3",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 
 			cframe(arg) {
-				throw "not yet implemented";
+				return pushArg(libScope, _arguments, {
+					kind: "cframe",
+					label: arg.label,
+					value: Value(libScope, arg.default),
+				}) as never;
 			},
 		}),
 
@@ -243,5 +326,9 @@ export function newTool(source: LibSource, tool: NewToolProps) {
 }
 
 export async function initTool(tool: LibTool) {
-	tool.init(tool._lib);
+	if (tool._source._ethereal) {
+		tool.init(tool._lib);
+	} else {
+		// TODO: sandboxing
+	}
 }

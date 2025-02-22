@@ -19,12 +19,12 @@ import Fusion, { Child, peek } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { RunService } from "@rbxts/services";
 import { scope, Scoped } from "scoped";
+import { Show } from "ui/components/fusion";
+import { Padding } from "ui/components/padding";
+import { Paragraph } from "ui/components/paragraph";
+import { Round } from "ui/components/round";
 import { theme } from "ui/theme";
-import { Show } from "../fusion";
 import { Muted } from "./muted";
-import { Padding } from "./padding";
-import { Paragraph } from "./paragraph";
-import { Round } from "./round";
 
 interface Hint {
 	text?: UsedAs<string>;

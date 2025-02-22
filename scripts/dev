@@ -1,0 +1,5 @@
+#!/bin/bash
+
+bunx rbxtsc --watch \
+    & rojo build default.project.json --plugin ethereal.rbxm --watch \
+    & rojo serve serve.project.json

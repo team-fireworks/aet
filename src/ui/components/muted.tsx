@@ -16,10 +16,10 @@
 
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
 import type { Scoped } from "scoped";
+import { Padding, PaddingProps } from "ui/components/padding";
 import { sans } from "ui/fonts";
 import { theme } from "ui/theme";
 import type { BaseProps, LayoutProps } from "ui/types";
-import { Padding, PaddingProps } from "../foundational/padding";
 
 export enum TextAlignX {
 	Left,
@@ -33,10 +33,10 @@ export enum TextAlignY {
 	Bottom,
 }
 
-export interface HeadingProps extends BaseProps, LayoutProps, Scoped, PaddingProps {
+export interface MutedProps extends BaseProps, LayoutProps, Scoped, PaddingProps {
 	text?: UsedAs<string>;
-	textColor?: UsedAs<Color3>;
 	textTransparency?: UsedAs<number>;
+	textWrapped?: UsedAs<boolean>;
 	rich?: UsedAs<boolean>;
 
 	// TODO implement
@@ -46,7 +46,7 @@ export interface HeadingProps extends BaseProps, LayoutProps, Scoped, PaddingPro
 	alignY?: UsedAs<TextAlignY>;
 }
 
-export function Heading({
+export function Muted({
 	scope,
 	position,
 	anchorPoint,
@@ -57,8 +57,8 @@ export function Heading({
 	layoutOrder,
 
 	text,
-	textColor,
 	textTransparency,
+	textWrapped = true,
 	rich = true,
 	outTextBounds,
 	alignX = TextAlignX.Left,
@@ -71,7 +71,7 @@ export function Heading({
 	paddingRight,
 	paddingTop,
 	paddingBottom,
-}: HeadingProps) {
+}: MutedProps) {
 	return (
 		<textlabel
 			BackgroundTransparency={1}
@@ -80,14 +80,15 @@ export function Heading({
 			AnchorPoint={anchorPoint}
 			Size={size}
 			AutomaticSize={automaticSize}
-			Name={name ?? text ?? "Heading"}
+			Name={name ?? text ?? "Muted"}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
-			FontFace={sans(Enum.FontWeight.Bold)}
+			FontFace={sans(undefined, Enum.FontStyle.Italic)}
 			Text={text}
-			TextColor3={textColor ?? theme(scope, "fg")}
-			TextSize={26}
+			TextColor3={theme(scope, "fgDark")}
 			TextTransparency={textTransparency}
+			TextSize={14}
+			TextWrapped={textWrapped}
 			TextXAlignment={scope.Computed((use) => {
 				switch (use(alignX)) {
 					case TextAlignX.Left:
@@ -97,7 +98,7 @@ export function Heading({
 					case TextAlignX.Right:
 						return Enum.TextXAlignment.Right;
 					default:
-						throw `unknown Heading.alignX: ${use(alignX)}`;
+						throw `unknown Paragraph.alignX: ${use(alignX)}`;
 				}
 			})}
 			TextYAlignment={scope.Computed((use) => {
@@ -109,7 +110,7 @@ export function Heading({
 					case TextAlignY.Bottom:
 						return Enum.TextYAlignment.Bottom;
 					default:
-						throw `unknown Heading.alignY: ${use(alignX)}`;
+						throw `unknown Paragraph.alignY: ${use(alignX)}`;
 				}
 			})}
 			Out:TextBounds={outTextBounds}

@@ -93,6 +93,7 @@ declare namespace Ethereal {
 				label: string;
 				default: string;
 				pattern?: string;
+				placeholder?: string;
 				maxLength?: number;
 				minLength?: number;
 				maxGraphemes?: number;
@@ -136,10 +137,7 @@ declare namespace Ethereal {
 			colorSequence(arg: { label: string; default: ColorSequence }): Argument<ColorSequence>;
 
 			/// Creates a new NumberSequence argument
-			numberSeqeunce(arg: {
-				label: string;
-				default: NumberSequenceKeypoint[];
-			}): Argument<NumberSequenceKeypoint[]>;
+			numberSeqeunce(arg: { label: string; default: NumberSequence }): Argument<NumberSequence>;
 		};
 
 		/// Tool information

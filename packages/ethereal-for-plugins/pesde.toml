@@ -1,6 +1,6 @@
-name = "znotfireman/ethereal"
+name = "znotfireman/ethereal_for_plugins"
 version = "0.1.0"
-description = "Plugin APIs for extending Ethereal, an all-in-one building plugin for Eternal Towers of Hell."
+description = "Plugin/Tool APIs for Ethereal, the full-featured Eternal Towers of Hell companion plugin."
 authors = ["Fire <znotfireman@gmail.com>"]
 repository = "https://github.com/znotfireman/ethereal"
 license = "GPL-3.0-only"

@@ -36,7 +36,7 @@ import { initTool, tools } from "lib";
 import { plugin } from "plugin";
 import { scope } from "scoped";
 import { App } from "ui/app/app";
-import { HintGui } from "ui/components/foundational/hint";
+import { HintGui } from "ui/components/hint";
 import { Notifications } from "ui/notifications";
 
 const BUILT_IN_TOOLS = script.WaitForChild("builtins");

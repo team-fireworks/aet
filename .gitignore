@@ -3,3 +3,6 @@
 /include
 *.tsbuildinfo
 .env
+
+luau_packages
+lune_packages

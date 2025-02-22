@@ -1,5 +1,5 @@
 [package]
-name = "znotfireman/ethereal"
+name = "znotfireman/ethereal-for-plugins"
 version = "0.1.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"

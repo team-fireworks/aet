@@ -18,9 +18,9 @@ import Fusion from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { tools } from "lib";
 import { Scoped } from "scoped";
-import { Padding } from "ui/components/foundational/padding";
-import { Scroller } from "ui/components/foundational/scroller";
 import { ForValues } from "ui/components/fusion";
+import { Padding } from "ui/components/padding";
+import { Scroller } from "ui/components/scroller";
 import { ToolListing } from "ui/routes/tools/listing";
 
 export function Tools({ scope }: Scoped) {

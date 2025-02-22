@@ -16,10 +16,10 @@
 
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
 import type { Scoped } from "scoped";
+import { Padding, PaddingProps } from "ui/components/padding";
 import { sans } from "ui/fonts";
 import { theme } from "ui/theme";
 import type { BaseProps, LayoutProps } from "ui/types";
-import { Padding, PaddingProps } from "../foundational/padding";
 
 export enum TextAlignX {
 	Left,

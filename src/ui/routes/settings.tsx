@@ -16,7 +16,7 @@
 
 import Fusion from "@rbxts/fusion";
 import { Scoped } from "scoped";
-import { Paragraph } from "ui/components/foundational/paragraph";
+import { Paragraph } from "ui/components/paragraph";
 
 export function Settings({ scope }: Scoped) {
 	return <Paragraph scope={scope} text="Settings" />;

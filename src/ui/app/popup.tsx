@@ -16,8 +16,9 @@
 
 import Fusion from "@rbxts/fusion";
 import { Scoped } from "scoped";
-import { Paragraph } from "ui/components/paragraph";
 
-export function Placeholder({ scope }: Scoped) {
-	return <Paragraph scope={scope} text="Placeholder (soon:tm:)" />;
+export interface PopupProps extends Scoped {}
+
+export function Popup({ scope }: PopupProps) {
+	return <frame scope={scope}></frame>;
 }

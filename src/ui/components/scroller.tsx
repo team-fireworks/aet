@@ -44,7 +44,7 @@ export function Scroller({
 				ScrollingDirection={Enum.ScrollingDirection.XY}
 				AutomaticCanvasSize={Enum.AutomaticSize.Y}
 				// ScrollBarImageTransparency={1}
-				// ScrollBarThickness={0}
+				ScrollBarThickness={0}
 				Out:AbsoluteCanvasSize={absoluteCanvasSize}
 				Out:AbsoluteWindowSize={absoluteWindowSize}
 				Out:CanvasPosition={canvasPosition}

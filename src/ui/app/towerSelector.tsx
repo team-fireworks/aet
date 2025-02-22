@@ -17,10 +17,10 @@
 import Fusion, { UsedAs } from "@rbxts/fusion";
 import { selectedTower } from "lib/tower";
 import { Scoped } from "scoped";
-import { Button, ButtonAlignX, ButtonStyle } from "ui/components/foundational/button";
-import { Muted } from "ui/components/foundational/muted";
-import { Padding } from "ui/components/foundational/padding";
+import { Button, ButtonAlignX, ButtonStyle } from "ui/components/button";
 import { Show } from "ui/components/fusion";
+import { Muted } from "ui/components/muted";
+import { Padding } from "ui/components/padding";
 import { theme } from "ui/theme";
 
 export interface TowerSelectorProps extends Scoped {

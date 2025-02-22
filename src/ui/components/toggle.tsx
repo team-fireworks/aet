@@ -16,9 +16,9 @@
 
 import Fusion, { UsedAs } from "@rbxts/fusion";
 import type { Scoped } from "scoped";
+import { Padding, PaddingProps } from "ui/components/padding";
 import { theme } from "ui/theme";
 import type { BaseProps, FlexProps, LayoutProps } from "ui/types";
-import { Padding, PaddingProps } from "../foundational/padding";
 import { Round } from "./round";
 
 export interface ToggleProps extends BaseProps, LayoutProps, Scoped, PaddingProps, FlexProps {

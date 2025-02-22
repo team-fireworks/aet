@@ -18,15 +18,16 @@ import Fusion, { Child, peek, UsedAs } from "@rbxts/fusion";
 import assets from "assets";
 import { LibAction, LibTool } from "lib";
 import { Scoped } from "scoped";
-import { Button, ButtonStyle } from "ui/components/foundational/button";
-import { HintContainer } from "ui/components/foundational/hint";
-import { Muted } from "ui/components/foundational/muted";
-import { Padding } from "ui/components/foundational/padding";
-import { Paragraph } from "ui/components/foundational/paragraph";
-import { Round } from "ui/components/foundational/round";
-import { Toggle } from "ui/components/foundational/toggle";
+import { Button, ButtonStyle } from "ui/components/button";
 import { ForPairs, ForValues, Show } from "ui/components/fusion";
+import { HintContainer } from "ui/components/hint";
 import { fontAwesome, Icon } from "ui/components/icons";
+import { Muted } from "ui/components/muted";
+import { Padding } from "ui/components/padding";
+import { Paragraph } from "ui/components/paragraph";
+import { Round } from "ui/components/round";
+import { TextInput } from "ui/components/textInput";
+import { Toggle } from "ui/components/toggle";
 import { theme } from "ui/theme";
 
 const TOOL_LISTING_COLLAPSED_HEIGHT = 32;
@@ -110,7 +111,7 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 						anchorPoint={new Vector2(0.5, 0.5)}
 						position={UDim2.fromScale(0.5, 0.5)}
 						size={UDim2.fromOffset(20, 20)}
-						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 180 : 0), undefined, 2 / 3)}
+						iconRotation={scope.computedSpring((use) => (use(collapsed) ? 0 : 180), undefined, 2 / 3)}
 					/>
 				</frame>
 				<Padding scope={scope} padding={new UDim(0, 6)} />
@@ -202,16 +203,31 @@ export function ToolListing({ scope, tool }: ToolListingProps) {
 											control = (
 												<Toggle
 													scope={scope}
-													toggled={v.value as UsedAs<boolean>}
+													toggled={v.value}
 													onToggle={() => v.value.set(!peek(v.value))}
 												/>
 											);
+											break;
+										case "string":
+											control = (
+												<TextInput
+													scope={scope}
+													value={v.value}
+													placeholder={v.placeholder ?? "Click to type"}
+													paddingX={new UDim(0, 6)}
+													paddingY={new UDim(0, 8)}
+													size={UDim2.fromOffset(0, 16)}
+													flexMode={Enum.UIFlexMode.Fill}
+												/>
+											);
+											break;
 									}
 
 									return (
 										<frame
 											scope={scope}
-											AutomaticSize={Enum.AutomaticSize.XY}
+											AutomaticSize={Enum.AutomaticSize.Y}
+											Size={UDim2.fromScale(1, 0)}
 											BackgroundTransparency={1}
 										>
 											<uilistlayout

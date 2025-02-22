@@ -4,7 +4,7 @@
     "": {
       "name": "ethanol",
       "dependencies": {
-        "@rbxts/ethereal-for-plugins": "file:./lib",
+        "@rbxts/ethereal-for-plugins": "file:./packages/ethereal-for-plugins",
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",
         "@rbxts/iris": "^2.3.1-ts.1",
         "@rbxts/object-utils": "^1.0.4",
@@ -73,7 +73,7 @@
 
     "@rbxts/compiler-types": ["@rbxts/compiler-types@3.0.0-types.0", "", {}, "sha512-VGOHJPoL7+56NTatMGqQj3K7xWuzEV+aP4QD5vZiHu+bcff3kiTmtoadaF6NkJrmwfFAvbsd4Dg764ZjWNceag=="],
 
-    "@rbxts/ethereal-for-plugins": ["@rbxts/ethereal-for-plugins@file:lib", {}],
+    "@rbxts/ethereal-for-plugins": ["@rbxts/ethereal-for-plugins@file:packages/ethereal-for-plugins", {}],
 
     "@rbxts/fusion": ["@rbxts/fusion-0.3-temp@0.7.2", "", { "dependencies": { "@rbxts/ui-labs": "^2.3.1" } }, "sha512-204MueZ6/3sps9bf4H+usqAL3VO+M5cmHwQnRci0LEF/Q4yV1re/ID96BTYTaWlohI0Vn+yKE45iFYNoclhk5Q=="],
 

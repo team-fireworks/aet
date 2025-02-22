@@ -1,10 +1,10 @@
 import Fusion, { UsedAs } from "@rbxts/fusion";
 import { Scoped } from "scoped";
-import { Padding } from "ui/components/foundational/padding";
-import { Paragraph } from "ui/components/foundational/paragraph";
-import { Round } from "ui/components/foundational/round";
 import { ForValues } from "ui/components/fusion";
 import { Icon } from "ui/components/icons";
+import { Padding } from "ui/components/padding";
+import { Paragraph } from "ui/components/paragraph";
+import { Round } from "ui/components/round";
 import { NAV_ROUTES, Route, ROUTES, unwrapRouteContext } from "ui/routes";
 import { theme } from "ui/theme";
 
@@ -19,21 +19,6 @@ export interface NavTabProps extends Scoped {
 
 export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProps) {
 	const hover = scope.Value(false);
-
-	const highlightColor = scope.Computed((use, scope) =>
-		use(
-			theme(
-				scope,
-				use(order) % 4 === 0
-					? "quaternary"
-					: use(order) % 3 === 0
-						? "tertiary"
-						: use(order) % 2 === 0
-							? "secondary"
-							: "primary",
-			),
-		),
-	);
 
 	// FIXME: fusion needs this to be a state object?
 	const sourceIconRotation = scope.computedSpring(() => 0);
@@ -77,7 +62,7 @@ export function NavTab({ scope, route, order, highlighted, onClick }: NavTabProp
 				scope={scope}
 				Size={new UDim2(1, 0, 0, HIGHLIGHT_HEIGHT)}
 				AnchorPoint={new Vector2(0.5, 0)}
-				BackgroundColor3={highlightColor}
+				BackgroundColor3={theme(scope, "primary")}
 				Position={scope.computedSpring(
 					(use) => new UDim2(0.5, 0, 1, use(highlighted) ? -HIGHLIGHT_HEIGHT / 2 : 0),
 				)}

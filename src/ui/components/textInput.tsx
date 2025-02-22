@@ -16,10 +16,10 @@
 
 import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
 import type { Scoped } from "scoped";
+import { Padding, PaddingProps } from "ui/components/padding";
 import { tween, useMotion } from "ui/ripple";
 import { theme } from "ui/theme";
 import type { BaseProps, FlexProps, LayoutProps } from "ui/types";
-import { PaddingProps } from "../foundational/padding";
 import { Muted } from "./muted";
 import { Paragraph } from "./paragraph";
 import { Round } from "./round";
@@ -77,7 +77,7 @@ export function TextInput({
 			LayoutOrder={layoutOrder}
 			BackgroundColor3={scope.Spring(
 				scope.Computed(
-					(use, scope): Color3 => use(theme(scope, use(hover) && !use(focus) ? "bgLighter" : "bgDarker")),
+					(use, scope): Color3 => use(theme(scope, use(hover) || use(focus) ? "bgLighter" : "bgDarker")),
 				),
 				30,
 				1,
@@ -91,6 +91,16 @@ export function TextInput({
 			OnEvent:Focused={() => focus.set(true)}
 			OnEvent:FocusLost={() => focus.set(false)}
 		>
+			<Padding
+				scope={scope}
+				padding={padding}
+				paddingX={paddingX}
+				paddingY={paddingY}
+				paddingLeft={paddingLeft}
+				paddingRight={paddingRight}
+				paddingTop={paddingTop}
+				paddingBottom={paddingBottom}
+			/>
 			<uiflexitem scope={scope} FlexMode={flexMode} />
 			{/* <Padding
 				scope={scope}
@@ -109,7 +119,7 @@ export function TextInput({
 				Thickness={1}
 				ApplyStrokeMode={Enum.ApplyStrokeMode.Border}
 			/>
-			<frame
+			{/* <frame
 				scope={scope}
 				BackgroundTransparency={1}
 				Size={UDim2.fromScale(1, 1)}
@@ -122,19 +132,19 @@ export function TextInput({
 					Thickness={scope.Computed((use) => use(focusStrokeProgress) * 2)}
 					ApplyStrokeMode={Enum.ApplyStrokeMode.Border}
 				/>
-			</frame>
+			</frame> */}
 			<Muted
 				scope={scope}
 				text={placeholder ? scope.Computed((use) => `<i>${use(placeholder)}</i>`) : undefined}
 				textTransparency={shift}
 				anchorPoint={new Vector2(0, 0.5)}
-				position={scope.Computed((use) => new UDim2(0, 8 + use(shift) * 8, 0.5, 0))}
+				position={scope.Computed((use) => new UDim2(0, use(shift) * 8, 0.5, 0))}
 				padding={new UDim()}
 			/>
 			<Paragraph
 				scope={scope}
 				anchorPoint={new Vector2(0, 0.5)}
-				position={new UDim2(0, 8, 0.5, 0)}
+				position={new UDim2(0, 0, 0.5, 0)}
 				text={value}
 				zIndex={2}
 				padding={new UDim()}
