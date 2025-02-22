@@ -44,8 +44,8 @@ export function TextInput({
 	value,
 
 	padding,
-	paddingX = new UDim(0, 2),
-	paddingY = new UDim(0, 4),
+	paddingX = new UDim(0, 8),
+	paddingY = new UDim(0, 8),
 	paddingLeft,
 	paddingRight,
 	paddingTop,
@@ -75,11 +75,7 @@ export function TextInput({
 			Name={name ?? "TextInput"}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
-			BackgroundColor3={scope.Spring(
-				scope.Computed((use, scope): Color3 => use(theme(scope, use(hover) || use(focus) ? "bgLight" : "bg"))),
-				30,
-				1,
-			)}
+			BackgroundColor3={theme(scope, "bgLighter")}
 			TextTransparency={1}
 			Text={value}
 			TextSize={0}

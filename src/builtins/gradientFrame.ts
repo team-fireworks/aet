@@ -13,3 +13,21 @@
 //
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
+
+import { ETHEREAL_SOURCE, newTool } from "lib";
+
+newTool(ETHEREAL_SOURCE, {
+	id: "gradientFrame",
+	name: "Color Gradient Frame",
+	overview: "Create color gradient frames",
+	description: "Colors a frame based on a gradient.",
+
+	init: (lib) => {
+		const gradientColor = lib.args.colorSequence({
+			label: "Gradient Color:",
+			default: new ColorSequence(new Color3(), new Color3(1, 1, 1)),
+		});
+
+		lib.action({ label: "Color Selected Frame" }).onClick(() => {});
+	},
+});

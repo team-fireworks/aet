@@ -13,3 +13,20 @@
 //
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
+
+import { ETHEREAL_SOURCE, newTool } from "lib";
+
+newTool(ETHEREAL_SOURCE, {
+	id: "weld",
+	name: "Weld",
+	overview: "Welds parts to a base part.",
+	description: "Welds parts to a base part.",
+
+	init: (lib) => {
+		lib.action({ label: "Select Base" }).onClick(() => {});
+
+		lib.action({ label: "Select Targets" }).onClick(() => {});
+
+		lib.action({ label: "Weld" }).onClick(() => {});
+	},
+});

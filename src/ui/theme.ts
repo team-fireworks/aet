@@ -21,6 +21,9 @@ export interface Theme {
 	name: string;
 
 	border: Color3;
+	borderLight: Color3;
+	borderLighter: Color3;
+	borderLightest: Color3;
 	bg: Color3;
 	bgLight: Color3;
 	bgLighter: Color3;
@@ -59,6 +62,9 @@ export const THEMES = {
 		name: "Dark",
 
 		border: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.15 - 0.025),
+		borderLight: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.2 - 0.025),
+		borderLighter: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.25 - 0.025),
+		borderLightest: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.35 - 0.025),
 		bg: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.15),
 		bgLight: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.2),
 		bgLighter: Color3.fromHSV(ETHEREAL_GRAY_HUE, ETHEREAL_GRAY_SATURATION, 0.25),

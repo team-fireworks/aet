@@ -110,33 +110,37 @@ export function createDebug(rootTrace: string) {
 	}
 
 	return () => {
-		const debugWindow = window(["Ethereal Debug"], () => {
-			// menuBar(() => {
-			// 	menu([""], () => {
-			Iris.PushConfig({ ItemSpacing: new Vector2(0, 0) });
-			createScopeTree(scope);
-			Iris.PopConfig();
+		const debugWindow = window(
+			["Ethereal Debug", undefined, undefined, undefined, true, undefined, undefined, true],
+			() => {
+				// menuBar(() => {
+				// 	menu([""], () => {
+				Iris.PushConfig({ ItemSpacing: new Vector2(0, 0) });
+				createScopeTree(scope);
+				Iris.PopConfig();
 
-			// sameline([], () => {
-			// 	Iris.Text([`${totalScopes} scopes`]);
-			// 	Iris.Text([`${totalFunctions} functions`]);
-			// 	Iris.Text([`${totalInstances} instances`]);
-			// 	Iris.Text([`${totalConnections} connections`]);
-			// 	Iris.Text([`${totalObjects} objects`]);
-			// });
+				// sameline([], () => {
+				// 	Iris.Text([`${totalScopes} scopes`]);
+				// 	Iris.Text([`${totalFunctions} functions`]);
+				// 	Iris.Text([`${totalInstances} instances`]);
+				// 	Iris.Text([`${totalConnections} connections`]);
+				// 	Iris.Text([`${totalObjects} objects`]);
+				// });
 
-			// totalFunctions = 0;
-			// totalInstances = 0;
-			// totalConnections = 0;
-			// totalObjects = 0;
-			// totalScopes = 0;
-			// 	});
-			// });
-		});
+				// totalFunctions = 0;
+				// totalInstances = 0;
+				// totalConnections = 0;
+				// totalObjects = 0;
+				// totalScopes = 0;
+				// 	});
+				// });
+			},
+		);
+
+		if (Workspace.CurrentCamera) debugWindow.state.size.set(Workspace.CurrentCamera.ViewportSize);
 
 		if (firstRun) {
 			debugWindow.state.position.set(Vector2.zero);
-			debugWindow.state.size.set(Workspace.CurrentCamera!.ViewportSize);
 			debugWindow.state.isUncollapsed.set(false);
 			firstRun = false;
 		}
