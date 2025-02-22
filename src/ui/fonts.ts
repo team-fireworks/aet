@@ -15,5 +15,5 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 export function sans(weight: Enum.FontWeight = Enum.FontWeight.Regular, style: Enum.FontStyle = Enum.FontStyle.Normal) {
-	return Font.fromName("SourceSans", weight, style);
+	return Font.fromName("SourceSansPro", weight, style);
 }

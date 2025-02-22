@@ -31,7 +31,10 @@ setDefaultLogger(
 info("Starting up!");
 
 import Fusion, { Children, peek } from "@rbxts/fusion";
+import Iris from "@rbxts/iris";
 import { CoreGui } from "@rbxts/services";
+import { IS_DEV } from "constants";
+import { createDebug } from "iris/debug";
 import { initTool, tools } from "lib";
 import { plugin } from "plugin";
 import { scope } from "scoped";
@@ -41,21 +44,20 @@ import { Notifications } from "ui/notifications";
 
 const BUILT_IN_TOOLS = script.WaitForChild("builtins");
 
+if (IS_DEV)
+	scope.spawnTask(() => {
+		info("Creating debug window");
+		const root = (<screengui scope={scope} Name="etherealDebug" />) as GuiBase;
+		root.Parent = game.GetService("CoreGui");
+		Iris.UpdateGlobalConfig({ UseScreenGUIs: false });
+		Iris.Init(root);
+		scope.push(Iris.Connect(createDebug(rootTrace)), () => Iris.Shutdown());
+	});
+
 plugin.Unloading.Once(() => {
 	trace("Shutting down!");
 	scope.doCleanup();
 });
-
-// // This has to be initialized first so we can attach our Fusion debugger
-// if (IS_DEV)
-// 	scope.spawnTask(() => {
-// 		info("Creating debug window");
-// 		const root = (<screengui scope={scope} Name="etherealDebug" />) as GuiBase;
-// 		root.Parent = game.GetService("CoreGui");
-// 		Iris.UpdateGlobalConfig({ UseScreenGUIs: false });
-// 		Iris.Init(root);
-// 		scope.push(Iris.Connect(createDebug()), () => Iris.Shutdown());
-// 	});
 
 const builtinModules = BUILT_IN_TOOLS.GetDescendants().filter((v) => classIs(v, "ModuleScript"));
 info(`Requiring builtin tool modules: ${builtinModules.map((v) => v.Name).join(", ")}`);

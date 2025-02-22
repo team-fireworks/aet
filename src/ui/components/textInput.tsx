@@ -76,9 +76,7 @@ export function TextInput({
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
 			BackgroundColor3={scope.Spring(
-				scope.Computed(
-					(use, scope): Color3 => use(theme(scope, use(hover) || use(focus) ? "bgLighter" : "bgDarker")),
-				),
+				scope.Computed((use, scope): Color3 => use(theme(scope, use(hover) || use(focus) ? "bgLight" : "bg"))),
 				30,
 				1,
 			)}
@@ -115,7 +113,7 @@ export function TextInput({
 			<Round scope={scope} radius={new UDim(0, 4)} />
 			<uistroke
 				scope={scope}
-				Color={theme(scope, "bgDarkest")}
+				Color={theme(scope, "border")}
 				Thickness={1}
 				ApplyStrokeMode={Enum.ApplyStrokeMode.Border}
 			/>

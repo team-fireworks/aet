@@ -16,6 +16,7 @@
 
 import Iris from "@rbxts/iris";
 import { SameLineArguments } from "@rbxts/iris/src/lib/widgets/format";
+import { MenuArguments } from "@rbxts/iris/src/lib/widgets/menu";
 import { TableArguments } from "@rbxts/iris/src/lib/widgets/table";
 import { CollapsingHeaderArguments, TreeArguments } from "@rbxts/iris/src/lib/widgets/tree";
 import { WindowArguments } from "@rbxts/iris/src/lib/widgets/window";
@@ -29,7 +30,8 @@ export function window(args: WindowArguments, fn: () => void) {
 
 export function accordion(args: CollapsingHeaderArguments, fn: () => void) {
 	const header = Iris.CollapsingHeader(args);
-	if (header.collapsed()) fn();
+	fn();
+	// if (header.collapsed()) fn();
 	Iris.End();
 }
 
@@ -45,17 +47,17 @@ export function sameline(args: SameLineArguments, fn: () => void) {
 	Iris.End();
 }
 
-// export function menuBar(fn: () => void) {
-// 	Iris.MenuBar();
-// 	fn();
-// 	Iris.End();
-// }
+export function menuBar(fn: () => void) {
+	Iris.MenuBar();
+	fn();
+	Iris.End();
+}
 
-// export function menu(args: MenuArguments, fn: () => void) {
-// 	Iris.Menu(args);
-// 	fn();
-// 	Iris.End();
-// }
+export function menu(args: MenuArguments, fn: () => void) {
+	Iris.Menu(args);
+	fn();
+	Iris.End();
+}
 
 export function section(name: string, fn: () => void) {
 	Iris.SeparatorText([name]);
@@ -70,6 +72,7 @@ export function combo<T>(name: string, state: Iris.State<T>, options: [label: st
 
 export function tree(args: TreeArguments, fn: () => void) {
 	const tree = Iris.Tree(args);
-	if (tree.collapsed()) fn();
+	// if (tree.uncollapsed()) fn();
+	fn();
 	Iris.End();
 }

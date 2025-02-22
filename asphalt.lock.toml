@@ -1,0 +1,55 @@
+[entries."assets/icons/caretUp.png"]
+hash = "0c370ff687a2098420977fb6a8d6cde6158a97fb0ef47b216e519be0b62112a4"
+asset_id = 130998813842805
+
+[entries."assets/icons/gear.png"]
+hash = "a5001545a27b571db749e79ad62dc0b2bbe749c3362ec3ad809c4466ecc4fa16"
+asset_id = 70549946604169
+
+[entries."assets/icons/image.png"]
+hash = "59c5d90f7d95fd329073f00f50bcb2737226539fd809fcf2c8db137fe2ee498f"
+asset_id = 87361747184984
+
+[entries."assets/icons/rocket.png"]
+hash = "d542266c4ac70197a8975df99c7a3eeae41e6e9679dd094b23b1d9394e82fc1a"
+asset_id = 109145943701692
+
+[entries."assets/icons/soundFull.png"]
+hash = "629ee6f1bc455700cedfc1d598eb04bfa57fe5934fe1a21a99ec3b89b51f31d8"
+asset_id = 135101473816669
+
+[entries."assets/icons/swatchbook.png"]
+hash = "eb72ebee23da2242b213e78973e381fa9679b1476ee7d97e0022bc7df0331b1a"
+asset_id = 107678355441082
+
+[entries."assets/icons/toolbox.png"]
+hash = "a36af3a8bb7b719afec38189a4fb78f8ed917b815362969a5a9ad5b31913811f"
+asset_id = 102740794398910
+
+[entries."assets/icons/wandMagicSparkles.png"]
+hash = "f12069f6183bd7d071b15b7ea41236310a9a4e3659e2d929fb6da7a32573812d"
+asset_id = 96788210088133
+
+[entries."assets/icons/wrench.png"]
+hash = "db29ff888a3277ed3c2f5df721ce8c3aecd7397bf8a236dcd472f8f19d239f5d"
+asset_id = 104858440151678
+
+[entries."assets/images/ethereal.png"]
+hash = "5b0222c5e804b45771d839f5accca6cabf4d451c3fd2ea4431d6848f5ce909c6"
+asset_id = 82442200733025
+
+[entries."assets/images/etoh.png"]
+hash = "6da849f4940228d64f924c1e9c0ca4c32b867d50b9b87d75bf057926058bfc25"
+asset_id = 111972867694200
+
+[entries."assets/sfx/click.ogg"]
+hash = "882057beee0c5efeec32287a92239ea6dbd4f9369e7ea501ea4dcc9fb98f8bd7"
+asset_id = 73676626305483
+
+[entries."assets/sfx/hover.ogg"]
+hash = "c29e4bcb18494be48e0601d8d2e45641eca63c8c4c365ee8bb72fb4ecd2ce84e"
+asset_id = 98188197422587
+
+[entries."assets/sfx/softClick.ogg"]
+hash = "b84d1764213989ae7d6b98dab635b37ccda439baece86154a3441a8e465b8b9d"
+asset_id = 123563266549134
