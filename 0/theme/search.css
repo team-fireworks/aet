@@ -1,0 +1,31 @@
+.md-search__form {
+    background-color: var(--ethereal-bg-lighter);
+    color: var(--ethereal-fg);
+    border-radius: 0.25rem;
+    border: 0.1rem solid var(--ethereal-border);
+}
+
+@media screen and (min-width: 60em) {
+    .md-search__input {
+        color: var(--ethereal-fg) !important;
+        font-size: .8rem;
+    }
+}
+
+@media screen and (min-width: 60em) {
+    .md-search__input+.md-search__icon {
+        color: var(--ethereal-fg);
+    }
+}
+
+.md-search__icon {
+    height: 0.75rem;
+    width: 0.75rem;
+
+    top: 2.5rem;
+
+    svg {
+        height: 0.75rem;
+        width: 0.75rem;
+    }
+}

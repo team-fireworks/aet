@@ -9,6 +9,14 @@
          <lastmod>2025-02-23</lastmod>
     </url>
     <url>
+         <loc>https://znotfireman.github.io/ethereal/0/blog/</loc>
+         <lastmod>2025-02-23</lastmod>
+    </url>
+    <url>
+         <loc>https://znotfireman.github.io/ethereal/0/blog/posts/hello-ethereal/</loc>
+         <lastmod>2025-02-23</lastmod>
+    </url>
+    <url>
          <loc>https://znotfireman.github.io/ethereal/0/docs/</loc>
          <lastmod>2025-02-23</lastmod>
     </url>
@@ -17,27 +25,23 @@
          <lastmod>2025-02-23</lastmod>
     </url>
     <url>
-         <loc>https://znotfireman.github.io/ethereal/0/docs/plugin-api/</loc>
+         <loc>https://znotfireman.github.io/ethereal/0/docs/ethereal-for-games/</loc>
          <lastmod>2025-02-23</lastmod>
     </url>
     <url>
-         <loc>https://znotfireman.github.io/ethereal/0/docs/plugin-api/best-practices/</loc>
+         <loc>https://znotfireman.github.io/ethereal/0/docs/ethereal-for-plugins/</loc>
          <lastmod>2025-02-23</lastmod>
     </url>
     <url>
-         <loc>https://znotfireman.github.io/ethereal/0/docs/plugin-api/installing/</loc>
+         <loc>https://znotfireman.github.io/ethereal/0/docs/ethereal-for-plugins/best-practices/</loc>
          <lastmod>2025-02-23</lastmod>
     </url>
     <url>
-         <loc>https://znotfireman.github.io/ethereal/0/docs/plugin-api/your-first-tool/</loc>
+         <loc>https://znotfireman.github.io/ethereal/0/docs/ethereal-for-plugins/your-first-tool/</loc>
          <lastmod>2025-02-23</lastmod>
     </url>
     <url>
-         <loc>https://znotfireman.github.io/ethereal/0/docs/reference/plugin-api/</loc>
-         <lastmod>2025-02-23</lastmod>
-    </url>
-    <url>
-         <loc>https://znotfireman.github.io/ethereal/0/docs/reference/runtime-api/</loc>
+         <loc>https://znotfireman.github.io/ethereal/0/docs/reference/</loc>
          <lastmod>2025-02-23</lastmod>
     </url>
 </urlset>
