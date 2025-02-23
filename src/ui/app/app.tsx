@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
+
 // Transition code based on roblaudio/ocmusic-browser
 // https://github.com/roblaudio/ocmusic-browser/blob/main/src/client/ui/app/app.tsx
 // https://github.com/roblaudio/ocmusic-browser/blob/main/src/client/ui/components/router/RouteTransitioner.tsx

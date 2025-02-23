@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { Child, Children, UsedAs, Value } from "@rbxts/fusion";
+import { Child, Children, doCleanup, UsedAs, Value } from "@rbxts/fusion";
 import { InferGenericProps } from "@rbxts/ui-labs";
 import { scope, Scope } from "scoped";
 
@@ -185,13 +185,7 @@ export function fusionStory<C extends Controls>({
 					: storyChild,
 			});
 
-			print("THIS PRINTS????");
-
-			return () => {
-				print("BUT THIS DOESNT???");
-				storyScope.doCleanup();
-				print("WE GOATED");
-			};
+			return () => doCleanup(storyScope);
 		},
 	};
 }
