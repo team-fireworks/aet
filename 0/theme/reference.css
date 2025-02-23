@@ -1,0 +1,7 @@
+.ethereal-reference-function {
+    color: var(--md-code-hl-function-color);
+}
+
+.ethereal-reference-type {
+    color: var(--md-code-hl-keyword-color);
+}

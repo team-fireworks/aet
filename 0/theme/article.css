@@ -36,6 +36,16 @@
     }
 }
 
+.md-typeset a:focus,
+.md-typeset a:hover {
+    color: var(--ethereal-primary-lighter);
+}
+
+.md-typeset a:hover code {
+    background-color: var(--ethereal-primary);
+    color: var(--ethereal-primary-fg);
+}
+
 a.ethereal-button,
 button.ethereal-button {
     display: flex;
@@ -124,5 +134,32 @@ button.ethereal-button {
         max-width: calc(40rem - 1rem);
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+.md-typeset .md-button {
+    border: 0.1rem solid var(--ethereal-border);
+    border-radius: 0.25rem;
+    background-color: var(--ethereal-bg-light);
+    color: var(--ethereal-fg);
+    padding: 0.3em 0.6em;
+    font-weight: 500;
+    font-size: 1rem;
+
+    &:hover {
+        background-color: var(--ethereal-bg-lighter);
+        border: 0.1rem solid var(--ethereal-border);
+        color: var(--ethereal-fg-lighter);
+    }
+
+    &.md-button--primary {
+        background-color: var(--ethereal-primary);
+        border: 0.1rem solid var(--ethereal-border);
+        color: var(--ethereal-primary-fg);
+
+        &:hover {
+            background-color: var(--ethereal-primary-light);
+            color: var(--ethereal-primary-fg-light);
+        }
     }
 }

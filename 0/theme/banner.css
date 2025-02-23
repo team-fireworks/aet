@@ -1,0 +1,14 @@
+.md-banner {
+    background-color: var(--ethereal-header-bg);
+    color: var(--ethereal-header-fg);
+    display: flex;
+    justify-content: center;
+
+    font-weight: bold;
+
+    .md-banner__inner {
+        font-size: 0.75rem;
+        margin: 0.25rem auto;
+        padding: 0 0.5rem;
+    }
+}
