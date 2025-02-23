@@ -1,0 +1,14 @@
+.md-consent__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    *,
+    h4 {
+        margin: 0;
+    }
+}
+
+.md-consent__overlay {
+    backdrop-filter: none;
+}

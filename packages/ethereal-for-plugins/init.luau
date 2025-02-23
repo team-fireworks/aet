@@ -1,129 +1,78 @@
 --!strict
 
-type Cleanup = () -> ()
+--- @class Lib
+---
+--- Tool library.
+---
+--- Every Tool `init` function receives the `Lib`, which enables interacting
+--- with the current selected tower and the Ethereal plugin.
+---
+--- Certain APIs require permissions requested from `Ethereal.permission` or
+--- `Ethereal.tryPermission`.
+local Lib = {}
 
+--- @within Lib
+--- @prop scope -- { unknown }
+--- The cleanup scope that this tool uses.
+
+--- @within Lib
+--- @method tower
+--- @return Tower? -- The selected Tower object.
+---
+--- Returns the selected tower if any.
+function Lib:tower() end
+
+--- @interface ActionProps
+--- @within Lib
+--- @field label string -- The label used for the action button.
+---
+--- Properties for creating actions.
+export type ActionProps = {}
+
+--- @within Lib
+--- @method action
+--- @param props ActionProps -- Construction properties.
+--- @return Action
+---
+--- Creates a new action. Actions are functions activated as buttons in the tool
+--- listings.
+function Lib:action(props: ActionProps) end
+
+--- @interface TowerObbyInstance
+--- @within Lib
+--- @field WinPad BasePart -- When touched finishes a player's run of the tower.
+---
+--- The Obby folder in an Eternal Towers of Hell tower.
+export type TowerObbyInstance = Instance & {
+	WinPad: BasePart,
+}
+
+--- @interface TowerInstance
+--- @within Lib
+--- @field ClientSidedObjects Instance -- Contains every ClientObject used in the tower.
+--- @field Obby TowerObbyInstance -- Contains the purism and the tower's winpad
+--- @field Frame Instance -- The frame of the tower.
+--- @field SpawnLocation BasePart -- Where the player will spawn.
+---
+--- An Eternal Towers of Hell tower instance.
 export type TowerInstance = Instance & {
 	ClientSidedObjects: Instance,
-	Obby: Instance & {
-		WinPad: BasePart,
-	},
+	Obby: TowerObbyInstance,
 	Frame: Instance,
 	SpawnLocation: BasePart,
 }
 
-export type EtherealBaseArgument = {
-	kind: string,
-	name: string,
-	label: string,
-}
-
-type GenericArgument<K, T> = EtherealBaseArgument & {
-	kind: K,
-	default: T,
-}
-
--- TODO: advanced types: EtherealStringArgument, EtherealNumberArgument, EtherealInstanceArgument
-export type EtherealBooleanArgument = GenericArgument<"boolean", boolean>
-export type EtherealColor3Argument = GenericArgument<"color3", Color3>
-export type EtherealVector2Argument = GenericArgument<"vector2", Vector2>
-export type EtherealVector3Argument = GenericArgument<"vector3", Vector3>
-export type EtherealColorSequenceArgument = GenericArgument<"colorSequence", ColorSequence>
-
-export type EtherealArgument =
-	| EtherealBooleanArgument
-	| EtherealColor3Argument
-	| EtherealVector2Argument
-	| EtherealVector3Argument
-	| EtherealColorSequenceArgument
-
--- FUTURE: bad type, needs recursive Luau type restrictions to be lifted
-export type EtherealArgumentContext = {
-	now: (self: EtherealArgumentContext) -> any,
-	nowOr: (self: EtherealArgumentContext, defaultValue: any) -> any,
-	assertBoolean: (self: EtherealArgumentContext) -> EtherealArgumentContext,
-	assertColor3: (self: EtherealArgumentContext) -> EtherealArgumentContext,
-	assertVector2: (self: EtherealArgumentContext) -> EtherealArgumentContext,
-	assertVector3: (self: EtherealArgumentContext) -> EtherealArgumentContext,
-	assertColorSequence: (self: EtherealArgumentContext) -> EtherealArgumentContext,
-}
-
-export type EtherealRunContext = {
-	tower: TowerInstance,
-	coFolder: Instance,
-	obby: Instance,
-	frame: Instance,
-	winPad: Instance,
-	spawnLocation: Instance,
-
-	arg: (self: EtherealRunContext, argName: string) -> EtherealArgumentContext,
-
-	confirm: (self: EtherealRunContext) -> boolean,
-	notify: (self: EtherealRunContext) -> (),
-
-	onAction: (self: EtherealRunContext, buttonLabel: string, callback: () -> ()) -> Cleanup,
-	onKeyPressed: (self: EtherealRunContext, keycodes: { Enum.KeyCode }, callback: () -> ()) -> Cleanup,
-	onStop: (self: EtherealRunContext, keycodes: { Enum.KeyCode }, callback: () -> ()) -> Cleanup,
-}
-
-export type EtherealTool = {
-	name: string,
-	label: string,
-	overview: string,
-	description: string,
-
-	needsEdit: boolean?,
-	needsRun: boolean?,
-	needsTower: boolean?,
-
-	args: { EtherealArgument },
-
-	run: (run: EtherealRunContext) -> Cleanup?,
-}
-
-export type Ethereal = {
-	newTool: (tool: EtherealTool) -> (),
-	notify: (self: EtherealRunContext) -> (),
-}
-
-local Permission = table.freeze({
-	NewTool = "NewTool" :: "NewTool",
-	Notify = "Notify" :: "Notify",
-})
-
-export type Permission = "NewTool" | "Notify"
-
-export type PermissionPluginProps = {
-	name: string,
-	label: string,
-
-	permissions: {
-		[Permission]: {
-			usedFor: string,
-			notUsedFor: string,
-			disclaimer: string?,
-		},
-	},
-}
-
-export type TryPermissionPluginResult = {
-	ok: true,
-	ethereal: Ethereal,
-} | {
-	ok: false,
-	id: "alreadyPermissioned" | "deniedPermission" | "notInstalled",
-	readable: string,
-}
-
+--- @class Ethereal
+--- @tag etherealdoc-init-class
+---
+--- Entry point to the Ethereal for Plugins package.
 local Ethereal = {}
-Ethereal.Permission = Permission
 
-function Ethereal.permissionPlugin(plugin: Plugin, props: PermissionPluginProps): Ethereal
-	error("not yet implemented")
-end
-
-function Ethereal.tryPermissionPlugin(plugin: Plugin, props: PermissionPluginProps): TryPermissionPluginResult
-	error("not yet implemented")
-end
+--- @within Ethereal
+--- @param plugin Plugin -- The plugin that is requesting Ethereal's APIs.
+---
+--- Permission
+function Ethereal.permission(plugin: Plugin) end
 
 table.freeze(Ethereal)
 return Ethereal

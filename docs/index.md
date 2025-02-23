@@ -19,10 +19,10 @@ hide:
 </p>
 
 <nav style="display: flex; gap: 0.25rem;">
-<a class="ethereal-button ethereal-button-primary">
+<a class="md-button md-button--primary">
     Download for Roblox
 </a>
-<a class="ethereal-button ethereal-button-secondary" href="./docs">
+<a class="md-button" href="./docs">
     Documentation
 </a>
 </nav>

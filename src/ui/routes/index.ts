@@ -19,6 +19,7 @@ import { Child, Contextual, Value } from "@rbxts/fusion";
 import { scope, Scoped } from "scoped";
 import { fontAwesome, Icon } from "ui/components/icons";
 import { Placeholder } from "./placeholder";
+import { Testing } from "./testing";
 import { Tools } from "./tools";
 
 export interface Route {
@@ -62,11 +63,16 @@ export const ROUTES = {
 		render: Placeholder,
 		icon: fontAwesome.gear,
 	},
+	testing: {
+		label: "Testing",
+		render: Testing,
+		icon: fontAwesome.rocket,
+	},
 } satisfies Record<string, Route>;
 
 export type RouteKey = keyof typeof ROUTES;
 
-export const NAV_ROUTES: RouteKey[] = ["tools", "images", "sounds", "clientObjects", "kits", "settings"];
+export const NAV_ROUTES: RouteKey[] = ["tools", "images", "sounds", "clientObjects", "kits", "settings", "testing"];
 
 export const currentRouteContext = Contextual(scope.Value<Route>(ROUTES.tools));
 export function unwrapRouteContext(): Value<Route> {

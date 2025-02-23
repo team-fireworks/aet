@@ -10,3 +10,6 @@ StyLua = "JohnnyMorganz/StyLua@2.0.2"
 asphalt = "roblaudio/asphalt@0.8.41"
 wally = "UpliftGames/wally@0.3.2"
 lune = "lune-org/lune@0.8.9"
+
+# doesnt work on macos yay
+# moonwave = "evaera/moonwave@1.2.1"
