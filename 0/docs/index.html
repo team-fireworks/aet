@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://znotfireman.github.io/ethereal/0/docs/">
       
       
-        <link rel="prev" href="../download/">
+        <link rel="prev" href="../install/">
       
       
         <link rel="next" href="packages/">
@@ -22,7 +22,7 @@
     
     
       
-        <title>What is Ethereal? - Ethereal</title>
+        <title>Ethereal - Ethereal</title>
       
     
     
@@ -131,7 +131,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#what-is-ethereal" class="md-skip">
+        <a href="#ethereal" class="md-skip">
           Skip to content
         </a>
       
@@ -217,7 +217,7 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              What is Ethereal?
+              Ethereal
             
           </span>
         </div>
@@ -254,12 +254,12 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
   
     <li class="md-tabs__item">
-      <a href="../download/" class="md-tabs__link">
+      <a href="../install/" class="md-tabs__link">
         
   
     
   
-  Download
+  Install
 
       </a>
     </li>
@@ -481,11 +481,11 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
   
     <li class="md-nav__item">
-      <a href="../download/" class="md-nav__link">
+      <a href="../install/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Download
+    Install
     
   </span>
   
@@ -1002,11 +1002,11 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
   
     <li class="md-nav__item">
-      <a href="../blog/archive/2023/" class="md-nav__link">
+      <a href="../blog/archive/2025/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    2023
+    2025
     
   </span>
   
@@ -1112,31 +1112,40 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
 
 
-<h1 id="what-is-ethereal">What is Ethereal?</h1>
+<h1 id="ethereal">Ethereal<a class="headerlink" href="#ethereal" title="Permanent link">&para;</a></h1>
 <div class="admonition danger">
 <p class="admonition-title">ETHEREAL IS IN ACTIVE DEVELOPMENT. IT'S UNRELEASED, UNFINISHED, AND UNTESTED. DO NOT BUILD YOUR TOWERS WITH IT YET. THE DOCUMENTATION IS INCOMPLETE AND WILL CHANGE.</p>
 </div>
 <p>Ethereal is a full-featured Eternal Towers of Hell companion plugin.</p>
 <ul>
+<li><strong>New user?</strong> Read the <a href="../install/">installation guide</a> and the <a href="#motivation">motivation behind it's creation</a>.</li>
 <li><strong>Existing user?</strong> Read the changelog for recent features and bug fixes.</li>
-<li><strong>Interested in authoring your own tools?</strong> Read the Plugin API guides and reference.</li>
-<li><strong>Interested in using Ethereal at runtime?</strong> Read the Runtime API guides and reference.</li>
+<li><strong>Interested in authoring your own tools?</strong> Read the <a href="ethereal-for-plugins/">Ethereal for Plugin documentation</a> and <a href="reference/ethereal-for-plugins/">reference</a>.</li>
+<li><strong>Interested in using Ethereal in games?</strong> Read the <a href="(./ethereal-for-games/index.md)">Ethereal for Games documentation</a> and <a href="reference/ethereal-for-games/">reference</a>.</li>
 </ul>
-<h2 id="motivation">Motivation</h2>
-<h3 id="etoh-deserves-better">EToH deserves better</h3>
-<p>The Eternal Towers of Hell community has exploded in size, but its tooling
-hasn't kept pace. Other obby games like Tria.OS prove the benefits of strong
-developer experience, with it's <a href="https://github.com/Tria-Studio/Tria-OS-Plugin">helpful companion plugin</a>
-and guides. It's time to lay the foundation for the next decade of tower
-building.</p>
-<p>Ethereal is a full-featured Eternal Towers of Hell companion plugin that
-consolidates scripts, plugin functionality, tower kits, images, sound effects,
-and ClientObjects into an intuitive package. External plugin APIs pave way for
-future extensions.</p>
-<h3 id="etoh-is-too-complicated">EToH is too complicated</h3>
-<p>ie.</p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<h3 id="etoh-deserves-better">EToH deserves better<a class="headerlink" href="#etoh-deserves-better" title="Permanent link">&para;</a></h3>
+<p>It's time to lay the foundation for the next decade of tower building.</p>
+<p><strong>For builders:</strong> Ethereal consolidates essential tools and resources into a
+single, intuitive package, including scripts, plugin functionality, tower kits,
+images, sound effects, and ClientObjects. Other plugins can extend the Ethereal
+plugin with its own functionality.</p>
+<p><strong>For developers:</strong> Ethereal exposes plugin APIs for extending the plugin with
+new tools, and game APIS, for hooking onto Ethereal while playtesting. Ethereal
+comes with great documentation that you're reading, type-safe APIs, and
+unparalleled DX.</p>
+<p>Down the line, Ethereal could:</p>
 <ul>
-<li>JToH Kit Tools to bootstrap a project</li>
+<li>Sync custom <code>ClientObjectScripts</code> with Rojo</li>
+<li>Sync file system images/sound effects locally with Asphalt</li>
+</ul>
+<h3 id="etoh-is-too-complicated">EToH is too complicated<a class="headerlink" href="#etoh-is-too-complicated" title="Permanent link">&para;</a></h3>
+<p>Building towers in Eternal Towers of Hell can be complex, often requiring
+multiple plugins and tools. Ethereal simplifies this process by consolidating
+functionality from various plugin into a single, streamlined widget:</p>
+<p>Instead of judging these plugins:</p>
+<ul>
+<li>JToH Kit Tools to bootstrap a tower</li>
 <li>JToH Part Counter to ensure your tower doesn't surpass the limits.</li>
 <li>Archimedes for creating curved geometry</li>
 <li>Gapfill from GeomTools for filling misaligned parts</li>
@@ -1144,8 +1153,7 @@ future extensions.</p>
 <li>Welder to weld parts faster</li>
 <li>Quality-of-life plugins such as the Elttob Suite</li>
 </ul>
-<p>Ethereal consolidates these resources into one widget. The amount of mental
-boilerplate Ethereal removes is staggering:</p>
+<p>...you get a unified experience with Ethereal:</p>
 <p><img src="../images/others-to-ethereal-light.png#only-light" />
 <img src="../images/others-to-ethereal-dark.png#only-dark" /></p>
 

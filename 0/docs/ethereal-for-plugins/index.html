@@ -254,12 +254,12 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
   
     <li class="md-tabs__item">
-      <a href="../../download/" class="md-tabs__link">
+      <a href="../../install/" class="md-tabs__link">
         
   
     
   
-  Download
+  Install
 
       </a>
     </li>
@@ -481,11 +481,11 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
   
     <li class="md-nav__item">
-      <a href="../../download/" class="md-nav__link">
+      <a href="../../install/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Download
+    Install
     
   </span>
   
@@ -1004,11 +1004,11 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
   
     <li class="md-nav__item">
-      <a href="../../blog/archive/2023/" class="md-nav__link">
+      <a href="../../blog/archive/2025/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    2023
+    2025
     
   </span>
   
@@ -1123,16 +1123,16 @@ Ethereal is unreleased, unfinished, and untested. Do not use Ethereal to build t
   
 
 
-<h1 id="ethereal-for-plugins">Ethereal for Plugins</h1>
+<h1 id="ethereal-for-plugins">Ethereal for Plugins<a class="headerlink" href="#ethereal-for-plugins" title="Permanent link">&para;</a></h1>
 <p>The Ethereal for Plugins package enables extending Ethereal with your own tools.</p>
-<h2 id="plugin-setup">Plugin Setup</h2>
+<h2 id="plugin-setup">Plugin Setup<a class="headerlink" href="#plugin-setup" title="Permanent link">&para;</a></h2>
 <p>Ensure you have the <a href="../packages/">Ethereal for Plugins package</a>.</p>
 <p>Create a new module, perhaps named <code>ethereal</code>, and import the Ethereal for
 Plugins package:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">assert</span><span class="p">(</span><span class="nv">script</span><span class="p">:</span><span class="nc">FindFirstAncestorWhichIsA</span><span class="p">(</span><span class="s2">&quot;Plugin&quot;</span><span class="p">))</span>
 <span class="kd">local</span><span class="w"> </span><span class="nv">Ethereal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">require</span><span class="p">(</span><span class="nv">plugin</span><span class="p">.</span><span class="nv">packages</span><span class="p">.</span><span class="nv">ethereal</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="permissions">Permissions</h3>
+<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
 <p>In order to use any of the Ethereal for Plugins APIs, you must first explicitly
 request them using <code>Ethereal.permission</code>.</p>
 <p>Users will be prompted to allow/deny the plugin for access. This function will
@@ -1158,7 +1158,7 @@ handled:</p>
 
 <span class="kd">local</span><span class="w"> </span><span class="nv">et</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">etResult</span><span class="p">.</span><span class="nv">api</span>
 </code></pre></div>
-<h3 id="keys">Keys</h3>
+<h3 id="keys">Keys<a class="headerlink" href="#keys" title="Permanent link">&para;</a></h3>
 <p>The API includes a key that uniquely identifies you as an authenticated plugin.
 You can store this key as a plugin setting to request permission without
 prompting the user for subsequent sessions:</p>
@@ -1178,7 +1178,7 @@ prompting the user for subsequent sessions:</p>
 <span class="w">    </span><span class="nv">plugin</span><span class="p">:</span><span class="nc">SetSetting</span><span class="p">(</span><span class="s2">&quot;etherealPermissionKey&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">et</span><span class="p">.</span><span class="nv">key</span><span class="p">)</span>
 <span class="kr">end</span>
 </code></pre></div>
-<h3 id="organization">Organization</h3>
+<h3 id="organization">Organization<a class="headerlink" href="#organization" title="Permanent link">&para;</a></h3>
 <p>Ethereal for Plugins can now be used, but it's strongly recommended to create a
 dedicated module for the permissioned API:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">assert</span><span class="p">(</span><span class="nv">script</span><span class="p">:</span><span class="nc">FindFirstAncestorWhichIsA</span><span class="p">(</span><span class="s2">&quot;Plugin&quot;</span><span class="p">))</span>
