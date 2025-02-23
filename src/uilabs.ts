@@ -15,7 +15,7 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import { Child, Children, UsedAs, Value } from "@rbxts/fusion";
-import { Environment, InferGenericProps } from "@rbxts/ui-labs";
+import { InferGenericProps } from "@rbxts/ui-labs";
 import { scope, Scope } from "scoped";
 
 export interface UILabsControl {
@@ -161,11 +161,18 @@ export function fusionStory<C extends Controls>({
 				}) as never);
 			}
 
-			const storyChild = story({ controls: storyControls as never, scope: storyScope });
-			const holder = scope.New("Folder")({
-				Name: "Holder",
+			const [ok, storyChild] = pcall(story, { controls: storyControls as never, scope: storyScope }) as LuaTuple<
+				[boolean, Child]
+			>;
+
+			if (!ok) warn("ERROR!!!!", storyChild);
+
+			const holder = new Instance("Folder");
+
+			storyScope.Hydrate(holder)({
+				Parent: target,
 				[Children]: center
-					? scope.New("Frame")({
+					? storyScope.New("Frame")({
 							AnchorPoint: new Vector2(0.5, 0.5),
 							AutomaticSize: Enum.AutomaticSize.XY,
 							BackgroundTransparency: 1,
@@ -178,14 +185,12 @@ export function fusionStory<C extends Controls>({
 					: storyChild,
 			});
 
-			Environment.SetStoryHolder(holder);
-
-			scope.Hydrate(target)({
-				[Children]: holder,
-			});
+			print("THIS PRINTS????");
 
 			return () => {
+				print("BUT THIS DOESNT???");
 				storyScope.doCleanup();
+				print("WE GOATED");
 			};
 		},
 	};

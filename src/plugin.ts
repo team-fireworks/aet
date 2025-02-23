@@ -18,7 +18,7 @@ import { Child, Children, Hydrate, peek, Scope, UsedAs, Value } from "@rbxts/fus
 import { Environment } from "@rbxts/ui-labs";
 
 export const plugin = Environment.Plugin ?? script.FindFirstAncestorWhichIsA("Plugin")!;
-if (!plugin) throw "Ethereal must be run as a plugin.";
+// if (!plugin) throw "Ethereal must be run as a plugin.";
 
 interface Widget {
 	title: UsedAs<string>;
