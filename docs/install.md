@@ -4,6 +4,6 @@ hide:
   - toc
 ---
 
-# Download
+# Install
 
 no unc

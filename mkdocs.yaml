@@ -64,7 +64,7 @@ extra_css:
 
 nav:
     - Home: index.md
-    - Download: download.md
+    - Install: install.md
     - Docs:
           - docs/index.md
           - Packages: docs/packages.md
@@ -87,6 +87,7 @@ markdown_extensions:
     - md_in_html
     - toc:
           title: On this page
+          permalink: true
     - pymdownx.details
     - pymdownx.superfences
     - pymdownx.emoji:

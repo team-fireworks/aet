@@ -70,9 +70,31 @@ local Ethereal = {}
 
 --- @within Ethereal
 --- @param plugin Plugin -- The plugin that is requesting Ethereal's APIs.
+--- @param props PermissionProps -- Plugin info and the permissions to request.
+--- @return PermissionedApi -- The permissioned Ethereal for Plugins API.
 ---
---- Permission
-function Ethereal.permission(plugin: Plugin) end
+--- In order to use any of the Ethereal for Plugins APIs, you must first
+--- explicitly request.
+---
+--- Users will be prompted to allow/deny the plugin for access. This function
+--- will yield until the user responds and will throw if access is denied.
+---
+--- See: `Ethereal.tryPermission`
+function Ethereal.permission(plugin: Plugin, props) end
+
+--- @within Ethereal
+--- @param plugin Plugin -- The plugin that is requesting Ethereal's APIs.
+--- @param props PermissionProps -- Plugin info and the permissions to request.
+--- @return TryPermissionResult -- The result of requesting the plugin.
+---
+--- In order to use any of the Ethereal for Plugins APIs, you must first
+--- explicitly request.
+---
+--- Users will be prompted to allow/deny the plugin for access. This function
+--- will yield until the user responds and returns a result object.
+---
+--- See: `Ethereal.permission`
+function Ethereal.tryPermission(plugin: Plugin, props) end
 
 table.freeze(Ethereal)
 return Ethereal

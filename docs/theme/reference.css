@@ -5,3 +5,11 @@
 .ethereal-reference-type {
     color: var(--md-code-hl-keyword-color);
 }
+
+.ethereal-reference-class {
+    background-color: var(--ethereal-bg-light);
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--ethereal-border)
+}
