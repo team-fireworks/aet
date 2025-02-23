@@ -7,6 +7,7 @@ repo_url: https://github.com/znotfireman/ethereal
 
 theme:
     logo: "images/ethereal.png"
+    favicon: "images/ethereal.png"
     name: material
     custom_dir: docs/overrides
     font:
@@ -16,14 +17,35 @@ theme:
         - media: "(prefers-color-scheme: dark)"
           scheme: ethereal-dark
           toggle:
-              icon: octicons/sun-24
+              icon: fontawesome/solid/sun
               title: Switch to light theme
         - media: "(prefers-color-scheme: light)"
           scheme: ethereal-light
           toggle:
-              icon: octicons/moon-24
+              icon: fontawesome/solid/moon
               title: Switch to dark theme
+    icon:
+        previous: fontawesome/solid/angle-left
+        next: fontawesome/solid/angle-right
+        top: fontawesome/solid/angle-up
+        repo: fontawesome/brands/github
+        search: fontawesome/solid/magnifying-glass
+        admonition:
+            note: fontawesome/solid/note-sticky
+            abstract: fontawesome/solid/book
+            info: fontawesome/solid/circle-info
+            tip: fontawesome/solid/bullhorn
+            success: fontawesome/solid/check
+            question: fontawesome/solid/circle-question
+            warning: fontawesome/solid/triangle-exclamation
+            failure: fontawesome/solid/bomb
+            danger: fontawesome/solid/skull
+            bug: fontawesome/solid/robot
+            example: fontawesome/solid/flask
+            quote: fontawesome/solid/quote-left
     features:
+        - navigation.instant
+        - navigation.instant.progress
         - navigation.sections
         - navigation.indexes
         - navigation.top
@@ -36,6 +58,7 @@ extra_css:
     - theme/ethereal.css
     - theme/header.css
     - theme/nav.css
+    - theme/search.css
 
 nav:
     - Home: index.md
@@ -43,16 +66,33 @@ nav:
     - Docs:
           - docs/index.md
           - Packages: docs/packages.md
-          - Plugin API:
-                - docs/plugin-api/index.md
-                - Your First Tool: docs/plugin-api/your-first-tool.md
-                - Best Practices: docs/plugin-api/best-practices.md
-                - Reference: docs/plugin-api/reference.md
-          - Runtime API:
-                - docs/runtime-api/index.md
-                - Reference: docs/runtime-api/reference.md
+          - Ethereal For Plugins:
+                - docs/ethereal-for-plugins/index.md
+                - Your First Tool: docs/ethereal-for-plugins/your-first-tool.md
+                - Best Practices: docs/ethereal-for-plugins/best-practices.md
+          - Ethereal For Games:
+                - docs/ethereal-for-games/index.md
+          - Reference:
+                - docs/reference/index.md
+                - Ethereal for Plugins: docs/reference/ethereal-for-plugins.md
+                - Ethereal for Games: docs/reference/ethereal-for-plugins.md
+    - Blog:
+          - blog/index.md
 
 markdown_extensions:
     - admonition
     - pymdownx.details
     - pymdownx.superfences
+    - pymdownx.emoji:
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
+          emoji_generator: !!python/name:material.extensions.emoji.to_svg
+          options:
+              custom_icons:
+                  - docs/overrides/.icons
+
+plugins:
+    - search
+    # - blog:
+    #       blog_dir: blog
+    #       post_date_format: full
+    #       post_url_date_format: yyyy/MM/dd

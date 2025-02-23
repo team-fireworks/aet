@@ -1,12 +1,39 @@
-.md-typeset h1,
-.md-typeset h2 {
-    color: var(--ethereal-fg-light);
-    font-weight: bold;
-    margin: 0
-}
+.md-typeset {
 
-.md-typeset img {
-    border-radius: 0.5rem;
+    h1,
+    h2,
+    h3 {
+        color: var(--ethereal-fg-light);
+        font-weight: bold;
+        margin: 0
+    }
+
+    h1,
+    h2 {
+        border-bottom: 0.1rem solid var(--ethereal-border);
+    }
+
+    img {
+        border-radius: 0.5rem;
+    }
+
+    code {
+        padding: 0.1rem 0.2rem;
+        border: 0.1rem solid var(--md-typeset-table-color);
+        border-radius: 0.25rem;
+    }
+
+    .md-typeset__table {
+        table:not([class]) {
+            background-color: var(--ethereal-bg-light);
+            border: 0.1rem solid var(--md-typeset-table-color);
+            border-radius: 0.25rem;
+
+            thead {
+                background-color: var(--ethereal-bg-lighter);
+            }
+        }
+    }
 }
 
 a.ethereal-button,

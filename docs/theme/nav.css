@@ -1,0 +1,7 @@
+.md-nav__link[for]:focus,
+.md-nav__link[for]:hover,
+.md-nav__link[href]:focus,
+.md-nav__link[href]:hover {
+    color: var(--ethereal-primary-light);
+    cursor: pointer;
+}

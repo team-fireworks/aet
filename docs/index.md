@@ -26,7 +26,7 @@ hide:
     Documentation
 </a>
 </nav>
-<small>free, open source</small>
+<small><a href="https://github.com/znotfireman/ethereal">free, open source</a></small>
 
 <img src="./images/widget.png" class="ethereal-home-thumbnail" />
 <small>Featured tower: Tower of Complexity and Volatility</small>

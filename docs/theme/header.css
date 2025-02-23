@@ -91,3 +91,32 @@
         }
     }
 }
+
+.md-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+    background-color: var(--ethereal-bg-light);
+    border-radius: 0.25rem;
+    box-shadow: none;
+    color: var(--ethereal-fg);
+    border: 0.1rem solid var(--ethereal-border);
+    font-size: 0.75rem;
+    outline: none;
+    padding: 0.3rem 0.6rem;
+    position: fixed;
+    transform: translate(-50%);
+    transition: color 125ms, background-color 125ms, transform 125ms cubic-bezier(.4, 0, .2, 1), opacity 125ms;
+    z-index: 2;
+
+    &:hover {
+        background-color: var(--ethereal-primary);
+        color: var(--ethereal-primary-fg);
+    }
+
+    svg {
+        height: 0.75rem;
+        width: 0.75rem;
+    }
+}

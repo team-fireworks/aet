@@ -1,23 +1,21 @@
 # Packages
 
-Ethereal offers dependency-free, version-matched APIs for plugins and live
-games. `.rbxm` models are available in the latest GitHub release.
-
-Package versions are paired with it's Ethereal plugin version.
+Every Ethereal version bundles zero-dependency APIs for plugins and live games.
+These are packaged as `.rbxm` models in GitHub releases and published on
+common package manager.
 
 ## Using Package Managers
 
 For advanced users, Ethereal is published on common Roblox package managers.
-It's best with the Plugin API, as you can develop your plugin outside of
-Roblox Studio and sync it with Rojo.
+This is especially useful if you sync code using a tool like Rojo.
 
 The following packages are available:
 
-| Registry | Plugin | Runtime |
-| --- | ------ | ------ |
-| Wally | `@znotfireman/ethereal-plugin-api` | `@znotfireman/ethereal-runtime-api` |
-| Pesde | `@znotfireman/ethereal-plugin-api` | `@znotfireman/ethereal-runtime-api` |
-| NPM | `@znotfireman/ethereal-plugin-api` | `@znotfireman/ethereal-runtime-api` |
+| Registry               | Ethereal for Plugins                                                                               | Ethereal for Games                                                                             |
+| ---------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| :ethereal-pesde: pesde | [`@znotfireman/ethereal_for_plugins`](https://pesde.dev/packages/znotfireman/ethereal_for_plugins) | [`@znotfireman/ethereal_for_games`](https://pesde.dev/packages/znotfireman/ethereal_for_games) |
+| :ethereal-wally: Wally | `@znotfireman/ethereal-for-plugins` | `@znotfireman/ethereal-for-games` |
+| :ethereal-npm: NPM     | `@rbxts/ethereal-for-plugins` | `@rbxts/ethereal-for-games` |
 
 ## Technical Details
 
