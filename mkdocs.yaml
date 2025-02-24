@@ -67,17 +67,19 @@ nav:
     - Install: install.md
     - Docs:
           - docs/index.md
+          - Tour of Ethereal: docs/tour-of-ethereal.md
+          - Project Setup: docs/project-setup.md
           - Packages: docs/packages.md
+          - Contributing to Ethereal: docs/contributing-to-ethereal.md
           - Ethereal For Plugins:
                 - docs/ethereal-for-plugins/index.md
                 - Your First Tool: docs/ethereal-for-plugins/your-first-tool.md
-                - Best Practices: docs/ethereal-for-plugins/best-practices.md
           - Ethereal For Games:
                 - docs/ethereal-for-games/index.md
-          - Reference:
-                - docs/reference/index.md
-                - Ethereal for Plugins: docs/reference/ethereal-for-plugins.md
-                - Ethereal for Games: docs/reference/ethereal-for-games.md
+          - API Reference:
+                - docs/api-reference/index.md
+                - Ethereal for Plugins: docs/api-reference/ethereal-for-plugins.md
+                - Ethereal for Games: docs/api-reference/ethereal-for-games.md
     - Blog:
           - blog/index.md
 

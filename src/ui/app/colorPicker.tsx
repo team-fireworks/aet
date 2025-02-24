@@ -15,10 +15,11 @@
 // this program. If not, see <https://www.gnu.org/licenses/>.
 
 import Fusion, { Children, deriveScope, peek, Value } from "@rbxts/fusion";
-import { HttpService } from "@rbxts/services";
+import { HttpService, RunService } from "@rbxts/services";
 import { plugin } from "plugin";
 import { Scope } from "scoped";
 import { Padding } from "ui/components/padding";
+import { Round } from "ui/components/round";
 import { theme } from "ui/theme";
 
 // 15 steps is reasonably accurate
@@ -58,6 +59,19 @@ export class ColorPicker {
 		const hueAbsolutePosition = this.scope.Value(Vector2.zero);
 		const hueAbsoluteSize = this.scope.Value(Vector2.zero);
 
+		const updateHue = () => {
+			const mousePosition = this.widget.GetRelativeMousePosition();
+			const magnitude = mousePosition.sub(peek(hueAbsolutePosition));
+			hue.set(math.clamp(magnitude.X / peek(hueAbsoluteSize).X, 0, 1));
+		};
+
+		const hueDragged = this.scope.Value(false);
+		this.scope.push(
+			RunService.PreRender.Connect(() => {
+				if (peek(hueDragged)) updateHue();
+			}),
+		);
+
 		this.scope.Hydrate(this.widget)({
 			Name: this.widgetId,
 			Title: "Ethereal — Select Color",
@@ -70,26 +84,29 @@ export class ColorPicker {
 					<frame scope={this.scope} BackgroundTransparency={1} Size={UDim2.fromScale(1, 0)}></frame>
 					<imagebutton
 						scope={this.scope}
-						Size={new UDim2(1, 0, 0, 16)}
+						AutoButtonColor={false}
+						Size={new UDim2(1, 0, 0, 12)}
 						Name="Hue"
 						Out:AbsolutePosition={hueAbsolutePosition}
 						Out:AbsoluteSize={hueAbsoluteSize}
-						OnEvent:Activated={() => {
-							const mousePosition = this.widget.GetRelativeMousePosition();
-							const magnitude = mousePosition.sub(peek(hueAbsolutePosition));
-							hue.set(magnitude.X / peek(hueAbsoluteSize).X);
-						}}
+						OnEvent:Activated={updateHue}
+						OnEvent:MouseButton1Down={() => hueDragged.set(true)}
+						OnEvent:MouseButton1Up={() => hueDragged.set(false)}
 					>
 						<uigradient scope={this.scope} Color={RAINBOW} />
 						<uistroke scope={this.scope} Color={theme(this.scope, "border")} />
+						<Round scope={this.scope} radius={new UDim(0, 6)} />
 						<frame
 							scope={this.scope}
 							AnchorPoint={new Vector2(0.5, 0.5)}
-							BackgroundColor3={this.scope.Computed((use) => Color3.fromHSV(use(hue), 1, 1))}
 							Name="Handle"
-							Size={new UDim2(0, 8, 1, 0)}
+							Size={new UDim2(0, 8, 0, 8)}
+							SizeConstraint={Enum.SizeConstraint.RelativeYY}
 							Position={this.scope.Computed((use) => UDim2.fromScale(use(hue), 0.5))}
+							// color needs to be computed before position
+							BackgroundColor3={this.scope.Computed((use) => Color3.fromHSV(use(hue), 1, 1))}
 						>
+							<Round scope={this.scope} radius={new UDim(1, 0)} />
 							<uistroke scope={this.scope} Color={theme(this.scope, "border")} />
 						</frame>
 					</imagebutton>

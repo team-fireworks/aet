@@ -13,22 +13,22 @@ hide:
 </h1>
 
 <p>
-    Ethereal is a full-featured Eternal Towers of Hell companion plugin. The
-    mission is to consolidate utilities for tower building and provide a
-    centralized, state-of-the-arts foundation for future work.
+    Ethereal is a full-featured Eternal Towers of Hell companion plugin
+    jampacked with utilities and a state-of-the-arts foundation for the
+    next decade of tower building.
 </p>
 
 <nav style="display: flex; gap: 0.25rem;">
 <a class="md-button md-button--primary">
-    Download for Roblox
+    Install for Roblox
 </a>
 <a class="md-button" href="./docs">
     Documentation
 </a>
 </nav>
-<small><a href="https://github.com/znotfireman/ethereal">free, open source</a></small>
+<small>free, open source</small>
 
 <img src="./images/widget.png" class="ethereal-home-thumbnail" />
-<small>Featured tower: Tower of Complexity and Volatility</small>
+<small>Featured tower: Tower of Complexity and Volatility by Miantoz1980, ImNotFireMan123 and ConfirmedIlluminatix</small>
 
 </main>

@@ -23,6 +23,7 @@
         "typescript": "^5.7.3"
     },
     "dependencies": {
+        "@rbxts/ethereal-for-plugins": "file:./packages/ethereal-for-plugins",
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",
         "@rbxts/iris": "^2.3.1-ts.1",
         "@rbxts/object-utils": "^1.0.4",
@@ -31,7 +32,7 @@
         "@rbxts/services": "^1.5.5",
         "@rbxts/sift": "^0.0.9",
         "@rbxts/t": "^3.1.1",
-        "@rbxts/ethereal-for-plugins": "file:./packages/ethereal-for-plugins"
+        "@rbxts/types": "roblox-ts/types"
     },
     "patchedDependencies": {
         "@rbxts/fusion-0.3-temp@0.7.2": "patches/@rbxts%2Ffusion-0.3-temp@0.7.2.patch"

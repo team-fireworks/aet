@@ -1,5 +1,7 @@
 # Ethereal for Plugins
 
+!!! warning "This page is a work in progress."
+
 The Ethereal for Plugins package enables extending Ethereal with your own tools.
 
 ## Plugin Setup

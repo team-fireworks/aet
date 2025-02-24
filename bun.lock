@@ -13,6 +13,7 @@
         "@rbxts/services": "^1.5.5",
         "@rbxts/sift": "^0.0.9",
         "@rbxts/t": "^3.1.1",
+        "@rbxts/types": "roblox-ts/types",
       },
       "devDependencies": {
         "@eslint/eslintrc": "^3.2.0",

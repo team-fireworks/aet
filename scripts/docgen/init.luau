@@ -35,7 +35,7 @@ local function path(...: string)
 end
 
 local packagesPath = path(process.cwd, "packages")
-local docReferencePath = path(process.cwd, "docs", "docs", "reference")
+local docReferencePath = path(process.cwd, "docs", "docs", "api-reference")
 
 for _, pkg in PACKAGES do
 	local dir = path(packagesPath, pkg.name)
