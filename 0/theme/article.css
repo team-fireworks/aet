@@ -165,3 +165,61 @@ button.ethereal-button {
         }
     }
 }
+
+.md-typeset .headerlink:focus,
+.md-typeset .headerlink:hover,
+.md-typeset :target>.headerlink {
+    color: var(--ethereal-primary);
+}
+
+.md-typeset hr {
+    border-bottom: 0.1rem solid var(--ethereal-border);
+}
+
+
+@media screen and (min-width: 60em) {
+    .md-header__source {
+        display: block;
+        max-width: 13.1rem;
+        width: 13.1rem;
+    }
+}
+
+@media screen and (min-width: 76.25em) {
+    [dir=ltr] .md-header__source {
+        margin-left: 0;
+    }
+}
+
+.ethereal-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+
+    ul {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 0 !important;
+
+        li {
+            display: inline-flex;
+            flex-direction: column;
+            /* gap: 0.25rem; */
+
+            * {
+                margin: 0 !important;
+            }
+
+            list-style-type: none;
+            margin: 0 !important;
+
+            background-color: var(--ethereal-bg-light);
+            padding: 0.3rem 0.6rem;
+            border: 0.1rem solid var(--ethereal-border);
+            border-radius: 0.25rem;
+        }
+    }
+}

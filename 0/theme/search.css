@@ -3,6 +3,11 @@
     color: var(--ethereal-fg);
     border-radius: 0.25rem;
     border: 0.1rem solid var(--ethereal-border);
+
+    &::placeholder {
+        content: "??";
+        color: red;
+    }
 }
 
 @media screen and (min-width: 60em) {
@@ -18,11 +23,12 @@
     }
 }
 
-.md-search__icon {
+.md-search__icon[for=__search] {
     height: 0.75rem;
     width: 0.75rem;
 
-    top: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
 
     svg {
         height: 0.75rem;
