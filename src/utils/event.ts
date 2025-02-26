@@ -1,3 +1,4 @@
+// Based on Elttob/LibOpen
 // https://github.com/Elttob/LibOpen/blob/main/LibOpen/Event/init.lua
 
 type Disconnect = () => void;
