@@ -5,3 +5,61 @@
     color: var(--ethereal-primary-light);
     cursor: pointer;
 }
+
+@media screen and (max-width: 76.2344em) {
+    .md-sidebar--primary {
+        background-color: var(--ethereal-bg);
+    }
+
+    .md-nav--primary {
+        background-color: var(--ethereal-bg);
+        border-right: 0.1rem solid var(--ethereal-border);
+
+        .md-nav__title,
+        .md-nav__title[for=__drawer],
+        .md-nav__source {
+            background: unset;
+            color: unset;
+            font-weight: 700;
+        }
+
+        .md-nav__title[for=__drawer] {
+            display: flex;
+            padding: 0.8rem;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 1.25rem;
+            line-height: unset;
+
+            .md-logo {
+                display: block;
+                left: unset;
+                margin: unset;
+                padding: 0;
+                position: relative;
+                right: unset;
+                top: unset;
+
+                height: 2.4rem;
+            }
+        }
+
+        .md-nav__item {
+            background: unset;
+            border-top: unset;
+
+            &:hover {
+                background-color: var(--ethereal-bg-light);
+
+                a {
+                    color: unset;
+                }
+            }
+        }
+
+        .md-nav__title~.md-nav__list {
+            background: unset;
+            box-shadow: unset !important;
+        }
+    }
+}

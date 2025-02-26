@@ -4,7 +4,12 @@ To start, let's create a tower using the Ethereal plugin. You'll see how
 everything looks together, but you aren't expected to understand everything
 right away.
 
-## Getting Started
+!!! warning "...but first, something important:"
+
+    <span style="font-weight: bold; font-size: 1.5rem; line-height: 90%;">ETHEREAL IS UNRELEASED, UNFINISHED, AND UNTESTED. DO NOT USE IT TO BUILD
+    TOWERS YET.</span>
+
+## Setup
 
 1.  Open a fresh baseplate in Roblox Studio.
 

@@ -92,4 +92,4 @@ TBA
 
 ## License
 
-Ethereal is licensed under the terms of the [GNU General Public License v3.0](./LICENSE.md).
+Ethereal is licensed under the terms of the [Mozilla Public License Version 2.0](./LICENSE.md).

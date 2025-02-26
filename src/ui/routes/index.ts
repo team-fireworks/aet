@@ -1,25 +1,13 @@
-// Eternal is a full-featured companion plugin for Eternal Towers of Hell.
-// Copyright (C) 2025 znotfireman
-//
-// This program is free software: you can redistribute it and/or modify it unde
-// the terms of the GNU General Public License as published by the Free Software
-// Foundation, either version 3 of the License, or (at your option) any later
-// version.
-//
-// This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public License along with
-// this program. If not, see <https://www.gnu.org/licenses/>.
+// This Source Code Form is subject to the terms of the Mozilla Public License,
+// v. 2.0. If a copy of the MPL was not distributed with this file, You can
+// obtain one at http://mozilla.org/MPL/2.0/.
 // Based on https://github.com/roblaudio/ocmusic-browser/blob/main/src/client/ui/routes/index.ts
 
 import { Child, Contextual, Value } from "@rbxts/fusion";
 import { scope, Scoped } from "scoped";
 import { fontAwesome, Icon } from "ui/components/icons";
+import { Kits } from "./kits";
 import { Placeholder } from "./placeholder";
-import { Testing } from "./testing";
 import { Tools } from "./tools";
 
 export interface Route {
@@ -55,7 +43,7 @@ export const ROUTES = {
 	},
 	kits: {
 		label: "Kits",
-		render: Placeholder,
+		render: Kits,
 		icon: fontAwesome.toolbox,
 	},
 	settings: {
@@ -63,16 +51,11 @@ export const ROUTES = {
 		render: Placeholder,
 		icon: fontAwesome.gear,
 	},
-	testing: {
-		label: "Testing",
-		render: Testing,
-		icon: fontAwesome.rocket,
-	},
 } satisfies Record<string, Route>;
 
 export type RouteKey = keyof typeof ROUTES;
 
-export const NAV_ROUTES: RouteKey[] = ["tools", "images", "sounds", "clientObjects", "kits", "settings", "testing"];
+export const NAV_ROUTES: RouteKey[] = ["tools", "images", "sounds", "clientObjects", "kits", "settings"];
 
 export const currentRouteContext = Contextual(scope.Value<Route>(ROUTES.tools));
 export function unwrapRouteContext(): Value<Route> {

@@ -25,11 +25,15 @@ theme:
               icon: fontawesome/solid/moon
               title: Switch to dark theme
     icon:
+        close: fontawesome/solid/xmark
+        copy: fontawesome/solid/copy
         previous: fontawesome/solid/angle-left
         next: fontawesome/solid/angle-right
         top: fontawesome/solid/angle-up
         repo: fontawesome/brands/github
         search: fontawesome/solid/magnifying-glass
+        share: fontawesome/solid/share
+        bars: fontawesome/solid/bars
         admonition:
             note: fontawesome/solid/note-sticky
             abstract: fontawesome/solid/book
@@ -51,26 +55,37 @@ theme:
         - navigation.top
         - navigation.tabs
         - navigation.tabs.sticky
+        - announce.dismiss
+        - navigation.footer
+        - search.suggest
+        - search.highlight
+        - search.share
+        - content.tooltips
+        - content.code.copy
+        - content.code.annotate
+        - content.code.select
+        - content.footnote.tooltips
 
 extra_css:
     - theme/admonitions.css
-    - theme/article.css
     - theme/banner.css
     - theme/consent.css
+    - theme/content.css
     - theme/ethereal.css
+    - theme/footer.css
     - theme/header.css
     - theme/nav.css
+    - theme/page.css
     - theme/search.css
 
 nav:
     - Home: index.md
-    - Install: install.md
+    - Installation: installation.md
     - Docs:
-          - docs/index.md
           - Tour of Ethereal: docs/tour-of-ethereal.md
-          - Project Setup: docs/project-setup.md
           - Packages: docs/packages.md
           - Contributing to Ethereal: docs/contributing-to-ethereal.md
+          - "Why Ethereal?": docs/why-ethereal.md
           - Ethereal For Plugins:
                 - docs/ethereal-for-plugins/index.md
                 - Your First Tool: docs/ethereal-for-plugins/your-first-tool.md
@@ -82,6 +97,7 @@ nav:
                 - Ethereal for Games: docs/api-reference/ethereal-for-games.md
     - Blog:
           - blog/index.md
+    # - Made with ❤️ by znotfireman: https://github.com/znotfireman
 
 markdown_extensions:
     - admonition

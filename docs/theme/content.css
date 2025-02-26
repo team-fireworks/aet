@@ -1,0 +1,180 @@
+.md-typeset {
+
+    h1,
+    h2,
+    h3 {
+        color: var(--ethereal-fg-light);
+        font-weight: bold;
+        margin: 0
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        border-bottom: 0.1rem solid var(--ethereal-border);
+    }
+
+    a {
+
+        &:focus,
+        &:hover {
+            color: var(--ethereal-primary-lighter);
+
+            code {
+                background-color: var(--ethereal-primary);
+                color: var(--ethereal-primary-fg);
+            }
+        }
+    }
+
+    code {
+        padding: 0.1rem 0.2rem;
+        border: 0.1rem solid var(--md-typeset-table-color);
+        border-radius: 0.25rem;
+    }
+
+    img {
+        border-radius: 0.5rem;
+    }
+
+    hr {
+        border-bottom: 0.1rem solid var(--ethereal-border);
+    }
+
+    ol {
+        --bullet-size: 1.25rem;
+
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        counter-reset: ol-counter;
+        position: relative;
+
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+
+            height: calc(100% - var(--bullet-size) * 2);
+            left: 0;
+
+            margin: var(--bullet-size) 0;
+
+            transform: translateX(75%);
+
+            border-left: 0.1rem solid var(--ethereal-border);
+        }
+
+        li {
+            counter-increment: ol-counter;
+            position: relative;
+
+            &::before {
+                position: absolute;
+                content: counter(ol-counter);
+                width: var(--bullet-size);
+                height: var(--bullet-size);
+                left: -1.5rem;
+                text-align: center;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border: 0.1rem solid var(--ethereal-border);
+                background-color: var(--ethereal-bg-light);
+                border-radius: 100%;
+            }
+        }
+    }
+
+    .md-typeset__table {
+        table:not([class]) {
+            background-color: var(--ethereal-bg-light);
+            border: 0.1rem solid var(--md-typeset-table-color);
+            border-radius: 0.25rem;
+
+            thead {
+                background-color: var(--ethereal-bg-lighter);
+            }
+        }
+    }
+
+    .md-button {
+        border: 0.1rem solid var(--ethereal-border);
+        border-radius: 0.25rem;
+        background-color: var(--ethereal-bg-light);
+        color: var(--ethereal-fg);
+        padding: 0.3em 0.6em;
+        font-weight: 500;
+        font-size: 0.8rem;
+
+        &:hover {
+            background-color: var(--ethereal-bg-lighter);
+            border: 0.1rem solid var(--ethereal-border);
+            color: var(--ethereal-fg-lighter);
+        }
+
+        &.md-button--primary {
+            background-color: var(--ethereal-primary);
+            border: 0.1rem solid var(--ethereal-border);
+            color: var(--ethereal-primary-fg);
+
+            &:hover {
+                background-color: var(--ethereal-primary-light);
+                color: var(--ethereal-primary-fg-light);
+            }
+        }
+    }
+}
+
+.ethereal-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+
+    ul {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 0 !important;
+
+        li {
+            display: inline-flex;
+            flex-direction: column;
+            /* gap: 0.25rem; */
+
+            * {
+                margin: 0 !important;
+            }
+
+            list-style-type: none;
+            margin: 0 !important;
+
+            background-color: var(--ethereal-bg-light);
+            padding: 0.3rem 0.6rem;
+            border: 0.1rem solid var(--ethereal-border);
+            border-radius: 0.25rem;
+        }
+    }
+}
+
+.ethereal-card {
+    display: inline-flex;
+    flex-direction: column;
+    /* gap: 0.25rem; */
+
+    * {
+        margin: 0 !important;
+    }
+
+    list-style-type: none;
+    margin: 0 !important;
+
+    background-color: var(--ethereal-bg-light);
+    padding: 0.3rem 0.6rem;
+    border: 0.1rem solid var(--ethereal-border);
+    border-radius: 0.25rem;
+}

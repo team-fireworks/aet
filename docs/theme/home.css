@@ -18,17 +18,28 @@
     h1 {
         display: inline-flex;
         font-size: 3rem;
-        gap: 0.5rem;
         align-items: center;
         justify-content: center;
         text-wrap: nowrap;
+        flex-direction: column;
 
         >a {
             display: inline-block;
-            width: 8rem;
+            width: 12rem;
 
             >img {
                 width: 100%;
+            }
+        }
+
+        @media screen and (min-width: 76.2344em) {
+            & {
+                flex-direction: row;
+                gap: 0.5rem;
+
+                >a {
+                    width: 8rem;
+                }
             }
         }
     }
@@ -50,7 +61,7 @@
 
     .ethereal-home-thumbnail {
         width: 100vw;
-        max-width: calc(100vw - 12rem);
+        max-width: calc(100vw - 2rem);
         margin-top: 1rem;
         border-radius: 1rem;
     }

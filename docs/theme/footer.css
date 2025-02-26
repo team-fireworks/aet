@@ -1,0 +1,31 @@
+.md-footer {
+    padding: 0.8rem;
+
+    .md-footer-meta__inner {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--ethereal-fg);
+        font-size: 0.66rem;
+        padding: 0;
+
+        >* {
+            opacity: 66.666%;
+        }
+
+        a {
+            color: var(--ethereal-fg-lightest) !important;
+
+            &:hover {
+                color: var(--ethereal-primary-lightest) !important;
+            }
+        }
+    }
+
+    .md-copyright {
+        color: unset;
+        margin: unset;
+        font-size: unset;
+        padding: unset;
+    }
+}

@@ -1,22 +1,10 @@
-// Eternal is a full-featured companion plugin for Eternal Towers of Hell.
-// Copyright (C) 2025 znotfireman
-//
-// This program is free software: you can redistribute it and/or modify it unde
-// the terms of the GNU General Public License as published by the Free Software
-// Foundation, either version 3 of the License, or (at your option) any later
-// version.
-//
-// This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public License along with
-// this program. If not, see <https://www.gnu.org/licenses/>.
+// This Source Code Form is subject to the terms of the Mozilla Public License,
+// v. 2.0. If a copy of the MPL was not distributed with this file, You can
+// obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { UsedAs } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
-import { icons } from "assets";
+import assets, { icons } from "assets";
 import { Scoped } from "scoped";
 import { theme } from "ui/theme";
 import type { BaseProps, LayoutProps } from "ui/types";
@@ -24,11 +12,26 @@ import type { BaseProps, LayoutProps } from "ui/types";
 export interface Icon {
 	asset: string;
 	name: string;
+	aspectRatio: number;
 }
 
 export const fontAwesome = Object.fromEntries(
-	Object.entries(icons).map(([name, asset]) => [name, { asset, name }] satisfies [name: string, Icon]),
+	Object.entries(icons).map(
+		([name, asset]) => [name, { asset, name, aspectRatio: 1 }] satisfies [name: string, Icon],
+	),
 );
+
+export const etoh: Icon = {
+	asset: assets.images.etoh,
+	name: "Eternal Towers of Hell",
+	aspectRatio: 1726 / 835,
+};
+
+export const ethereal: Icon = {
+	asset: assets.images.ethereal,
+	name: "Ethereal",
+	aspectRatio: 1,
+};
 
 export interface IconProps extends Scoped, BaseProps, LayoutProps {
 	icon: UsedAs<Icon>;
@@ -68,7 +71,11 @@ export function Icon({
 			Name={name ?? scope.Computed((use) => `Icon(${use(icon).name})`)}
 			Rotation={iconRotation}
 		>
-			<uiaspectratioconstraint scope={scope} AspectRatio={1} />
+			<uiaspectratioconstraint
+				scope={scope}
+				AspectRatio={scope.Computed((use) => use(icon).aspectRatio)}
+				AspectType={Enum.AspectType.ScaleWithParentSize}
+			/>
 		</imagelabel>
 	);
 }

@@ -1,23 +1,21 @@
-// Eternal is a full-featured companion plugin for Eternal Towers of Hell.
-// Copyright (C) 2025 znotfireman
-//
-// This program is free software: you can redistribute it and/or modify it unde
-// the terms of the GNU General Public License as published by the Free Software
-// Foundation, either version 3 of the License, or (at your option) any later
-// version.
-//
-// This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public License along with
-// this program. If not, see <https://www.gnu.org/licenses/>.
+// This Source Code Form is subject to the terms of the Mozilla Public License,
+// v. 2.0. If a copy of the MPL was not distributed with this file, You can
+// obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion from "@rbxts/fusion";
+import { Selection, Workspace } from "@rbxts/services";
+import { Kit, KITS } from "kits";
 import { Scoped } from "scoped";
-import { Heading } from "ui/components/heading";
+import { Button, ButtonStyle } from "ui/components/button";
+import { List } from "ui/components/constraints";
+import { ForValues, Show } from "ui/components/fusion";
+import { etoh, Icon } from "ui/components/icons";
+import { Muted } from "ui/components/muted";
 import { Padding } from "ui/components/padding";
+import { Pane, TransparentPane } from "ui/components/panes";
+import { Paragraph } from "ui/components/paragraph";
+import { Scroller } from "ui/components/scroller";
+import { FULL_UDIM_2, udim2Scale, udimPx, udimSqPx, ZERO_UDIM } from "ui/udims";
 
 // interface KitGrouped {
 // 	kind: "group";
@@ -48,16 +46,71 @@ import { Padding } from "ui/components/padding";
 // ];
 
 export function Kits({ scope }: Scoped) {
+	const display = scope.Value<Kit | undefined>(undefined);
+
 	return (
-		<scrollingframe
-			scope={scope}
-			AutomaticSize={Enum.AutomaticSize.Y}
-			BackgroundTransparency={1}
-			Size={UDim2.fromScale(1, 0)}
-		>
-			<uilistlayout scope={scope} FillDirection={Enum.FillDirection.Vertical} Padding={new UDim(0, 4)} />
-			<Padding scope={scope} padding={new UDim(0, 6)} paddingRight={new UDim(0, 24)} />
-			<Heading scope={scope} text="Tower Kits" />
-		</scrollingframe>
+		<Scroller scope={scope} size={FULL_UDIM_2}>
+			<List scope={scope} direction={Enum.FillDirection.Vertical} padding={udimPx(4)} />
+			<Padding scope={scope} padding={udimPx(6)} paddingRight={udimPx(24)} />
+			{/* <Heading scope={scope} text="Tower Kits" layoutOrder={1} /> */}
+			<Show
+				scope={scope}
+				when={scope.Computed((use) => use(display) !== undefined)}
+				children={(scope) => (
+					// TODO: swap this out for a fragment
+					<TransparentPane scope={scope} automaticSize={Enum.AutomaticSize.XY} layoutOrder={2}>
+						<List scope={scope} direction={Enum.FillDirection.Vertical} />
+						<ForValues
+							scope={scope}
+							each={scope.Computed((use) => use(display)!.kits)}
+							children={(use, scope, k) => (
+								<Pane scope={scope}>
+									<Paragraph scope={scope} text={k.name} rich padding={ZERO_UDIM} />
+									<List scope={scope} direction={Enum.FillDirection.Vertical} />
+									<Button
+										scope={scope}
+										style={ButtonStyle.Primary}
+										label="Insert"
+										onClick={() => {
+											const insertedKit = k.insert();
+											insertedKit.Parent = Workspace;
+											Selection.Set([insertedKit]);
+										}}
+									/>
+								</Pane>
+							)}
+						/>
+					</TransparentPane>
+				)}
+				fallback={(scope) => (
+					<ForValues
+						scope={scope}
+						each={KITS}
+						children={(_, scope, kits) => (
+							<Pane
+								scope={scope}
+								automaticSize={Enum.AutomaticSize.Y}
+								size={udim2Scale(1, 0)}
+								layoutOrder={2}
+								onClick={() => display.set(kits)}
+							>
+								<List
+									scope={scope}
+									direction={Enum.FillDirection.Horizontal}
+									alignY={Enum.VerticalAlignment.Center}
+									padding={udimPx(4)}
+								/>
+								<Icon scope={scope} icon={etoh} size={udimSqPx(36)} />
+								<TransparentPane scope={scope} automaticSize={Enum.AutomaticSize.XY}>
+									<List scope={scope} direction={Enum.FillDirection.Vertical} />
+									<Paragraph scope={scope} text={kits.name} rich padding={ZERO_UDIM} />
+									<Muted scope={scope} text={`${kits.kits.size()} kits`} padding={ZERO_UDIM} />
+								</TransparentPane>
+							</Pane>
+						)}
+					/>
+				)}
+			/>
+		</Scroller>
 	);
 }

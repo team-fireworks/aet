@@ -1,13 +1,16 @@
 # Packages
 
-Every Ethereal version bundles zero-dependency APIs for plugins and live games.
-These are packaged as `.rbxm` models in GitHub releases and published on
-common package manager.
+Every version of Ethereal includes zero-dependency packages for plugins and
+games.
+
+These are packaged as `.rbxm` models on GitHub  Releases and published for
+common Roblox package managers.
 
 ## Using Package Managers
 
-For advanced users, Ethereal is published on common Roblox package managers.
-This is especially useful if you sync code using a tool like Rojo.
+Ethereal is published on common Roblox package managers. This is especially
+useful if you sync code using a tool like Rojo or you want to consume other
+packages.
 
 The following packages are available:
 
