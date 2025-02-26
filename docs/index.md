@@ -19,16 +19,15 @@ hide:
 </p>
 
 <nav style="display: flex; gap: 0.25rem;">
-<a class="md-button md-button--primary">
-    Install for Roblox
+<a class="md-button md-button--primary" href="./installation">
+    Installation
 </a>
-<a class="md-button" href="./docs">
+<a class="md-button" href="./docs/tour-of-ethereal">
     Documentation
 </a>
 </nav>
 <small>free, open source</small>
 
-<img src="./images/widget.png" class="ethereal-home-thumbnail" />
-<small>Featured tower: Tower of Complexity and Volatility by Miantoz1980, ImNotFireMan123 and ConfirmedIlluminatix</small>
+<img src="./images/tools.png" class="ethereal-home-thumbnail" />
 
 </main>

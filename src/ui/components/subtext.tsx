@@ -1,18 +1,6 @@
-// Eternal is a full-featured companion plugin for Eternal Towers of Hell.
-// Copyright (C) 2025 znotfireman
-//
-// This program is free software: you can redistribute it and/or modify it unde
-// the terms of the GNU General Public License as published by the Free Software
-// Foundation, either version 3 of the License, or (at your option) any later
-// version.
-//
-// This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
-//
-// You should have received a copy of the GNU General Public License along with
-// this program. If not, see <https://www.gnu.org/licenses/>.
+// This Source Code Form is subject to the terms of the Mozilla Public License,
+// v. 2.0. If a copy of the MPL was not distributed with this file, You can
+// obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
 import type { Scoped } from "scoped";
@@ -33,7 +21,7 @@ export enum TextAlignY {
 	Bottom,
 }
 
-export interface ParagraphProps extends BaseProps, LayoutProps, Scoped, PaddingProps {
+export interface SubtextProps extends BaseProps, LayoutProps, Scoped, PaddingProps {
 	text?: UsedAs<string>;
 	textColor?: UsedAs<Color3>;
 	textTransparency?: UsedAs<number>;
@@ -47,7 +35,7 @@ export interface ParagraphProps extends BaseProps, LayoutProps, Scoped, PaddingP
 	alignY?: UsedAs<TextAlignY>;
 }
 
-export function Paragraph({
+export function Subtext({
 	scope,
 	position,
 	anchorPoint,
@@ -73,7 +61,7 @@ export function Paragraph({
 	paddingRight,
 	paddingTop,
 	paddingBottom,
-}: ParagraphProps) {
+}: SubtextProps) {
 	return (
 		<textlabel
 			BackgroundTransparency={1}
@@ -82,13 +70,13 @@ export function Paragraph({
 			AnchorPoint={anchorPoint}
 			Size={size}
 			AutomaticSize={automaticSize}
-			Name={name ?? text ?? "Paragraph"}
+			Name={name ?? text ?? "Subtext"}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
-			FontFace={sans()}
+			FontFace={sans(Enum.FontWeight.Bold)}
 			Text={text}
-			TextColor3={textColor ?? theme(scope, "fg")}
-			TextSize={16}
+			TextColor3={textColor ?? theme(scope, "fgDark")}
+			TextSize={12}
 			TextTransparency={textTransparency}
 			TextWrapped={textWrapped}
 			TextXAlignment={scope.Computed((use) => {
@@ -100,7 +88,7 @@ export function Paragraph({
 					case TextAlignX.Right:
 						return Enum.TextXAlignment.Right;
 					default:
-						throw `unknown Paragraph.alignX: ${use(alignX)}`;
+						throw `unknown Subtext.alignX: ${use(alignX)}`;
 				}
 			})}
 			TextYAlignment={scope.Computed((use) => {
@@ -112,7 +100,7 @@ export function Paragraph({
 					case TextAlignY.Bottom:
 						return Enum.TextYAlignment.Bottom;
 					default:
-						throw `unknown Paragraph.alignY: ${use(alignX)}`;
+						throw `unknown Subtext.alignY: ${use(alignX)}`;
 				}
 			})}
 			Out:TextBounds={outTextBounds}

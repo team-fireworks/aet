@@ -26,6 +26,11 @@ export const ROUTES = {
 		render: Tools,
 		icon: fontAwesome.wrench,
 	},
+	meshes: {
+		label: "Meshes",
+		render: Placeholder,
+		icon: fontAwesome.soundFull,
+	},
 	images: {
 		label: "Images",
 		render: Placeholder,
@@ -33,6 +38,11 @@ export const ROUTES = {
 	},
 	sounds: {
 		label: "Sounds",
+		render: Placeholder,
+		icon: fontAwesome.soundFull,
+	},
+	effects: {
+		label: "Effects",
 		render: Placeholder,
 		icon: fontAwesome.soundFull,
 	},

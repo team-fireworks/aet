@@ -30,11 +30,13 @@ right away.
 Ethereal comes with tower kits. For now, let's use the standard Eternal Towers
 of Hell version 5.5 kit.
 
-1.  Click on the "Kits" menu.
+1.  Click on the "Kits" menu:
 
-2.  Click on the Eternal Towers of Hell category and scroll down for version 5.5.
+    ![Kits](../images/kits.png)
 
-3.  Click on it to insert the kit.
+2.  Find the Eternal Towers of Hell section, and find "Eternal Towers of Hell v5.5"
+
+3.  Click Insert to insert the kit.
 
 The Eternal Towers of Hell kit should be inserted and ready to be used!
 

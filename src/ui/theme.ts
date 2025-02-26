@@ -29,6 +29,8 @@ export interface Theme {
 
 	primary: Color3;
 	primaryLight: Color3;
+	primaryLighter: Color3;
+	primaryLightest: Color3;
 
 	buttonPrimaryBg: Color3;
 	buttonPrimaryHover: Color3;
@@ -70,6 +72,8 @@ export const THEMES = {
 
 		primary: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.8),
 		primaryLight: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.85),
+		primaryLighter: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.9),
+		primaryLightest: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.95),
 
 		// TODO: replace this in btn component with more accent themes
 		buttonPrimaryBg: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.9),

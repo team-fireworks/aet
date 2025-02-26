@@ -3,16 +3,20 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { Children } from "@rbxts/fusion";
+import { UsedAs } from "@rbxts/fusion/out/Types";
 import { Scoped } from "scoped";
 import { theme } from "ui/theme";
 import { BaseProps, ChildrenProps, FlexProps, LayoutProps } from "ui/types";
 import { Padding, PaddingProps } from "./padding";
 import { Round } from "./round";
 
-export interface TransparentPaneProps extends Scoped, ChildrenProps, LayoutProps, BaseProps, FlexProps, PaddingProps {}
+export interface TransparentPaneProps extends Scoped, ChildrenProps, LayoutProps, BaseProps, FlexProps, PaddingProps {
+	clipDescendants?: UsedAs<boolean>;
+}
 
 export function TransparentPane({
 	scope,
+	clipDescendants = true,
 
 	anchorPoint,
 	automaticSize,
@@ -37,6 +41,7 @@ export function TransparentPane({
 		<frame
 			scope={scope}
 			BackgroundTransparency={1}
+			ClipsDescendants={clipDescendants}
 			AnchorPoint={anchorPoint}
 			AutomaticSize={automaticSize}
 			Position={position}
@@ -62,12 +67,14 @@ export function TransparentPane({
 }
 
 export interface PaneProps extends Scoped, ChildrenProps, LayoutProps, BaseProps, FlexProps, PaddingProps {
-	onClick?: () => void;
+	clipDescendants?: UsedAs<boolean>;
+	bg?: UsedAs<Color3>;
 }
 
 export function Pane({
 	scope,
-	onClick,
+	clipDescendants = true,
+	bg,
 
 	anchorPoint,
 	automaticSize = Enum.AutomaticSize.XY,
@@ -90,12 +97,10 @@ export function Pane({
 }: PaneProps) {
 	const hover = scope.Value(false);
 	return (
-		<imagebutton
+		<frame
 			scope={scope}
-			AutoButtonColor={false}
-			BackgroundColor3={scope.computedSpring((use, scope) =>
-				use(use(hover) ? theme(scope, "bgLighter") : theme(scope, "bgLight")),
-			)}
+			BackgroundColor3={bg ?? theme(scope, "bgLight")}
+			ClipsDescendants={clipDescendants}
 			AnchorPoint={anchorPoint}
 			AutomaticSize={automaticSize}
 			Position={position}
@@ -103,7 +108,6 @@ export function Pane({
 			Name={name}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
-			OnEvent:Activated={onClick}
 			OnEvent:MouseEnter={() => hover.set(true)}
 			OnEvent:MouseLeave={() => hover.set(false)}
 		>
@@ -121,6 +125,6 @@ export function Pane({
 			<uistroke scope={scope} Color={theme(scope, "border")} />
 			<uiflexitem scope={scope} FlexMode={flexMode} />
 			{children}
-		</imagebutton>
+		</frame>
 	);
 }
