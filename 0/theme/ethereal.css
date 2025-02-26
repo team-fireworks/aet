@@ -55,7 +55,36 @@
     --md-footer-bg-color--dark: var(--ethereal-bg);
 }
 
-[data-md-color-scheme="ethereal-light"] {}
+[data-md-color-scheme="ethereal-light"] {
+    --ethereal-border: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) calc(80% - 2.5%));
+
+    --ethereal-bg: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 95%);
+    --ethereal-bg-light: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 90%);
+    --ethereal-bg-lighter: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 85%);
+    --ethereal-bg-lightest: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 80%);
+
+    --ethereal-fg: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 30%);
+    --ethereal-fg-light: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 20%);
+    --ethereal-fg-lighter: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 15%);
+    --ethereal-fg-lightest: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 10%);
+    --ethereal-fg-dark: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 35%);
+    --ethereal-fg-darker: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 40%);
+    --ethereal-fg-darkest: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) 45%);
+
+    --ethereal-primary: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 45%);
+    --ethereal-primary-light: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 40%);
+    --ethereal-primary-lighter: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 35%);
+    --ethereal-primary-lightest: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 30%);
+    --ethereal-primary-dark: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 50%);
+    --ethereal-primary-darker: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 55%);
+    --ethereal-primary-darkest: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 60%);
+
+    --ethereal-primary-fg: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 15%);
+    --ethereal-primary-fg-light: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 20%);
+    --ethereal-primary-fg-lighter: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 25%);
+    --ethereal-primary-fg-lightest: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 30%);
+    --ethereal-primary-fg-dark: hsl(var(--ethereal-primary-hue) var(--ethereal-primary-saturation) 10%);
+}
 
 [data-md-color-scheme="ethereal-dark"] {
     --ethereal-border: hsl(var(--ethereal-base-hue) var(--ethereal-base-saturation) calc(15% - 2.5%));

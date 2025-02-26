@@ -108,7 +108,7 @@
     position: fixed;
     transform: translate(-50%);
     transition: color 125ms, background-color 125ms, transform 125ms cubic-bezier(.4, 0, .2, 1), opacity 125ms;
-    z-index: 2;
+    z-index: 3;
 
     &:hover {
         background-color: var(--ethereal-primary);

@@ -2,6 +2,7 @@
     background-color: var(--ethereal-header-bg);
     color: var(--ethereal-header-fg);
     display: flex;
+    align-items: center;
     justify-content: center;
 
     font-weight: bold;
@@ -10,5 +11,20 @@
         font-size: 0.75rem;
         margin: 0.25rem auto;
         padding: 0 0.5rem;
+        text-align: center;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+    }
+
+    .md-banner__button {
+        height: 1rem;
+
+        svg {
+            height: 100%;
+            height: 100%;
+        }
     }
 }
