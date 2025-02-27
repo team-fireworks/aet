@@ -139,7 +139,11 @@ export function fusionStory<C extends Controls>({
 			const storyControls: Record<string, Value<unknown>> = {};
 			if (controls) {
 				for (const [k, v] of pairs(controls as Controls)) {
-					storyControls[k] = scope.Value(v);
+					if (typeIs(v, "table") && "EntryType" in v && v.EntryType === "Control") {
+						storyControls[k] = scope.Value(v.ControlValue);
+					} else {
+						storyControls[k] = scope.Value(v);
+					}
 				}
 
 				subscribe(((values: Record<string, unknown>) => {
