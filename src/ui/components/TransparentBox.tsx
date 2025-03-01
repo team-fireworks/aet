@@ -1,14 +1,9 @@
-import Fusion, { Children, Value } from "@rbxts/fusion";
-import { UsedAs } from "@rbxts/fusion/out/Types";
+import Fusion, { Children, UsedAs, Value } from "@rbxts/fusion";
 import { ScopeProps } from "scope";
-import { pallete } from "ui/pallete";
 import { BaseProps, ChildrenProps, LayoutProps } from "ui/types";
 
-export interface BoxProps extends ScopeProps, BaseProps, LayoutProps, ChildrenProps {
-	clipsDescendants?: UsedAs<boolean>;
-
-	bg?: UsedAs<Color3>;
-
+export interface TransparentBoxProps extends ScopeProps, BaseProps, LayoutProps, ChildrenProps {
+	visible?: UsedAs<boolean>;
 	outSize?: Value<Vector2>;
 	onActivated?: () => void;
 	onHoverStart?: () => void;
@@ -17,7 +12,7 @@ export interface BoxProps extends ScopeProps, BaseProps, LayoutProps, ChildrenPr
 	onPressEnd?: () => void;
 }
 
-export function Box({
+export function TransparentBox({
 	scope,
 
 	name,
@@ -31,30 +26,27 @@ export function Box({
 
 	[Children]: children,
 
-	clipsDescendants = true,
-
-	bg,
-
+	visible,
 	outSize,
 	onActivated,
 	onHoverStart,
 	onHoverEnd,
 	onPressStart,
 	onPressEnd,
-}: BoxProps) {
+}: TransparentBoxProps) {
 	const hasInputs = (onActivated ?? onPressStart ?? onPressEnd) !== undefined;
 	return hasInputs ? (
 		<imagebutton
 			scope={scope}
-			Name={name ?? "Box (has inputs)"}
+			BackgroundTransparency={1}
+			Name={name ?? "TransparentBox (has inputs)"}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
 			Position={position}
 			AnchorPoint={anchorPoint}
 			Size={size}
 			AutomaticSize={automaticSize}
-			ClipsDescendants={clipsDescendants}
-			BackgroundColor3={bg ?? pallete(scope, "bg")}
+			Visible={visible}
 			Out:AbsoluteSize={outSize}
 			OnEvent:Activated={onActivated}
 			OnEvent:MouseEnter={onHoverStart}
@@ -62,26 +54,24 @@ export function Box({
 			OnEvent:MouseButton1Down={onPressStart}
 			OnEvent:MouseButton1Up={onPressEnd}
 		>
-			{/* <uistroke scope={scope} Color={pallete(scope, "border")} /> */}
 			{children}
 		</imagebutton>
 	) : (
 		<frame
 			scope={scope}
-			Name={name ?? "Box"}
+			BackgroundTransparency={1}
+			Name={name ?? "TransparentBox"}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
 			Position={position}
 			AnchorPoint={anchorPoint}
 			Size={size}
 			AutomaticSize={automaticSize}
-			ClipsDescendants={clipsDescendants}
-			BackgroundColor3={bg ?? pallete(scope, "bg")}
+			Visible={visible}
 			Out:AbsoluteSize={outSize}
 			OnEvent:MouseEnter={onHoverStart}
 			OnEvent:MouseLeave={onHoverEnd}
 		>
-			{/* <uistroke scope={scope} Color={pallete(scope, "border")} /> */}
 			{children}
 		</frame>
 	);

@@ -16,7 +16,7 @@ export const udimPx = memoize((px?: number) => new UDim(0, px));
 export const udimScale = memoize((scale?: number) => new UDim(0, scale));
 
 export const udimSqPx = memoize((px?: number) => UDim2.fromOffset(px, px));
-export const udimSqScale = memoize((scale?: number) => UDim2.fromOffset(scale, scale));
+export const udimSqScale = memoize((scale?: number) => UDim2.fromScale(scale, scale));
 
 export const udim2Px = memoize((xPx?: number, yPx?: number) => UDim2.fromOffset(xPx, yPx));
 export const udim2Scale = memoize((xScale?: number, yScale?: number) => UDim2.fromScale(xScale, yScale));

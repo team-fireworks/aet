@@ -8,14 +8,18 @@ type Cleanup = () => void;
 export = Ethereal;
 export as namespace Ethereal;
 declare namespace Ethereal {
+	/// Permissions a plugin might request.
 	export enum Permission {
-		CreateTools,
+		/// Allows the plugin to register and execute custom commands.
+		NewCommand,
 	}
 
+	/// The Obby folder inside EToH towers.
 	export interface TowerObbyInstance extends Instance {
 		WinPad: BasePart;
 	}
 
+	/// An EToH tower instance.
 	export interface TowerInstance extends Instance {
 		ClientSidedObjects: Instance;
 		Obby: TowerObbyInstance;
@@ -23,213 +27,101 @@ declare namespace Ethereal {
 		SpawnLocation: BasePart;
 	}
 
-	export enum TowerKind {
-		/// A standalone tower with a standard EToH kit
-		EternalTowersOfHell = "etoh",
-		/// An EToH tower inside a MTK v4 game
-		MultiTowerKitV4 = "mtkv4",
-		/// An EToH tower inside a MTK v3 game
-		MultiTowerKitV3 = "mtkv3",
-		/// A Total Fire Towers tower that uses the Mechanics API
-		/// @deprecated unsupported for now
-		TotalFireTowers = "tft",
-	}
+	// export enum TowerKind {
+	// 	/// A standalone tower with a standard EToH kit
+	// 	EternalTowersOfHell = "etoh",
+	// 	/// An EToH tower inside a MTK v4 game
+	// 	MultiTowerKitV4 = "mtkv4",
+	// 	/// An EToH tower inside a MTK v3 game
+	// 	MultiTowerKitV3 = "mtkv3",
+	// 	/// A Total Fire Towers tower that uses the Mechanics API
+	// 	/// @deprecated unsupported for now
+	// 	TotalFireTowers = "tft",
+	// }
 
-	// TODO: type the instance
-	export interface TowerMusicZone extends Instance {
-		Music: Sound[];
-		Part: BasePart;
-		Priority: NumberValue;
-	}
+	// export interface TowerMusicZone extends Instance {
+	// 	Music: Sound[];
+	// 	Part: BasePart;
+	// 	Priority: NumberValue;
+	// }
 
-	export interface Tower {
-		// kind: TowerKind;
-
-		instance: TowerInstance;
-		coFolder: Instance;
-		obby: Instance;
-		frame: Instance;
-		spawn: BasePart;
-		winpad: BasePart;
-
-		// musicZones: TowerMusicZone[];
-	}
-
-	export interface Argument<T> {
-		now(): T;
-		onChange(callback: (arg: T) => void): Cleanup;
-		onBind(callback: (arg: T) => void): Cleanup;
-	}
-
-	export interface ToolWidget {}
-
-	export interface ToolAction {
-		onClick(callback: () => void): Cleanup;
-	}
-
-	/// Ethereal tool APIs
-	export interface Lib {
-		tower(): Maybe<Tower>;
-
-		/// Arguments
-		args: {
-			/// Creates a new boolean argument
-			boolean(arg: { label: string; default: boolean }): Argument<boolean>;
-
-			/// Creates a new string argument
-			string(arg: {
-				label: string;
-				default: string;
-				pattern?: string;
-				placeholder?: string;
-				maxLength?: number;
-				minLength?: number;
-				maxGraphemes?: number;
-				minGraphemes?: number;
-			}): Argument<string>;
-
-			/// Creates a new number argument
-			number(arg: {
-				label: string;
-				default: number;
-				min?: number;
-				max?: number;
-				step?: number;
-				slider?: {
-					min?: number;
-					max?: number;
-					step?: number;
-				};
-			}): Argument<number>;
-
-			/// Creates a new select argument
-			select<T extends Array<{ kind: string; value: string }>>(arg: {
-				label: string;
-				default: keyof T;
-				values: T;
-			}): Argument<T[number]["value"]>;
-
-			/// Creates a new Vector2 argument
-			vector2(arg: { label: string; default: Vector2 }): Argument<Vector2>;
-
-			/// Creates a new Vector3 argument
-			vector3(arg: { label: string; default: Vector3 }): Argument<Vector3>;
-
-			/// Creates a new CFrame argument
-			cframe(arg: { label: string; default: CFrame }): Argument<CFrame>;
-
-			/// Creates a new Color3 argument
-			color(arg: { label: string; default: Color3 }): Argument<Color3>;
-
-			/// Creates a new ColorSequence argument
-			colorSequence(arg: { label: string; default: ColorSequence }): Argument<ColorSequence>;
-
-			/// Creates a new NumberSequence argument
-			numberSeqeunce(arg: { label: string; default: NumberSequence }): Argument<NumberSequence>;
-		};
-
-		/// Tool information
-		self: {
-			id: string;
-			name: string;
-			overview: string;
-			description: string;
-
-			/// Full name of the tool in `@source/tool` form.
-			fullname: string;
-
-			/// Source plugin information
-			source: {
-				id: string;
-				name: string;
-				icon: string;
-
-				plugin: Plugin;
-			};
-		};
-
-		/// Creates a new plugin widget.
-		widget(): ToolWidget;
-
-		/// Creates a new action.
-		action(props: { label: string; needsTower?: boolean }): ToolAction;
-
-		/// Pushes a notification to the viewport.
-		notify(): Cleanup;
-
-		/// Creates a new popup.
-		popup(): ToolWidget;
-
-		/// Prompts the user for confirmation.
-		confirm(): boolean;
-
-		/// The cleanup scope that this tool uses. Values `.push`ed will be
-		/// cleaned up based on the following:
+	/// Contextual library available to `run` callbacks in commands.
+	export interface CommandRun {
+		/// The currently selected tower, if any.
 		///
-		/// - if `function`, it is called
-		/// - ...else if `Instance`, `.Destroy()` is called
-		/// - ...else if `RBXScriptConnection`, `.Disconnect()` is called
-		/// - ...else if `thread`, `task.cancel` is called
-		/// - ...else if `{ destroy(): void }`, `.destroy()` is called
-		/// - ...else if `{ Destroy(): void }`, `.Destroy()` is called
-		/// - ...else if `unknown[]`, it's values are cleaned up.
-		///
-		/// If none of these conditions match, the value is ignored.
-		///
-		/// This is a no-constructor [Fusion 0.3 scope](https://elttob.uk/Fusion/0.3/api-reference/memory/types/scope/).
-		/// This scope is cleaned up once the Ethereal plugin is unloaded.
-		scope: unknown[];
+		/// This is safe to assert if `towerSelected` is specified as a command
+		/// predicate.
+		selectedTower: Maybe<TowerInstance>;
+
+		/// Prompts the user for a string value.
+		promptString(placeholderLabel: string, initial?: string): string;
+		/// Prompts the user for a Color3 value.
+		promptColor3(placeholderLabel: string, initial?: Color3): Color3;
+		/// Prompts the user for a ColorSequence value.
+		promptColorSequence(placeholderLabel: string, initial?: ColorSequence): ColorSequence;
+
+		/// Hides the main plugin view.
+		hideMainView(): void;
 	}
 
-	export interface NewToolProps {
-		/// camelCase identifier of this tool. Used internally for saving
-		/// default arguments.
-		id: string;
+	/// The Ethereal plugin state passed to command predicates.
+	export interface CommandPredicateState {
+		/// The currently selected tower, if any.
+		tower: Maybe<TowerInstance>;
+		/// The array of currently selected instances in the game.
+		selection: Instance[];
+	}
+
+	/// Result of a successful command predicate check.
+	export interface CommandPredicateOk {
+		ok: true;
+	}
+
+	/// Result of a failed command predicate check.
+	export interface CommandPredicateError {
+		ok: false;
+		brief: string;
+		tip: string;
+	}
+
+	/// Result of a command predicate evaluation.
+	export type CommandPredicateResult = CommandPredicateOk | CommandPredicateError;
+
+	/// Function that checks if a command can be executed based on the current
+	/// Ethereal plugin state.
+	export type CommandPredicate = (state: CommandPredicateState) => CommandPredicateResult;
+
+	/// Represents a plugin command.
+	export interface Command {
+		/// Name of the command
 		name: string;
-		/// Brief overview of this tool. Shown in the Tool tab.
-		overview: string;
-		/// Describes the tool. Shown when the tool is expanded in the tool tab.
+		/// Brief description of the command.
 		description: string;
 
-		needsEdit?: boolean;
-		needsRunning?: boolean;
-		needsTower?: boolean;
-
-		init: (lib: Lib) => Maybe<Cleanup> | void;
+		/// Optional predicates that must pass for the command to run.
+		predicates?: CommandPredicate[];
+		/// Function to execute when the command is invoked. Can optionally
+		/// return a cleanup function.
+		run: (run: CommandRun) => void | undefined | Cleanup;
 	}
 
-	export interface Permissioned {
-		newTool(props: NewToolProps): void;
+	/// Common command predicates.
+	export namespace predicates {
+		/// Requires an EToH tower that has client objects to be selected.
+		export const towerSelected: CommandPredicate;
+
+		/// Requires at least `min` instances to be selected.
+		export function minInstancesSelected(min: number): CommandPredicate;
+		/// Requires at most `max` instances to be selected.
+		export function maxInstancesSelected(max: number): CommandPredicate;
+
+		/// Requires a tower kit version greater than or equal to `version`.
+		export function kitVersion(version: number): CommandPredicate;
+		/// Requires an exact tower kit version.
+		export function exactKitVersion(version: number): CommandPredicate;
+		/// Requires kit version 6. Shorthand to `kitVersion(6)`.
+		export const kitVersion6: CommandPredicate;
+		/// Requires kit version 5.5. Shorthand to `kitVersion(5.5)`
+		export const kitVersion5_5: CommandPredicate;
 	}
-
-	export interface PermissionProps {
-		id: string;
-		name: string;
-		icon: string;
-
-		// Required so plugin developers put in some effort about what
-		// permissions to request. You don't want an EToH plugin to become an
-		// attack vector right?
-		permissions: Array<{
-			permission: Permission;
-			usedTo: string[];
-			notUsedTo: string[];
-		}>;
-	}
-
-	export interface TryPermissionResultOk {
-		ok: true;
-		api: Permissioned;
-	}
-
-	export interface TryPermissionResultErr {
-		ok: false;
-		id: "alreadyPermissioned" | "isPermissioning" | "notInstalled" | "deniedPermission" | "invalidType";
-		reason: string;
-	}
-
-	export type TryPermissionResult = TryPermissionResultOk | TryPermissionResultErr;
-
-	export function permission(plugin: Plugin, props: PermissionProps): Permissioned;
-	export function tryPermission(plugin: Plugin, props: PermissionProps): TryPermissionResult;
 }

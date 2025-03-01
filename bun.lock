@@ -11,9 +11,8 @@
         "@rbxts/rust-classes": "^0.13.0",
         "@rbxts/semver": "^1.0.0",
         "@rbxts/services": "^1.5.5",
-        "@rbxts/sift": "^0.0.9",
+        "@rbxts/sift": "^0.0.11",
         "@rbxts/t": "^3.1.1",
-        "@rbxts/types": "roblox-ts/types",
       },
       "devDependencies": {
         "@eslint/eslintrc": "^3.2.0",
@@ -88,7 +87,7 @@
 
     "@rbxts/services": ["@rbxts/services@1.5.5", "", {}, "sha512-Hu7QH2ecefS60zpakKG3T2vgABydoOJqpSG7nXr59wFAbPk/cA+OcsntYPHUWyHAat0VFGZ5jNZLTLdiqfssvg=="],
 
-    "@rbxts/sift": ["@rbxts/sift@0.0.9", "", {}, "sha512-5Ycw3mSuUYbPT36Zcs6DtsikdlRcBOo2eG7gvM+HW+2L+VD7bU6+txWELZif6nX6DjjXQtYk19do/frTilfbKw=="],
+    "@rbxts/sift": ["@rbxts/sift@0.0.11", "", {}, "sha512-JT1WTLWKkoBdDaokPz/hEjC64kessP/MPe0OW2rHGtkpQkgnnvOx4wQXzqQs1XMwciyKazjhJZjoV83X3dJplA=="],
 
     "@rbxts/t": ["@rbxts/t@3.2.1", "", {}, "sha512-/fnf2QSx+TI3HSJ6QW2ikvGQk0mlx/63UXo60pLAKGqbxXiAuTJh88bpKpHw6aCzfFLJAwrVIcgCUOokLMPcag=="],
 

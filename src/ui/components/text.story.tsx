@@ -1,6 +1,6 @@
 import Fusion, { peek } from "@rbxts/fusion";
 import { choose, fusionStory } from "ui/uilabs";
-import { Text, TextStyle } from "./text";
+import { Text, TextStyle } from "./Text";
 
 const STORY_TEXT_STYLES: Array<[label: string, value: TextStyle]> = [
 	["Title", TextStyle.Title],

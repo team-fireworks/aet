@@ -1,7 +1,9 @@
 import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
 import { ScopeProps } from "scope";
 import { sans } from "ui/fonts";
+import { pallete, Pallete } from "ui/pallete";
 import { BaseProps, LayoutProps } from "ui/types";
+import { Padding, PaddingProps } from "./Padding";
 
 export enum TextStyle {
 	Title,
@@ -13,7 +15,7 @@ export enum TextStyle {
 export type TextAlignX = "left" | "center" | "right";
 export type TextAlignY = "top" | "center" | "bottom";
 
-export interface TextProps extends ScopeProps, LayoutProps, BaseProps {
+export interface TextProps extends ScopeProps, LayoutProps, BaseProps, PaddingProps {
 	text: UsedAs<string>;
 	textStyle: UsedAs<TextStyle>;
 	textWrapped?: UsedAs<boolean>;
@@ -23,14 +25,21 @@ export interface TextProps extends ScopeProps, LayoutProps, BaseProps {
 	outTextBounds?: Value<Vector2>;
 }
 
-const TEXT_STYLE_SIZES = table.freeze({
+export const TEXT_STYLE_PALLETE = table.freeze({
+	[TextStyle.Title]: "fgLight",
+	[TextStyle.Subtitle]: "fgDark",
+	[TextStyle.Text]: "fg",
+	[TextStyle.Label]: "fgDarker",
+} satisfies Record<TextStyle, keyof Pallete>);
+
+export const TEXT_STYLE_SIZES = table.freeze({
 	[TextStyle.Title]: 24,
-	[TextStyle.Subtitle]: 16,
-	[TextStyle.Text]: 12,
-	[TextStyle.Label]: 10,
+	[TextStyle.Subtitle]: 18,
+	[TextStyle.Text]: 16,
+	[TextStyle.Label]: 12,
 } satisfies Record<TextStyle, number>);
 
-const TEXT_STYLE_FONTS = table.freeze({
+export const TEXT_STYLE_FONTS = table.freeze({
 	[TextStyle.Title]: sans(Enum.FontWeight.Bold),
 	[TextStyle.Subtitle]: sans(Enum.FontWeight.SemiBold),
 	[TextStyle.Text]: sans(),
@@ -49,6 +58,14 @@ export function Text({
 	zIndex,
 	layoutOrder,
 
+	padding,
+	paddingX,
+	paddingY,
+	paddingLeft,
+	paddingRight,
+	paddingTop,
+	paddingBottom,
+
 	text,
 	textStyle,
 	textWrapped = true,
@@ -57,6 +74,8 @@ export function Text({
 	rich = true,
 	outTextBounds,
 }: TextProps) {
+	const hasPadding =
+		(padding ?? paddingX ?? paddingY ?? paddingLeft ?? paddingRight ?? paddingTop ?? paddingBottom) !== undefined;
 	return (
 		<textlabel
 			scope={scope}
@@ -70,6 +89,7 @@ export function Text({
 			BackgroundTransparency={1}
 			FontFace={scope.Computed((use) => TEXT_STYLE_FONTS[use(textStyle)])}
 			Text={text}
+			TextColor3={scope.Computed((use, scope) => use(pallete(scope, TEXT_STYLE_PALLETE[use(textStyle)])))}
 			TextSize={scope.Computed((use) => TEXT_STYLE_SIZES[use(textStyle)])}
 			TextWrapped={textWrapped}
 			TextXAlignment={scope.Computed((use) => {
@@ -98,6 +118,21 @@ export function Text({
 			})}
 			RichText={rich}
 			Out:TextBounds={outTextBounds}
-		></textlabel>
+		>
+			{hasPadding ? (
+				<Padding
+					scope={scope}
+					padding={padding}
+					paddingX={paddingX}
+					paddingY={paddingY}
+					paddingLeft={paddingLeft}
+					paddingRight={paddingRight}
+					paddingTop={paddingTop}
+					paddingBottom={paddingBottom}
+				/>
+			) : (
+				[]
+			)}
+		</textlabel>
 	);
 }
