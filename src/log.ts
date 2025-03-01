@@ -5,6 +5,9 @@
 // Implementation from https://github.com/roblaudio/ocmusic-browser/blob/main/src/shared/log.ts
 // inspired by https://crates.io/crates/log
 
+declare function print(...args: unknown[]): void;
+declare function error(msg: string, level: number): never;
+
 const { warn: luaWarn, debug: luaDebug } = getfenv(0) as unknown as {
 	debug: {
 		info(this: void, level: number, options: string): LuaTuple<unknown[]>;
