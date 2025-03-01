@@ -93,6 +93,7 @@ declare namespace Ethereal {
 
 	/// Represents a plugin command.
 	export interface Command {
+		icon: string;
 		/// Name of the command
 		name: string;
 		/// Brief description of the command.
@@ -105,23 +106,25 @@ declare namespace Ethereal {
 		run: (run: CommandRun) => void | undefined | Cleanup;
 	}
 
-	/// Common command predicates.
-	export namespace predicates {
-		/// Requires an EToH tower that has client objects to be selected.
-		export const towerSelected: CommandPredicate;
+	export interface EtherealPermissioned {
+		register: (command: Command) => void;
+		predicates: {
+			/// Requires an EToH tower that has client objects to be selected.
+			towerSelected: CommandPredicate;
 
-		/// Requires at least `min` instances to be selected.
-		export function minInstancesSelected(min: number): CommandPredicate;
-		/// Requires at most `max` instances to be selected.
-		export function maxInstancesSelected(max: number): CommandPredicate;
+			/// Requires at least `min` instances to be selected.
+			minInstancesSelected(min: number): CommandPredicate;
+			/// Requires at most `max` instances to be selected.
+			maxInstancesSelected(max: number): CommandPredicate;
 
-		/// Requires a tower kit version greater than or equal to `version`.
-		export function kitVersion(version: number): CommandPredicate;
-		/// Requires an exact tower kit version.
-		export function exactKitVersion(version: number): CommandPredicate;
-		/// Requires kit version 6. Shorthand to `kitVersion(6)`.
-		export const kitVersion6: CommandPredicate;
-		/// Requires kit version 5.5. Shorthand to `kitVersion(5.5)`
-		export const kitVersion5_5: CommandPredicate;
+			/// Requires a tower kit version greater than or equal to `version`.
+			kitVersion(version: number): CommandPredicate;
+			/// Requires an exact tower kit version.
+			exactKitVersion(version: number): CommandPredicate;
+			/// Requires kit version 6. Shorthand to `kitVersion(6)`.
+			kitVersion6: CommandPredicate;
+			/// Requires kit version 5.5. Shorthand to `kitVersion(5.5)`
+			kitVersion5_5: CommandPredicate;
+		};
 	}
 }

@@ -1,4 +1,5 @@
-import { Command, CommandRun } from "@rbxts/ethereal-for-plugins";
+import { Command, CommandRun, EtherealPermissioned } from "@rbxts/ethereal-for-plugins";
+import { peek } from "@rbxts/fusion";
 import Sift from "@rbxts/sift";
 import { scope } from "scope";
 
@@ -45,3 +46,11 @@ export function createCommandRun(): CommandRun {
 export function runCommand(command: Command) {
 	command.run(createCommandRun());
 }
+
+export const tempFakePermissioned = {
+	register: (command) => {
+		peek(commands).push(command);
+		commands.set(peek(commands));
+	},
+	predicates: {} as never,
+} satisfies EtherealPermissioned;
