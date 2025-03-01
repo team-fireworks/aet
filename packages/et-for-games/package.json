@@ -1,7 +1,7 @@
 {
-    "name": "@rbxts/ethereal-for-games",
-    "version": "0.0.0",
-    "description": "Runtime APIs for Ethereal, the full-featured Eternal Towers of Hell companion plugin.",
+    "name": "@rbxts/et-for-games",
+    "version": "1.0.0-prealpha",
+    "description": "Runtime APIs for Et, the full-featured Eternal Towers of Hell companion plugin.",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/znotfireman/ethereal.git"

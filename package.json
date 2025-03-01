@@ -23,7 +23,7 @@
         "typescript": "^5.7.3"
     },
     "dependencies": {
-        "@rbxts/ethereal-for-plugins": "file:./packages/ethereal-for-plugins",
+        "@rbxts/et-for-plugins": "file:./packages/et-for-plugins",
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",
         "@rbxts/iris": "^2.3.1-ts.1",
         "@rbxts/object-utils": "^1.0.4",

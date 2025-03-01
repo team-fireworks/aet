@@ -20,8 +20,8 @@ Certain APIs require permissions requested from `Ethereal.permission` or
 **Packages:**
 
 - :ethereal-pesde: pesde — [`@znotfireman/ethereal_for_plugins`](https://pesde.dev/packages/znotfireman/ethereal_for_plugins)
-- :ethereal-wally: wally — [`@znotfireman/ethereal-for-plugins`](https://wally.run/packages/znotfireman/ethereal-for-plugins)
-- :ethereal-npm: NPM — [`@rbxts/ethereal-for-plugins`](https://pesde.dev/packages/rbxts/ethereal_for_plugins)
+- :ethereal-wally: wally — [`@znotfireman/et-for-plugins`](https://wally.run/packages/znotfireman/et-for-plugins)
+- :ethereal-npm: NPM — [`@rbxts/et-for-plugins`](https://pesde.dev/packages/rbxts/ethereal_for_plugins)
 
 <article class="ethereal-reference-class" markdown>## Ethereal
 ```luau
@@ -115,7 +115,7 @@ listings.
 
 **Returns:**
 
-- `Action` — 
+- `Action` —
 ### <span class="ethereal-reference-type">type</span> ActionProps
 ```luau
 export type ActionProps = {

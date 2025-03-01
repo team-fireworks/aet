@@ -5,8 +5,8 @@
 import { Child, Children, UsedAs, Value } from "@rbxts/fusion";
 import { HttpService } from "@rbxts/services";
 import { Environment } from "@rbxts/ui-labs";
+import { Connect, event, Fire } from "libs/event";
 import { Scope, ScopeProps } from "scope";
-import { Connect, event, Fire } from "utils/event";
 
 export const plugin = script.FindFirstAncestorWhichIsA("Plugin") ?? Environment.Plugin;
 if (!plugin) throw `Ethereal must be run as a plugin`;

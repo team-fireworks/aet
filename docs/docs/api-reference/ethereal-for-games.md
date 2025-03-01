@@ -14,6 +14,5 @@ APIs for interacting with the Ethereal plugin in a running game.
 **Packages:**
 
 - :ethereal-pesde: pesde — [`@znotfireman/ethereal_for_games`](https://pesde.dev/packages/znotfireman/ethereal_for_games)
-- :ethereal-wally: wally — [`@znotfireman/ethereal-for-games`](https://wally.run/packages/znotfireman/ethereal-for-games)
-- :ethereal-npm: NPM — [`@rbxts/ethereal-for-games`](https://pesde.dev/packages/rbxts/ethereal_for_games)
-
+- :ethereal-wally: wally — [`@znotfireman/et-for-games`](https://wally.run/packages/znotfireman/et-for-games)
+- :ethereal-npm: NPM — [`@rbxts/et-for-games`](https://pesde.dev/packages/rbxts/ethereal_for_games)

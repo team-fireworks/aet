@@ -17,8 +17,8 @@ The following packages are available:
 | Registry               | Ethereal for Plugins                                                                               | Ethereal for Games                                                                             |
 | ---------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | :ethereal-pesde: pesde | [`@znotfireman/ethereal_for_plugins`](https://pesde.dev/packages/znotfireman/ethereal_for_plugins) | [`@znotfireman/ethereal_for_games`](https://pesde.dev/packages/znotfireman/ethereal_for_games) |
-| :ethereal-wally: Wally | `@znotfireman/ethereal-for-plugins` | `@znotfireman/ethereal-for-games` |
-| :ethereal-npm: NPM     | `@rbxts/ethereal-for-plugins` | `@rbxts/ethereal-for-games` |
+| :ethereal-wally: Wally | `@znotfireman/et-for-plugins` | `@znotfireman/et-for-games` |
+| :ethereal-npm: NPM     | `@rbxts/et-for-plugins` | `@rbxts/et-for-games` |
 
 ## Technical Details
 

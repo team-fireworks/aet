@@ -2,11 +2,11 @@
 
 <div class="ethereal-cards" markdown>
 
--   [**Ethereal for Plugins**](./ethereal-for-plugins.md)
+-   [**Ethereal for Plugins**](./et-for-plugins.md)
 
     APIs for creating new tools and interacting with the Ethereal plugin.
 
--   [**Ethereal for Games**](./ethereal-for-games.md)
+-   [**Ethereal for Games**](./et-for-games.md)
 
     APIs for interacting with the Ethereal plugin in a running game.
 

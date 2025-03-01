@@ -1,7 +1,7 @@
 {
-    "name": "@rbxts/ethereal-for-plugins",
-    "version": "0.0.0",
-    "description": "Plugin/Tool APIs for Ethereal, the full-featured Eternal Towers of Hell companion plugin.",
+    "name": "@rbxts/et-for-plugins",
+    "version": "1.0.0-prealpha",
+    "description": "Plugin/Tool APIs for Et, the full-featured Eternal Towers of Hell companion plugin.",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/znotfireman/ethereal.git"

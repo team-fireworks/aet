@@ -1,3 +1,7 @@
+// This Source Code Form is subject to the terms of the Mozilla Public License,
+// v. 2.0. If a copy of the MPL was not distributed with this file, You can
+// obtain one at http://mozilla.org/MPL/2.0/.
+
 import Fusion, { Children, Value } from "@rbxts/fusion";
 import { UsedAs } from "@rbxts/fusion/out/Types";
 import { ScopeProps } from "scope";
@@ -62,7 +66,6 @@ export function Box({
 			OnEvent:MouseButton1Down={onPressStart}
 			OnEvent:MouseButton1Up={onPressEnd}
 		>
-			{/* <uistroke scope={scope} Color={pallete(scope, "border")} /> */}
 			{children}
 		</imagebutton>
 	) : (
@@ -81,7 +84,6 @@ export function Box({
 			OnEvent:MouseEnter={onHoverStart}
 			OnEvent:MouseLeave={onHoverEnd}
 		>
-			{/* <uistroke scope={scope} Color={pallete(scope, "border")} /> */}
 			{children}
 		</frame>
 	);

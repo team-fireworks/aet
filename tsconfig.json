@@ -29,7 +29,7 @@
         "downlevelIteration": true,
         "outDir": "out/",
         "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": false
     },
     "exclude": [
         "./eslint.config.ts",
