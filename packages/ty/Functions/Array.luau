@@ -1,15 +1,16 @@
 --!strict
 --!nolint LocalShadow
--- ty - Experiments with static type inference for runtime type validation
--- By Elttob, MIT license
+-- ty (Elttob Suite monorepo edition - no static types)
+-- By Daniel P H Fox, licensed under MIT
 
 local Package = script.Parent.Parent.Parent
-local Maybe = require(Package.ty.Maybe)
+local Maybe = require(Package.Maybe)
 
 local Types = require(Package.ty.Types)
 local Def = require(Package.ty.Def)
 
-local Array: Types.FnArray = function<V>(values: Types.Def<V>)
+-- TODO: ensure arrays have no holes, and empty arrays are allowed
+local Array: Types.FnArray = function<V>(values: Types.Def)
 	return Def.new(`\{{values.ExpectsType}}`, function(self, x)
 		if typeof(x) ~= "table" then
 			return false
@@ -26,31 +27,26 @@ local Array: Types.FnArray = function<V>(values: Types.Def<V>)
 		return true
 	end, function(self, x)
 		if typeof(x) ~= "table" then
-			return Maybe.None(self.NotOfTypeError)
+			return Maybe.None(`{self.NotOfTypeError}\n...because {tostring(x)} isn't an array`)
 		end
 		local x = x :: { [unknown]: unknown }
-		local casted: { V }? = nil
+		local modifiedReturn = {}
 		local expected = #x
 		local encountered = 0
 		for key, value in pairs(x) do
 			encountered += 1
 			if encountered > expected or typeof(key) ~= "number" then
-				return Maybe.None(self.NotOfTypeError)
+				return Maybe.None(`{self.NotOfTypeError}\n...because {tostring(key)} isn't a valid array index`)
 			end
 			local castedValue = values:Cast(value)
 			if not castedValue.some then
-				return Maybe.None(self.NotOfTypeError)
+				return Maybe.None(`{self.NotOfTypeError}\n...because, at key {tostring(key)}: {castedValue.reason}`)
 			end
-			if casted == nil then
-				if castedValue.value == value then
-					continue
-				end
-				casted = table.clone(x) :: { V }
+			if castedValue ~= nil then
+				table.insert(modifiedReturn, castedValue.value :: any)
 			end
-			local casted = casted :: { V }
-			casted[key] = castedValue.value
 		end
-		return Maybe.Some(if casted == nil then x :: { V } else casted)
+		return Maybe.Some(modifiedReturn)
 	end)
 end
 
