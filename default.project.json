@@ -6,7 +6,7 @@
     ],
     "tree": {
         "$className": "Folder",
-        "Ethereal": {
+        "Et": {
             "$path": "out",
             "include": {
                 "$className": "Folder",
