@@ -13,7 +13,7 @@ local INDENT = (" "):rep(4)
 
 local PACKAGES: { DocPackage } = {
 	{
-		name = "ethereal-for-plugins",
+		name = "et-for-plugins",
 		title = "Ethereal for Plugins",
 		overview = "APIs for creating new tools and interacting with the Ethereal plugin.",
 		classes = {
@@ -22,7 +22,7 @@ local PACKAGES: { DocPackage } = {
 		},
 	},
 	{
-		name = "ethereal-for-games",
+		name = "et-for-games",
 		title = "Ethereal for Games",
 		overview = "APIs for interacting with the Ethereal plugin in a running game.",
 		classes = {},

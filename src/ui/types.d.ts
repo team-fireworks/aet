@@ -4,11 +4,8 @@
 
 import { Child, Children, UsedAs } from "@rbxts/fusion";
 
-export interface LayoutProps {
-	position?: UsedAs<UDim2>;
-	anchorPoint?: UsedAs<Vector2>;
-	size?: UsedAs<UDim2>;
-	automaticSize?: UsedAs<Enum.AutomaticSize>;
+export interface ChildrenProps {
+	[Children]?: Child;
 }
 
 export interface BaseProps {
@@ -21,4 +18,9 @@ export interface FlexProps {
 	flexMode?: UsedAs<Enum.UIFlexMode>;
 }
 
-export interface ChildrenProps extends Record<typeof Children, Maybe<Child>> {}
+export interface LayoutProps {
+	position?: UsedAs<UDim2>;
+	anchorPoint?: UsedAs<Vector2>;
+	size?: UsedAs<UDim2>;
+	automaticSize?: UsedAs<Enum.AutomaticSize>;
+}

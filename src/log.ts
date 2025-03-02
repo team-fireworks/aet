@@ -1,8 +1,12 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License,
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
-// Derived from https://github.com/roblaudio/ocmusic-browser/blob/main/src/shared/log.ts
-// Inspired by https://crates.io/crates/log
+
+// Implementation from https://github.com/roblaudio/ocmusic-browser/blob/main/src/shared/log.ts
+// inspired by https://crates.io/crates/log
+
+declare function print(...args: unknown[]): void;
+declare function error(msg: string, level: number): never;
 
 const { warn: luaWarn, debug: luaDebug } = getfenv(0) as unknown as {
 	debug: {
@@ -98,7 +102,7 @@ export class RobloxLogger implements Logger {
 			}
 
 		const msg =
-			`${LEVEL_TO_EMOJI[record.level]} [${modulePath}] — ${record.args.map((v) => tostring(v)).join(" ")}`.gsub(
+			`${LEVEL_TO_EMOJI[record.level]} [${modulePath}.luau] — ${record.args.map((v) => tostring(v)).join(" ")}`.gsub(
 				"\n",
 				"\n    ",
 			)[0];

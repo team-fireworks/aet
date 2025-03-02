@@ -1,1 +1,0 @@
--- script.Parent.Parent = game:GetService("ReplicatedStorage")

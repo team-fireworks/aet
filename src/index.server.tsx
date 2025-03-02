@@ -2,12 +2,19 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-if (!script.FindFirstAncestorWhichIsA("Plugin")) throw "Ethereal must be run as a plugin.";
+import { plugin } from "plugin";
+if (!plugin) throw "Ethereal must be run as a plugin.";
 
 const [rootTrace] = debug.info(1, "s");
 
-import assets from "assets";
-import { info, RobloxLogger, setDefaultLogger, trace } from "log";
+import { EtherealPermissioned } from "@rbxts/et-for-plugins";
+import { Children, peek } from "@rbxts/fusion";
+import { CoreGui } from "@rbxts/services";
+import { App } from "app";
+import { commands, tempFakePermissioned } from "core";
+import { info, RobloxLogger, setDefaultLogger } from "log";
+import { scope } from "scope";
+
 setDefaultLogger(
 	new RobloxLogger({
 		aliases: {
@@ -18,76 +25,33 @@ setDefaultLogger(
 
 info("Starting up!");
 
-import Fusion, { Children, peek } from "@rbxts/fusion";
-import Iris from "@rbxts/iris";
-import { CoreGui } from "@rbxts/services";
-import { IS_DEV } from "constants";
-import { createDebug } from "iris/debug";
-import { initTool, tools } from "lib";
-import { plugin } from "plugin";
-import { scope } from "scoped";
-import { App } from "ui/app/app";
-import { HintGui } from "ui/components/hint";
-import { Notifications } from "ui/notifications";
+plugin.Unloading.Once(() => scope.doCleanup());
 
-const BUILT_IN_TOOLS = script.WaitForChild("builtins");
+// TODO: find a better way :(
+for (const mod of script.WaitForChild("core").WaitForChild("commands").GetDescendants()) {
+	if (!classIs(mod, "ModuleScript")) continue;
+	const modFn = require(mod) as (et: EtherealPermissioned) => void;
 
-if (IS_DEV)
-	scope.spawnTask(() => {
-		info("Creating debug window");
-		const root = (<screengui scope={scope} Name="etherealDebug" />) as GuiBase;
-		root.Parent = game.GetService("CoreGui");
-		Iris.UpdateGlobalConfig({ UseScreenGUIs: false });
-		Iris.Init(root);
-		scope.push(Iris.Connect(createDebug(rootTrace)), () => Iris.Shutdown());
-	});
+	if (!typeIs(modFn, "function")) continue;
 
-plugin.Unloading.Once(() => {
-	trace("Shutting down!");
-	scope.doCleanup();
+	modFn(tempFakePermissioned);
+}
+
+commands.set(peek(commands));
+
+const app = new App(scope);
+
+const ui = new Instance("ScreenGui");
+scope.Hydrate(ui)({
+	Name: "Et",
+	[Children]: app.render(),
 });
 
-const builtinModules = BUILT_IN_TOOLS.GetDescendants().filter((v) => classIs(v, "ModuleScript"));
-info(`Requiring builtin tool modules: ${builtinModules.map((v) => v.Name).join(", ")}`);
-for (const v of builtinModules) require(v);
-
-info("Running initial tools");
-for (const v of peek(tools)) initTool(v);
-
-info("Creating plugin toolbar");
-const toolbar = plugin.CreateToolbar("Ethereal");
-const button = toolbar.CreateButton(
-	"ethereal",
-	"Full-featured Eternal Towers of Hell companion plugin",
-	assets.images.ethereal,
-	"Launch Ethereal",
-);
-
-info("Creating app");
-const widget = plugin.CreateDockWidgetPluginGui(
-	"etherealMain",
-	new DockWidgetPluginGuiInfo(Enum.InitialDockState.Float, false, false, 400, 300, 400, 300),
-);
-
-const isWidgetOpen = scope.Value(false);
-
-scope.Hydrate(widget)({
-	Name: "ethereal",
-	Title: "Ethereal",
-	Enabled: isWidgetOpen,
-	[Children]: [<App scope={scope} />, <HintGui scope={scope} widget={widget} />],
-});
+const action = plugin.CreatePluginAction("launchEt", "Launch Et", "Launches the Et command pallete");
 
 scope.push(
-	toolbar,
-	button,
-	widget,
-	button.Click.Connect(() => isWidgetOpen.set(!peek(isWidgetOpen))),
+	action.Triggered.Connect(() => app.captureFocus()),
+	action,
 );
 
-info("Creating notifications");
-<folder scope={scope} Name="etherealNotifications" Parent={CoreGui}>
-	<Notifications scope={scope} />
-</folder>;
-
-info("Startup finished!");
+ui.Parent = CoreGui;

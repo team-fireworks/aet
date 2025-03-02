@@ -2,91 +2,61 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import { Child, Children, Hydrate, peek, Scope, UsedAs, Value } from "@rbxts/fusion";
+import { Child, Children, UsedAs, Value } from "@rbxts/fusion";
+import { HttpService } from "@rbxts/services";
 import { Environment } from "@rbxts/ui-labs";
+import { Connect, event, Fire } from "libs/event";
+import { Scope, ScopeProps } from "scope";
 
-export const plugin = Environment.Plugin ?? script.FindFirstAncestorWhichIsA("Plugin")!;
-// if (!plugin) throw "Ethereal must be run as a plugin.";
+export const plugin = script.FindFirstAncestorWhichIsA("Plugin") ?? Environment.Plugin;
+if (!plugin) throw `Ethereal must be run as a plugin`;
 
-interface Widget {
+export interface WidgetRenderProps extends ScopeProps {
+	onClosed: Connect<[]>;
+}
+
+export interface WidgetConstructorProps {
 	title: UsedAs<string>;
-	name: UsedAs<string>;
 	info: DockWidgetPluginGuiInfo;
-	child: Child;
+	render: (props: WidgetRenderProps) => Child;
 }
 
-export class ToolbarButton<S> {
-	onClickCallbacks: Array<() => void>;
-	widgets: Widget[];
+export class Widget {
+	private widget: Value<Maybe<DockWidgetPluginGui>>;
+	readonly name: string;
+	private closed: Fire<[]>;
+	readonly visible: Value<boolean>;
 
 	constructor(
-		readonly scope: Scope<S>,
-		readonly title: string,
-		readonly name: string,
-		readonly tooltip: string,
-		readonly icon: string,
+		private scope: Scope,
+		private props: WidgetConstructorProps,
 	) {
-		this.onClickCallbacks = [];
-		this.widgets = [];
-	}
+		this.widget = scope.Value(undefined);
+		this.name = `Ethereal-${HttpService.GenerateGUID(false)}`;
+		this.visible = scope.Value(false);
 
-	widget(title: UsedAs<string>, name: UsedAs<string>, info: DockWidgetPluginGuiInfo, child: Child) {
-		this.widgets.push({ title, name, info, child });
-		return this;
-	}
+		const [onClosed, closed] = event<[]>();
+		this.closed = closed;
 
-	build(toolbar: PluginToolbar) {
-		const button = toolbar.CreateButton(this.name, this.tooltip, this.icon, this.title);
-		this.scope.push(button);
+		// Spawn a thread because CreateDockWidgetPluginGui yields, which UI
+		// Labs can't handle.
+		scope.spawnThread(() => {
+			const widget = plugin.CreateDockWidgetPluginGui(this.name, props.info);
 
-		const isToggled = Value(this.scope, false);
-		this.scope.push(
-			button.Click.Connect(() => {
-				isToggled.set(!peek(isToggled));
-				for (const v of this.onClickCallbacks) {
-					const thread = task.spawn(v);
-					this.scope.push(() => task.cancel(thread));
-				}
-			}),
-			this.widgets.map(({ title, name, info, child }) => {
-				const widget = plugin.CreateDockWidgetPluginGui(peek(name), info);
+			scope.Hydrate(widget)({
+				Name: this.name,
+				Title: props.title,
+				Enabled: this.visible,
+				ZIndexBehavior: Enum.ZIndexBehavior.Sibling,
+				[Children]: props.render({ scope, onClosed }),
+			});
 
-				Hydrate(
-					this.scope,
-					widget,
-				)({
-					Title: title,
-					Name: name,
-					Enabled: isToggled,
-					ZIndexBehavior: Enum.ZIndexBehavior.Sibling,
-					[Children]: child,
-				});
+			widget.BindToClose(closed);
+			scope.push(closed);
 
-				return widget;
-			}),
-		);
+			this.widget.set(widget);
+		});
 	}
 }
 
-export class Toolbar<S> {
-	private buttons: ToolbarButton<S>[];
-
-	constructor(
-		readonly scope: Scope<S>,
-		readonly name: string,
-	) {
-		this.buttons = [];
-	}
-
-	button(button: ToolbarButton<S>) {
-		this.buttons.push(button);
-		return this;
-	}
-
-	build() {
-		const toolbar = plugin.CreateToolbar(this.name);
-		this.scope.push(toolbar);
-
-		for (const v of this.buttons) v.build(toolbar);
-	}
-}
+// TODO: PersistentWidget

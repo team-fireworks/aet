@@ -1,0 +1,24 @@
+{
+    "name": "@rbxts/et-for-plugins",
+    "version": "1.0.0-prealpha",
+    "description": "Plugin/Tool APIs for Et, the full-featured Eternal Towers of Hell companion plugin.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/znotfireman/ethereal.git"
+    },
+    "keywords": [
+        "etoh",
+        "jtoh",
+        "eternal towers of hell",
+        "juke towers of hell",
+        "roblox",
+        "roblox-ts"
+    ],
+    "author": "Fire <znotfireman@gmail.com>",
+    "license": "GPL-3.0-only",
+    "types": "./index.d.ts",
+    "bugs": {
+        "url": "https://github.com/znotfireman/ethereal/issues"
+    },
+    "homepage": "https://znotfireman.github.io/ethereal"
+}
