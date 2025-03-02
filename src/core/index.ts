@@ -2,26 +2,12 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import { Command, CommandRun, EtherealPermissioned } from "@rbxts/et-for-plugins";
+import { Command, CommandRun, EtPermissioned } from "@rbxts/et-for-plugins";
 import { peek } from "@rbxts/fusion";
 import Sift from "@rbxts/sift";
 import { scope } from "scope";
 
 export interface LibCommand extends Command {}
-
-// export interface CommandSource {
-// 	name: string;
-// 	root: boolean;
-// 	commands: Command[];
-// }
-
-// export const BUILTIN_COMMANDS: CommandSource[] = [
-// 	{
-// 		name: "Misc",
-// 		root: true,
-// 		commands: [helloWorld],
-// 	},
-// ];
 
 export const commands = scope.Value<Command[]>([]);
 
@@ -57,4 +43,4 @@ export const tempFakePermissioned = {
 		commands.set(peek(commands));
 	},
 	predicates: {} as never,
-} satisfies EtherealPermissioned;
+} satisfies EtPermissioned;

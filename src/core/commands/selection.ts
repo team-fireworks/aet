@@ -2,9 +2,8 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import { EtherealPermissioned } from "@rbxts/et-for-plugins";
-import { Selection, StudioService } from "@rbxts/services";
-import assets from "assets";
+import { EtPermissioned } from "@rbxts/et-for-plugins";
+import { Selection } from "@rbxts/services";
 
 const PARTS = new Set<keyof CreatableInstances>([
 	"Part",
@@ -24,9 +23,8 @@ const LIGHTS = new Set<keyof CreatableInstances>(["SpotLight", "PointLight", "Su
 
 const IMPLEMENT_PICK_CLASS_NAMES = new Set<keyof CreatableInstances>([...PARTS, ...CONTAINERS, ...EFFECTS, ...LIGHTS]);
 
-export = (et: EtherealPermissioned) => {
+export = (et: EtPermissioned) => {
 	et.register({
-		icon: assets.images.ethereal,
 		name: "Deselect all",
 		description: "Deselect all",
 		run: () => Selection.Set([]),
@@ -34,7 +32,6 @@ export = (et: EtherealPermissioned) => {
 
 	for (const className of IMPLEMENT_PICK_CLASS_NAMES) {
 		et.register({
-			icon: (StudioService.GetClassIcon(className) as { Image: never }).Image as never,
 			name: `Pick ${className}s from selection`,
 			description: `Pick ${className}s from selection`,
 			run: () => Selection.Set(Selection.Get().filter((v) => classIs(v, className))),
@@ -42,14 +39,12 @@ export = (et: EtherealPermissioned) => {
 	}
 
 	et.register({
-		icon: assets.images.ethereal,
 		name: "Pick all parts from selection",
 		description: "Pick all parts from selection",
 		run: () => Selection.Set(Selection.Get().filter((v) => PARTS.has(v.ClassName as never))),
 	});
 
 	et.register({
-		icon: assets.images.ethereal,
 		name: "Pick children from selection",
 		description: "Pick children from selection",
 		run: () =>
@@ -64,7 +59,6 @@ export = (et: EtherealPermissioned) => {
 	});
 
 	et.register({
-		icon: assets.images.ethereal,
 		name: "Pick descendants from selection",
 		description: "Pick descendants from selection",
 		run: () =>

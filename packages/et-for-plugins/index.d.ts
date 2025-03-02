@@ -93,7 +93,6 @@ declare namespace Ethereal {
 
 	/// Represents a plugin command.
 	export interface Command {
-		icon: string;
 		/// Name of the command
 		name: string;
 		/// Brief description of the command.
@@ -106,7 +105,7 @@ declare namespace Ethereal {
 		run: (run: CommandRun) => void | undefined | Cleanup;
 	}
 
-	export interface EtherealPermissioned {
+	export interface EtPermissioned {
 		register: (command: Command) => void;
 		predicates: {
 			/// Requires an EToH tower that has client objects to be selected.

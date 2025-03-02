@@ -51,6 +51,7 @@ export function Box({
 		<imagebutton
 			scope={scope}
 			Name={name ?? "Box (has inputs)"}
+			AutoButtonColor={false}
 			ZIndex={zIndex}
 			LayoutOrder={layoutOrder}
 			Position={position}
