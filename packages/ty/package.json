@@ -1,8 +1,8 @@
 {
-    "name": "@rbxts/ty",
-    "private": true,
-    "version": "1.0.0",
-    "author": "dphfox",
-    "license": "BSD-3-Clause+Security Disclaimer",
-    "types": "./index.d.ts"
+	"name": "@rbxts/ty",
+	"private": true,
+	"version": "1.0.0",
+	"author": "dphfox",
+	"license": "BSD-3-Clause+Security Disclaimer",
+	"types": "./index.d.ts"
 }
