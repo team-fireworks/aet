@@ -1,95 +1,87 @@
-<h1>
-    All-in-one building plugin for
-    <image src="https://raw.githubusercontent.com/znotfireman/ethereal/refs/heads/main/assets/images/etoh.png" width="100px"></image>
-</h1>
+# Et
 
-## About
+<img src="https://raw.githubusercontent.com/znotfireman/et/refs/heads/main/assets/images/et.png" align="right" width="200px" />
 
-> [!WARNING]
->
-> The plugin doesn't work yet and is missing alot of features. The first alpha
-> release is expected by March.
+![CI workflow](https://github.com/znotfireman/et/actions/workflows/ci.yaml/badge.svg)
+![Documentation workflow](https://github.com/znotfireman/et/actions/workflows/docs.yaml/badge.svg)
+<!-- TODO: replace with actual creator store page once it releases -->
+[Roblox Creator Store](https://tenor.com/view/vr-cuddle-time-jtoh-deletion-2025-gif-9159746476639723483?quality=lossless) ·
+[Documentation](https://znotfireman.github.io/et)
 
-Ethereal is an all-in-one building plugin for Eternal Towers of Hell. The
-mission is to consolidate utilities for tower building and provide a
-centralized, up-to-date foundation for future work.
+Et is a full-featured Eternal Towers of Hell companion plugin jampacked with
+utilities and a state-of-the-arts foundation for the next decade of tower
+building.
 
-Highlights:
+> **Warning:**
+> Et is unreleased, unfinished, and untested. Pre-alpha releases should be
+> availible by March. Contributions are welcomed.
 
-- Setup, upgrade, and downgrade v6/v5.5/v5.4/v5.3/v5.2/v5.1 kits
-- Built-in archimedes, tightropes, reclassing, and geometry tools
-- Insert, modify, and inspect ClientObjects with great documentation
-- Insert common sounds and decals
-- LightingConfiguration script autocomplete
-- Runtime API for hooking onto Ethereal
-- Plugin API for extending Ethereal with your own tools
+- 🚀 All tower building utilities and scripts under one keybind
+- 🧰 First class support for Eternal Towers of Hell v5 (with v6 and MTK v4 coming soon)
+- 📦 Comes with archimedes, tightropes, instance reclassing, and gapfill
+- 📚 Library of sounds, decals, and client objects
+- 🧩 Et for Plugins API for registering your own commannds
 
-### About tools
+## About commands
 
-Ethereal exposes an API for other plugins to register tools, which contains
-arguments and methods. Tools are sandboxed and disallowed from using `plugin`
-APIs. Tools however receive a `ToolContext` API inside methods with the selected
-tower, unwrapping the tool's arguments, and common utilities.
+Ethereal exposes an API for other plugins to register commands, which contains
+arguments and methods. Commands are sandboxed and disallowed from using `plugin`
+APIs. Commands however receive a `CommandRun` API when ran, which enables
+prompting the users for values, retrieving the workspace's default tower, and
+reading plugin settings.
 
 Take a look:
 
 ```Luau
-local Ethereal = require(plugin.Packages.Ethereal)
+-- require et
+local Et = require(game:WaitForChild("Et", math.huge))
 
-local et = Ethereal.request(plugin, {
+-- request access to the plugin API
+local et = Et.request(plugin, {
     name = "My Ethereal plugin",
     icon = "rbxassetid://1234567890",
     permissions = {
-        Ethereal.Permissions.RegisterTools,
+        -- this permission allows registering new commands
+        Et.Permissions.Commands,
     }
 })
 
-print(`Hello Ethereal version {et.version.tostring()}!`)
+print(`Hello Et version {et.version.tostring()}!`)
 
-et.registerTool {
-    id = "trimClientObjectValues",
+et.registerCommand {
     name = "Trim ClientObject Values",
     description = "Deletes double ClientObject values which breaks the kit",
 
-    needsTower = true,
+    predicates = {
+        -- this predicate only passes if the user has set a tower for the current workspace
+        et.predicates.isTowerSelected
+    },
 
-    methods = {
-        [Ethereal.Methods.Default] = function(ctx)
-            assert(ctx.tower, "required for typechecking")
-            for _, v in ctx.tower.ClientSidedObjects:GetDescendants() do
-                if not v.Parent or not v.Name == "ClientObject" or not v:IsA("ValueObject") then
-                    continue
-                end
+    run = function(run)
+        assert(run.tower, "required for typechecking")
+        for _, v in run.tower.ClientSidedObjects:GetDescendants() do
+            if not v.Parent or not v.Name == "ClientObject" or not v:IsA("ValueObject") then
+                continue
+            end
 
-                for _, c in v.Parent:GetDescendants() do
-                    if c.Name == "ClientObject" and c:IsA("ValueObject") and v ~= c then
-                        c:Destroy()
-                    end
+            for _, c in v.Parent:GetDescendants() do
+                if c.Name == "ClientObject" and c:IsA("ValueObject") and v ~= c then
+                    c:Destroy()
                 end
             end
         end
-    }
+    end
 }
 ```
 
-### About the plugin
+## About the plugin
 
-The Ethereal plugin implements the tools APIs and provides a one-stop interface
-where users can enable, disable, and configure tools. Secondly, the plugin also
-instantiates the runtime and plugin APIs. Finally, the plugin also implements
-common tools, including those from the JToH Kit Tools and other plugin
-functionality like Archimedes, GeomTools, and the Elttob Suite.
+TBA
 
 ## Contributing
 
 TBA
 
-### Code
-
-### Website
-
-### Tools
-
 ## License
 
-Ethereal is licensed under the terms of the [Mozilla Public License Version 2.0](./LICENSE.md).
+Et is licensed under the terms of the [Mozilla Public License Version 2.0](./LICENSE.md).
