@@ -20,7 +20,7 @@ building.
 - 🧰 First class support for Eternal Towers of Hell v5 (with v6 and MTK v4 coming soon)
 - 📦 Comes with archimedes, tightropes, instance reclassing, and gapfill
 - 📚 Library of sounds, decals, and client objects
-- 🧩 Et for Plugins API for registering your own commannds
+- 🧩 Et for Plugins API for registering your own commands
 
 ## About commands
 
