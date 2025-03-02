@@ -5,8 +5,8 @@
     "license": "MPL-2.0",
     "scripts": {
         "dev": "rbxtsc --watch & rojo build default.project.json --plugin Et.rbxm & rojo serve serve.project.json",
-        "lint": "eslint ./src ./packages",
-        "lint:style": "prettier --check ./src ./packages && stylua ./src ./packages -c",
+        "lint": "bunx eslint ./src ./packages",
+        "lint:style": "bunx prettier --check ./src ./packages && stylua ./src ./packages -c",
         "ci": "bun run lint && bun run lint:style",
         "sync": "asphalt sync --target studio",
         "sync:cloud": "asphalt sync --target cloud"
