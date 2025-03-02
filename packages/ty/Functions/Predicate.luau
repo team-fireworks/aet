@@ -9,16 +9,16 @@ local Maybe = require(Package.Maybe)
 local Types = require(Package.ty.Types)
 local Def = require(Package.ty.Def)
 
-local Typeof: Types.FnTypeof = function(typeString)
-	return Def.new(typeString, function(self, x)
-		return typeof(x) == typeString
+local Predicate: Types.FnPredicate = function(predicate)
+	return Def.new(`@predicate`, function(self, x)
+		return predicate(x)
 	end, function(self, x)
-		if typeof(x) == typeString then
+		if predicate(x) then
 			return Maybe.Some(x)
 		else
-			return Maybe.None(`{self.NotOfTypeError}\n...because {tostring(x)} doesn't have typeof() == {typeString}`)
+			return Maybe.None(`Type did not satisfy predicate`)
 		end
 	end)
 end
 
-return Typeof
+return Predicate

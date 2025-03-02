@@ -1,10 +1,10 @@
 --!strict
 --!nolint LocalShadow
--- ty - Experiments with static type inference for runtime type validation
--- By Elttob, MIT license
+-- ty (Elttob Suite monorepo edition - no static types)
+-- By Daniel P H Fox, licensed under MIT
 
 local Package = script.Parent.Parent.Parent
-local Maybe = require(Package.ty.Maybe)
+local Maybe = require(Package.Maybe)
 
 local Types = require(Package.ty.Types)
 local Def = require(Package.ty.Def)
@@ -16,7 +16,9 @@ local Just: Types.FnJust = function(literal, type)
 		if rawequal(x, literal) then
 			return Maybe.Some(x)
 		else
-			return Maybe.None(self.NotOfTypeError)
+			return Maybe.None(
+				`{self.NotOfTypeError}\n...because only {tostring(literal)} is accepted, but received {tostring(x)}`
+			)
 		end
 	end)
 end

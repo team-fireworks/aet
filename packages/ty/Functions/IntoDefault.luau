@@ -9,16 +9,16 @@ local Maybe = require(Package.Maybe)
 local Types = require(Package.ty.Types)
 local Def = require(Package.ty.Def)
 
-local Typeof: Types.FnTypeof = function(typeString)
-	return Def.new(typeString, function(self, x)
-		return typeof(x) == typeString
+local IntoDefault: Types.FnIntoDefault = function(innerDef, defaultValue)
+	return Def.new(`\@default<{defaultValue}>({innerDef.ExpectsType})`, function(self, x)
+		return x == nil or innerDef:Matches(x)
 	end, function(self, x)
-		if typeof(x) == typeString then
-			return Maybe.Some(x)
+		if x == nil then
+			return Maybe.Some(defaultValue)
 		else
-			return Maybe.None(`{self.NotOfTypeError}\n...because {tostring(x)} doesn't have typeof() == {typeString}`)
+			return innerDef:Cast(x)
 		end
 	end)
 end
 
-return Typeof
+return IntoDefault
