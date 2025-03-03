@@ -2,8 +2,8 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import { Command } from "@rbxts/et-for-plugins";
 import Fusion, { UsedAs } from "@rbxts/fusion";
+import { CoreCommand } from "core/types";
 import { Connect } from "libs/event";
 import { ScopeProps } from "scope";
 import { Box } from "ui/components/Box";
@@ -26,9 +26,9 @@ export interface CommandPalleteProps extends ScopeProps {
 	onDoSearchFocus: Connect<[]>;
 	onSearchFocusLost: () => void;
 
-	listedCommands: UsedAs<Command[]>;
-	selectedCommand: UsedAs<Maybe<Command>>;
-	onCommandRun: (cmd: Command) => void;
+	listedCommands: UsedAs<CoreCommand[]>;
+	selectedCommand: UsedAs<Maybe<CoreCommand>>;
+	onCommandRun: (cmd: CoreCommand) => void;
 }
 
 export function CommandPallete({
@@ -107,7 +107,7 @@ export function CommandPallete({
 								/>
 								<ForPairs
 									scope={scope}
-									each={listedCommands as never as Map<number, Command>}
+									each={listedCommands as never as Map<number, CoreCommand>}
 									children={(_, scope, index, command) =>
 										$tuple(
 											[],

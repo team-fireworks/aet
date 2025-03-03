@@ -4,6 +4,8 @@
 
 import { EtPermissioned } from "@rbxts/et-for-plugins";
 import { Selection } from "@rbxts/services";
+import assets from "assets";
+import { CoreCommandModule } from "core/types";
 
 const PARTS = new Set<keyof CreatableInstances>([
 	"Part",
@@ -23,52 +25,56 @@ const LIGHTS = new Set<keyof CreatableInstances>(["SpotLight", "PointLight", "Su
 
 const IMPLEMENT_PICK_CLASS_NAMES = new Set<keyof CreatableInstances>([...PARTS, ...CONTAINERS, ...EFFECTS, ...LIGHTS]);
 
-export = (et: EtPermissioned) => {
-	et.register({
-		name: "Deselect all",
-		description: "Deselect all",
-		run: () => Selection.Set([]),
-	});
-
-	for (const className of IMPLEMENT_PICK_CLASS_NAMES) {
-		et.register({
-			name: `Pick selected ${className}s`,
-			description: `Pick selected ${className}s`,
-			run: () => Selection.Set(Selection.Get().filter((v) => classIs(v, className))),
+export = {
+	name: "Selection",
+	icon: assets.images.et,
+	run: (et: EtPermissioned) => {
+		et.registerCommand({
+			name: "Deselect all",
+			description: "Deselect all",
+			run: () => Selection.Set([]),
 		});
-	}
 
-	et.register({
-		name: "Pick all selected parts",
-		description: "Pick all selected parts",
-		run: () => Selection.Set(Selection.Get().filter((v) => PARTS.has(v.ClassName as never))),
-	});
+		for (const className of IMPLEMENT_PICK_CLASS_NAMES) {
+			et.registerCommand({
+				name: `Pick selected ${className}s`,
+				description: `Pick selected ${className}s`,
+				run: () => Selection.Set(Selection.Get().filter((v) => classIs(v, className))),
+			});
+		}
 
-	et.register({
-		name: "Pick selected children",
-		description: "Pick selected children",
-		run: () =>
-			Selection.Set(
-				Selection.Get()
-					.map((v) => v.GetChildren())
-					.reduce((total, children) => {
-						for (const v of children) total.push(v);
-						return total;
-					}),
-			),
-	});
+		et.registerCommand({
+			name: "Pick all selected parts",
+			description: "Pick all selected parts",
+			run: () => Selection.Set(Selection.Get().filter((v) => PARTS.has(v.ClassName as never))),
+		});
 
-	et.register({
-		name: "Pick selected descendants",
-		description: "Pick selected descendants",
-		run: () =>
-			Selection.Set(
-				Selection.Get()
-					.map((v) => v.GetDescendants())
-					.reduce((total, children) => {
-						for (const v of children) total.push(v);
-						return total;
-					}),
-			),
-	});
-};
+		et.registerCommand({
+			name: "Pick selected children",
+			description: "Pick selected children",
+			run: () =>
+				Selection.Set(
+					Selection.Get()
+						.map((v) => v.GetChildren())
+						.reduce((total, children) => {
+							for (const v of children) total.push(v);
+							return total;
+						}),
+				),
+		});
+
+		et.register({
+			name: "Pick selected descendants",
+			description: "Pick selected descendants",
+			run: () =>
+				Selection.Set(
+					Selection.Get()
+						.map((v) => v.GetDescendants())
+						.reduce((total, children) => {
+							for (const v of children) total.push(v);
+							return total;
+						}),
+				),
+		});
+	},
+} satisfies CoreCommandModule;

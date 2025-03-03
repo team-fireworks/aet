@@ -4,6 +4,8 @@
 
 import { EtPermissioned } from "@rbxts/et-for-plugins";
 import { Selection } from "@rbxts/services";
+import assets from "assets";
+import { CoreCommandModule } from "core/types";
 
 const STUDS = table.freeze({
 	[1]: "stud",
@@ -12,36 +14,40 @@ const STUDS = table.freeze({
 	[0.1]: "tenth stud",
 });
 
-export = (et: EtPermissioned) => {
-	for (const [size, name] of pairs(STUDS)) {
-		et.register({
-			name: `Round selected part size to nearest ${name}`,
-			description: `For each part selected, rounds the part's size to the nearest ${name}.`,
-			run: () => {
-				for (const selected of Selection.Get()) {
-					if (!selected.IsA("BasePart")) continue;
-					selected.Size = new Vector3(
-						math.round(selected.Size.X / size) * size,
-						math.round(selected.Size.Y / size) * size,
-						math.round(selected.Size.Z / size) * size,
-					);
-				}
-			},
-		});
+export = {
+	name: "Modelling",
+	icon: assets.images.et,
+	run: (et: EtPermissioned) => {
+		for (const [size, name] of pairs(STUDS)) {
+			et.registerCommand({
+				name: `Round selected part size to nearest ${name}`,
+				description: `For each part selected, rounds the part's size to the nearest ${name}.`,
+				run: () => {
+					for (const selected of Selection.Get()) {
+						if (!selected.IsA("BasePart")) continue;
+						selected.Size = new Vector3(
+							math.round(selected.Size.X / size) * size,
+							math.round(selected.Size.Y / size) * size,
+							math.round(selected.Size.Z / size) * size,
+						);
+					}
+				},
+			});
 
-		et.register({
-			name: `Round selected part position to nearest ${name}`,
-			description: `For each part selected, rounds the part's position to the nearest ${name}.`,
-			run: () => {
-				for (const selected of Selection.Get()) {
-					if (!selected.IsA("BasePart")) continue;
-					selected.Position = new Vector3(
-						math.round(selected.Position.X / size) * size,
-						math.round(selected.Position.Y / size) * size,
-						math.round(selected.Position.Z / size) * size,
-					);
-				}
-			},
-		});
-	}
-};
+			et.registerCommand({
+				name: `Round selected part position to nearest ${name}`,
+				description: `For each part selected, rounds the part's position to the nearest ${name}.`,
+				run: () => {
+					for (const selected of Selection.Get()) {
+						if (!selected.IsA("BasePart")) continue;
+						selected.Position = new Vector3(
+							math.round(selected.Position.X / size) * size,
+							math.round(selected.Position.Y / size) * size,
+							math.round(selected.Position.Z / size) * size,
+						);
+					}
+				},
+			});
+		}
+	},
+} satisfies CoreCommandModule;

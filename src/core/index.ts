@@ -5,11 +5,12 @@
 import { Command, CommandRun, EtPermissioned } from "@rbxts/et-for-plugins";
 import { peek } from "@rbxts/fusion";
 import Sift from "@rbxts/sift";
+import { plugin } from "plugin";
 import { scope } from "scope";
+import { CoreCommand, CorePlugin } from "./types";
 
-export interface LibCommand extends Command {}
-
-export const commands = scope.Value<Command[]>([]);
+export const plugins = scope.Value<CorePlugin[]>([]);
+export const commands = scope.Value<CoreCommand[]>([]);
 
 export function createCommandRun(): CommandRun {
 	return Sift.Dictionary.freezeDeep({
@@ -37,10 +38,35 @@ export function runCommand(command: Command) {
 	command.run(createCommandRun());
 }
 
-export const tempFakePermissioned = {
-	register: (command) => {
-		peek(commands).push(command);
-		commands.set(peek(commands));
-	},
-	predicates: {} as never,
-} satisfies EtPermissioned;
+export function createCorePlugin(name: string, icon: string) {
+	const p: CorePlugin = table.freeze({
+		_plugin: plugin,
+		_name: name,
+		_icon: icon,
+	});
+
+	peek(plugins).push(p);
+	plugins.set(peek(plugins));
+
+	return p;
+}
+
+export function createCorePermissioned(plugin: CorePlugin) {
+	const permissioned = table.freeze<EtPermissioned>({
+		predicates: {} as never,
+		registerCommand: (command) => {
+			const newCommand: CoreCommand = {
+				name: command.name,
+				description: command.description,
+				run: command.run,
+				predicates: command.predicates,
+				_plugin: plugin,
+			};
+
+			peek(commands).push(newCommand);
+			commands.set(peek(commands));
+		},
+	});
+
+	return permissioned;
+}

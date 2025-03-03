@@ -4,7 +4,7 @@
     "private": true,
     "license": "MPL-2.0",
     "scripts": {
-        "dev": "rbxtsc --watch & rojo build default.project.json --plugin Et.rbxm & rojo serve serve.project.json",
+        "dev": "rbxtsc --watch & rojo build default.project.json --plugin Et.rbxm --watch & rojo serve serve.project.json",
         "lint": "bunx eslint ./src ./packages",
         "lint:style": "bunx prettier --check ./src ./packages && stylua ./src ./packages -c",
         "ci": "bun run lint && bun run lint:style",

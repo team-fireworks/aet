@@ -2,13 +2,30 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import Ethereal from "@rbxts/et-for-plugins";
-import Ty from "@rbxts/ty";
+import Et from "@rbxts/et-for-plugins";
+import ty from "@rbxts/ty";
+import Types from "./types";
 
-export const Command = Ty.Struct({
-	name: Ty.String,
-	description: Ty.String,
-	run: Ty.Function,
-})
+export const Command = ty
+	.Struct(
+		{ exhaustive: true },
+		{
+			name: ty.String,
+			description: ty.String,
+			run: ty.Function,
+		},
+	)
 	.Nicknamed("Command")
-	.Retype<Ethereal.Command>();
+	.Retype<Et.Command>();
+
+export const CoreCommandModule = ty
+	.Struct(
+		{ exhaustive: true },
+		{
+			name: ty.String,
+			icon: ty.String.Optional(),
+			run: ty.Function,
+		},
+	)
+	.Nicknamed("CoreCommandModule")
+	.Retype<Types.CoreCommandModule>();

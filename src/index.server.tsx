@@ -7,11 +7,11 @@ if (!plugin) throw "Et must be run as a plugin.";
 
 const [rootTrace] = debug.info(1, "s");
 
-import { EtPermissioned } from "@rbxts/et-for-plugins";
 import { Children, peek } from "@rbxts/fusion";
 import { CoreGui } from "@rbxts/services";
 import { App } from "app";
-import { commands, tempFakePermissioned } from "core";
+import { commands, createCorePermissioned, createCorePlugin } from "core";
+import { CoreCommandModule } from "core/ty";
 import { info, RobloxLogger, setDefaultLogger } from "log";
 import { scope } from "scope";
 
@@ -30,14 +30,17 @@ plugin.Unloading.Once(() => {
 	scope.doCleanup();
 });
 
-// TODO: find a better way :(
 for (const mod of script.WaitForChild("core").WaitForChild("commands").GetDescendants()) {
 	if (!classIs(mod, "ModuleScript")) continue;
-	const modFn = require(mod) as (et: EtPermissioned) => void;
 
-	if (!typeIs(modFn, "function")) continue;
+	const commandMod = CoreCommandModule.Cast(require(mod));
 
-	modFn(tempFakePermissioned);
+	if (commandMod.some) {
+		const { name, icon, run } = commandMod.value;
+		const plugin = createCorePlugin(name, icon);
+		const et = createCorePermissioned(plugin);
+		run(et);
+	}
 }
 
 info(

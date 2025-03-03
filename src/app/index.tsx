@@ -2,10 +2,11 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import { Command, CommandRun } from "@rbxts/et-for-plugins";
+import { CommandRun } from "@rbxts/et-for-plugins";
 import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
 import { UserInputService } from "@rbxts/services";
 import { commands, createCommandRun } from "core";
+import { CoreCommand } from "core/types";
 import { Connect, event, Fire } from "libs/event";
 import { Scope } from "scope";
 import { Search } from "./search";
@@ -16,11 +17,11 @@ export class App {
 	private currentSearchInput: Value<string>;
 	private visible: Value<boolean>;
 	private selectedIndex: Value<number>;
-	private listedCommands: UsedAs<Command[]>;
-	private selectedCommand: UsedAs<Maybe<Command>>;
+	private listedCommands: UsedAs<CoreCommand[]>;
+	private selectedCommand: UsedAs<Maybe<CoreCommand>>;
 	private onDoSearchFocus: Connect<[]>;
 	private focusSearch: Fire<[]>;
-	private runners: Map<Command, CommandRun>;
+	private runners: Map<CoreCommand, CommandRun>;
 
 	constructor(private scope: Scope) {
 		this.search = new Search();
@@ -75,7 +76,7 @@ export class App {
 		}
 	}
 
-	async runCommand(cmd: Command) {
+	async runCommand(cmd: CoreCommand) {
 		let run = this.runners.get(cmd);
 		if (!run) {
 			const newRun = createCommandRun();
