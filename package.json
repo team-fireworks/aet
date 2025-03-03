@@ -39,7 +39,10 @@
         "@rbxts/semver": "^1.0.0",
         "@rbxts/services": "^1.5.5",
         "@rbxts/sift": "^0.0.11",
-        "@rbxts/ty": "file:./packages/ty"
+        "@rbxts/libopen-ty": "1.0.0",
+        "@rbxts/libopen-maybe": "1.0.0",
+        "@rbxts/libopen-radium": "1.0.0",
+        "@rbxts/libopen-whyhttp": "1.0.0"
     },
     "patchedDependencies": {
         "@rbxts/fusion-0.3-temp@0.7.2": "patches/@rbxts%2Ffusion-0.3-temp@0.7.2.patch",

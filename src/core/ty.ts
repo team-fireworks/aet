@@ -3,7 +3,7 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import Et from "@rbxts/et-for-plugins";
-import ty from "@rbxts/ty";
+import ty from "@rbxts/libopen-ty";
 import Types from "./types";
 
 export const Command = ty
