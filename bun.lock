@@ -36,6 +36,7 @@
     },
   },
   "patchedDependencies": {
+    "@rbxts/semver@1.0.0": "patches/@rbxts%2Fsemver@1.0.0.patch",
     "@rbxts/fusion-0.3-temp@0.7.2": "patches/@rbxts%2Ffusion-0.3-temp@0.7.2.patch",
   },
   "packages": {

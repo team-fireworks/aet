@@ -1,0 +1,495 @@
+diff --git a/out/init.lua b/out/init.lua
+index c08a3bbb4a9cb6a43f2f9f4bdf030e32814928c1..fed10d3f9ecd68e14d785482dfb07f0871693b5b 100644
+--- a/out/init.lua
++++ b/out/init.lua
+@@ -28,256 +28,266 @@
+ 	*  Read `license.md`
+ ]]
+ local checkPositiveInteger = function(number, name)
+-	local _arg0 = number >= 0
+-	local _arg1 = name .. " must be a valid positive number"
+-	assert(_arg0, _arg1)
+-	local _arg0_1 = math.floor(number) == number
+-	local _arg1_1 = name .. " must be an integer"
+-	assert(_arg0_1, _arg1_1)
++    local _arg0 = number >= 0
++    local _arg1 = name .. " must be a valid positive number"
++    assert(_arg0, _arg1)
++    local _arg0_1 = math.floor(number) == number
++    local _arg1_1 = name .. " must be an integer"
++    assert(_arg0_1, _arg1_1)
+ end
+ -- present is defualt implemented. using ts truthy
+ -- -- splitByDot("a.bbc.d") == {"a", "bbc", "d"}
+ local function splitByDot(str)
+-	if str == nil then
+-		str = ""
+-	end
+-	local t = {}
+-	local count = 0
+-	local _arg1 = function(c)
+-		count += 1
+-		t[count + 1] = c
+-		return nil
+-	end
+-	string.gsub(str, "([^%.]+)", _arg1)
+-	return t
++    if str == nil then
++        str = ""
++    end
++    local t = {}
++    local count = 0
++    local _arg1 = function(c)
++        count += 1
++        t[count + 1] = c
++        return nil
++    end
++    string.gsub(str, "([^%.]+)", _arg1)
++    return t
+ end
+ local parsePrereleaseAndBuildWithSign = function(str)
+-	local captures = { string.match(str, "^(-[^+]+)(+.+)$") }
+-	local prereleaseWithSign = captures[1]
+-	local buildWithSign = captures[2]
+-	local _condition = prereleaseWithSign
+-	if _condition ~= 0 and _condition == _condition and _condition ~= "" and _condition then
+-		_condition = buildWithSign
+-	end
+-	if not (_condition ~= 0 and _condition == _condition and _condition ~= "" and _condition) then
+-		prereleaseWithSign = (string.match(str, "^(-.+)$"))
+-		buildWithSign = (string.match(str, "^(+.+)$"))
+-	end
+-	local _condition_1 = prereleaseWithSign
+-	if not (_condition_1 ~= 0 and _condition_1 == _condition_1 and _condition_1 ~= "" and _condition_1) then
+-		_condition_1 = buildWithSign
+-	end
+-	local _arg1 = '"The parameter ' .. str .. ' must begin with + or - to denote a prerelease or a build"'
+-	assert(_condition_1 ~= 0 and _condition_1 == _condition_1 and _condition_1 ~= "" and _condition_1, _arg1)
+-	return { prereleaseWithSign, buildWithSign }
++    local captures = { string.match(str, "^(-[^+]+)(+.+)$") }
++    local prereleaseWithSign = captures[1]
++    local buildWithSign = captures[2]
++    local _condition = prereleaseWithSign
++    if _condition ~= nil then
++        _condition = buildWithSign
++    else
++        prereleaseWithSign = (string.match(str, "^(-.+)$"))
++        buildWithSign = (string.match(str, "^(+.+)$"))
++    end
++    local _condition_1 = prereleaseWithSign
++    if not (_condition ~= nil) then
++        _condition_1 = buildWithSign
++    end
++    local _arg1 = '"The parameter ' .. str .. ' must begin with + or - to denote a prerelease or a build"'
++    assert(_condition ~= nil, _arg1)
++    return { prereleaseWithSign, buildWithSign }
+ end
+ local parsePrerelease = function(prereleaseWithSign)
+-	if not (prereleaseWithSign ~= "" and prereleaseWithSign) then
+-		return nil
+-	end
+-	local prerelease = (string.match(prereleaseWithSign, "^-(%w[%.%w-]*)$"))
+-	local _arg1 = "The prerelease " .. prereleaseWithSign .. " is not a slash followed by alphanumerics, dots and slashes"
+-	assert(prerelease ~= 0 and prerelease == prerelease and prerelease ~= "" and prerelease, _arg1)
+-	return prerelease
++    if not (prereleaseWithSign ~= "" and prereleaseWithSign) then
++        return nil
++    end
++    local prerelease = (string.match(prereleaseWithSign, "^-(%w[%.%w-]*)$"))
++    local _arg1 = "The prerelease " ..
++    prereleaseWithSign .. " is not a slash followed by alphanumerics, dots and slashes"
++    assert(prerelease, _arg1)
++    return prerelease
+ end
+ local parseBuild = function(buildWithSign)
+-	if not (buildWithSign ~= "" and buildWithSign) then
+-		return nil
+-	end
+-	local build = (string.match(buildWithSign, "^%+(%w[%.%w-]*)$"))
+-	local _arg1 = "The build " .. buildWithSign .. " is not a + sign followed by alphanumerics, dots and slashes"
+-	assert(build ~= 0 and build == build and build ~= "" and build, _arg1)
+-	return build
++    if not (buildWithSign ~= "" and buildWithSign) then
++        return nil
++    end
++    local build = (string.match(buildWithSign, "^%+(%w[%.%w-]*)$"))
++    local _arg1 = "The build " .. buildWithSign .. " is not a + sign followed by alphanumerics, dots and slashes"
++    assert(build, _arg1)
++    return build
+ end
+ local parsePrereleaseAndBuild = function(str)
+-	if not (str ~= "" and str) then
+-		return { nil, nil }
+-	end
+-	local e = parsePrereleaseAndBuildWithSign(str)
+-	local prereleaseWithSign = e[1]
+-	local buildWithSign = e[2]
+-	local prerelease = parsePrerelease(prereleaseWithSign)
+-	local build = parseBuild(buildWithSign)
+-	return { prerelease, build }
++    if not (str ~= "" and str) then
++        return { nil, nil }
++    end
++    local e = parsePrereleaseAndBuildWithSign(str)
++    local prereleaseWithSign = e[1]
++    local buildWithSign = e[2]
++    local prerelease = parsePrerelease(prereleaseWithSign)
++    local build = parseBuild(buildWithSign)
++    return { prerelease, build }
+ end
+ local parseVersion = function(str)
+-	local capture = { string.match(str, "^(%d+)%.?(%d*)%.?(%d*)(.-)$") }
+-	local sMajor = capture[1]
+-	local sMinor = capture[2]
+-	local sPatch = capture[3]
+-	local sPrereleaseAndBuild = capture[4]
+-	local _arg0 = type(sMajor) == "string"
+-	local _arg1 = "Could not extract version number(s) from " .. str
+-	assert(_arg0, _arg1)
+-	local _condition = tonumber(sMajor)
+-	if not (_condition ~= 0 and _condition == _condition and _condition) then
+-		_condition = 0
+-	end
+-	local major = _condition
+-	local _condition_1 = tonumber(sMinor)
+-	if not (_condition_1 ~= 0 and _condition_1 == _condition_1 and _condition_1) then
+-		_condition_1 = 0
+-	end
+-	local minor = _condition_1
+-	local _condition_2 = tonumber(sPatch)
+-	if not (_condition_2 ~= 0 and _condition_2 == _condition_2 and _condition_2) then
+-		_condition_2 = 0
+-	end
+-	local patch = _condition_2
+-	local capture2 = parsePrereleaseAndBuild(sPrereleaseAndBuild)
+-	return { major, minor, patch, capture2[1], capture2[2] }
++    local capture = { string.match(str, "^(%d+)%.?(%d*)%.?(%d*)(.-)$") }
++    local sMajor = capture[1]
++    local sMinor = capture[2]
++    local sPatch = capture[3]
++    local sPrereleaseAndBuild = capture[4]
++    local _arg0 = type(sMajor) == "string"
++    local _arg1 = "Could not extract version number(s) from " .. str
++    assert(_arg0, _arg1)
++    local _condition = tonumber(sMajor)
++    if not (_condition) then
++        _condition = 0
++    end
++    local major = _condition
++    local _condition_1 = tonumber(sMinor)
++    if not (_condition_1) then
++        _condition_1 = 0
++    end
++    local minor = _condition_1
++    local _condition_2 = tonumber(sPatch)
++    if not (_condition_2) then
++        _condition_2 = 0
++    end
++    local patch = _condition_2
++    local capture2 = parsePrereleaseAndBuild(sPrereleaseAndBuild)
++    return { major, minor, patch, capture2[1], capture2[2] }
+ end
+ -- return 0 if a == b, -1 if a < b, and 1 if a > b
+ local compare = function(a, b)
+-	local _condition = (a == b) and 0
+-	if not (_condition ~= 0 and _condition == _condition and _condition) then
+-		_condition = (a < b) and -1 or 1
+-	end
+-	return _condition
++    local _condition = (a == b) and 0
++    if not (_condition) then
++        _condition = (a < b) and -1 or 1
++    end
++    return _condition
+ end
+ local compareIds = function(myID, otherID)
+-	if myID == otherID then
+-		return 0
+-	end
+-	if not (myID ~= 0 and myID == myID and myID) then
+-		return -1
+-	end
+-	if not (otherID ~= 0 and otherID == otherID and otherID) then
+-		return 1
+-	end
+-	local selfNumber = tonumber(myID)
+-	local otherNumber = tonumber(otherID)
+-	local _condition = selfNumber
+-	if _condition ~= 0 and _condition == _condition and _condition then
+-		_condition = otherNumber
+-	end
+-	if _condition ~= 0 and _condition == _condition and _condition then
+-		return compare(selfNumber, otherNumber)
+-	end
+-	-- numericals are always smaller than alphanums
+-	if selfNumber ~= 0 and selfNumber == selfNumber and selfNumber then
+-		return -1
+-	end
+-	if otherNumber ~= 0 and otherNumber == otherNumber and otherNumber then
+-		return 1
+-	end
+-	return compare(myID, otherID)
++    if myID == otherID then
++        return 0
++    end
++    if not (myID) then
++        return -1
++    end
++    if not (otherID) then
++        return 1
++    end
++    local selfNumber = tonumber(myID)
++    local otherNumber = tonumber(otherID)
++    local _condition = selfNumber
++    if _condition then
++        _condition = otherNumber
++    end
++    if _condition then
++        return compare(selfNumber, otherNumber)
++    end
++    -- numericals are always smaller than alphanums
++    if selfNumber then
++        return -1
++    end
++    if otherNumber then
++        return 1
++    end
++    return compare(myID, otherID)
+ end
+ local smallerIdList = function(myIds, otherIds)
+-	local myLength = #otherIds - 1
+-	local comparison
+-	do
+-		local i = 0
+-		local _shouldIncrement = false
+-		while true do
+-			if _shouldIncrement then
+-				i += 1
+-			else
+-				_shouldIncrement = true
+-			end
+-			if not (i < myLength) then
+-				break
+-			end
+-			comparison = compareIds(myIds[i + 1], otherIds[i + 1])
+-			if comparison ~= 0 then
+-				return comparison == -1
+-			end
+-		end
+-	end
+-	return myLength < #otherIds - 1
++    local myLength = #otherIds - 1
++    local comparison
++    do
++        local i = 0
++        local _shouldIncrement = false
++        while true do
++            if _shouldIncrement then
++                i += 1
++            else
++                _shouldIncrement = true
++            end
++            if not (i < myLength) then
++                break
++            end
++            comparison = compareIds(myIds[i + 1], otherIds[i + 1])
++            if comparison ~= 0 then
++                return comparison == -1
++            end
++        end
++    end
++    return myLength < #otherIds - 1
+ end
+ local smallerPrerelease = function(mine, other)
+-	if mine == other or not (mine ~= "" and mine) then
+-		return false
+-	end
+-	if not (other ~= "" and other) then
+-		return true
+-	end
+-	return smallerIdList(splitByDot(mine), splitByDot(other))
++    if mine == other or not (mine ~= "" and mine) then
++        return false
++    end
++    if not (other ~= "" and other) then
++        return true
++    end
++    return smallerIdList(splitByDot(mine), splitByDot(other))
+ end
+ local SemVer
+ do
+-	SemVer = setmetatable({}, {
+-		__tostring = function()
+-			return "SemVer"
+-		end,
+-	})
+-	SemVer.__index = SemVer
+-	function SemVer.new(...)
+-		local self = setmetatable({}, SemVer)
+-		return self:constructor(...) or self
+-	end
+-	function SemVer:constructor(major, minor, patch, prerelease, build)
+-		self.major = 0
+-		assert(major ~= 0 and major == major and major ~= "" and major, "At least one parameter is needed")
+-		if type(major) == "string" then
+-			local ver = parseVersion(major)
+-			major = (ver[1])
+-			minor = (ver[2])
+-			patch = (ver[3])
+-			prerelease = (ver[4])
+-			build = (ver[5])
+-		end
+-		local _condition = patch
+-		if not (_condition ~= 0 and _condition == _condition and _condition) then
+-			_condition = 0
+-		end
+-		patch = _condition
+-		local _condition_1 = minor
+-		if not (_condition_1 ~= 0 and _condition_1 == _condition_1 and _condition_1) then
+-			_condition_1 = 0
+-		end
+-		minor = _condition_1
+-		checkPositiveInteger(major, "major")
+-		checkPositiveInteger(minor, "minor")
+-		checkPositiveInteger(patch, "patch")
+-		self.major = major
+-		self.minor = minor
+-		self.patch = patch
+-		self.prerelease = prerelease
+-		self.build = build
+-	end
+-	function SemVer:nextMajor()
+-		return SemVer.new(self.major + 1, 0, 0)
+-	end
+-	function SemVer:nextMinor()
+-		return SemVer.new(self.major, self.minor + 1, 0)
+-	end
+-	function SemVer:nextPatch()
+-		return SemVer.new(self.major, self.minor, self.patch + 1)
+-	end
+-	function SemVer:equals(other)
+-		return self.major == other.major and self.minor == other.minor and self.patch == other.patch and self.prerelease == other.prerelease
+-	end
+-	function SemVer:lessThan(other)
+-		if self.major ~= other.major then
+-			return self.major < other.major
+-		end
+-		if self.minor ~= other.minor then
+-			return self.minor < other.minor
+-		end
+-		if self.patch ~= other.patch then
+-			return self.patch < other.patch
+-		end
+-		return smallerPrerelease(self.prerelease, other.prerelease)
+-	end
+-	function SemVer:upgrade(other)
+-		if self.major == 0 then
+-			return self == other
+-		end
+-		return self.major == other.major and self.minor <= other.minor
+-	end
+-	function SemVer:toString()
+-		local _value = self.prerelease
+-		local prerelease = _value ~= "" and _value and "-" .. self.prerelease or ""
+-		local _value_1 = self.build
+-		local build = _value_1 ~= "" and _value_1 and "+" .. self.build or ""
+-		return tostring(self.major) .. "." .. tostring(self.minor) .. "." .. tostring(self.patch) .. prerelease .. build
+-	end
+-	function SemVer:__tostring()
+-		return self:toString()
+-	end
++    SemVer = setmetatable({}, {
++        __tostring = function()
++            return "SemVer"
++        end,
++    })
++    SemVer.__index = SemVer
++    function SemVer.new(...)
++        local self = setmetatable({}, SemVer)
++        return self:constructor(...) or self
++    end
++
++    function SemVer:constructor(major, minor, patch, prerelease, build)
++        self.major = 0
++        assert(major ~= 0 and major == major and major ~= "" and major, "At least one parameter is needed")
++        if type(major) == "string" then
++            local ver = parseVersion(major)
++            major = (ver[1])
++            minor = (ver[2])
++            patch = (ver[3])
++            prerelease = (ver[4])
++            build = (ver[5])
++        end
++        local _condition = patch
++        if not (_condition) then
++            _condition = 0
++        end
++        patch = _condition
++        local _condition_1 = minor
++        if not (_condition_1) then
++            _condition_1 = 0
++        end
++        minor = _condition_1
++        checkPositiveInteger(major, "major")
++        checkPositiveInteger(minor, "minor")
++        checkPositiveInteger(patch, "patch")
++        self.major = major
++        self.minor = minor
++        self.patch = patch
++        self.prerelease = prerelease
++        self.build = build
++    end
++
++    function SemVer:nextMajor()
++        return SemVer.new(self.major + 1, 0, 0)
++    end
++
++    function SemVer:nextMinor()
++        return SemVer.new(self.major, self.minor + 1, 0)
++    end
++
++    function SemVer:nextPatch()
++        return SemVer.new(self.major, self.minor, self.patch + 1)
++    end
++
++    function SemVer:equals(other)
++        return self.major == other.major and self.minor == other.minor and self.patch == other.patch and
++        self.prerelease == other.prerelease
++    end
++
++    function SemVer:lessThan(other)
++        if self.major ~= other.major then
++            return self.major < other.major
++        end
++        if self.minor ~= other.minor then
++            return self.minor < other.minor
++        end
++        if self.patch ~= other.patch then
++            return self.patch < other.patch
++        end
++        return smallerPrerelease(self.prerelease, other.prerelease)
++    end
++
++    function SemVer:upgrade(other)
++        if self.major == 0 then
++            return self == other
++        end
++        return self.major == other.major and self.minor <= other.minor
++    end
++
++    function SemVer:toString()
++        local _value = self.prerelease
++        local prerelease = _value ~= "" and _value and "-" .. self.prerelease or ""
++        local _value_1 = self.build
++        local build = _value_1 ~= "" and _value_1 and "+" .. self.build or ""
++        return tostring(self.major) .. "." .. tostring(self.minor) .. "." .. tostring(self.patch) .. prerelease .. build
++    end
++
++    function SemVer:__tostring()
++        return self:toString()
++    end
+ end
+ return {
+-	SemVer = SemVer,
++    SemVer = SemVer,
+ }
