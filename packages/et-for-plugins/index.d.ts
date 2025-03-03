@@ -106,7 +106,7 @@ declare namespace Ethereal {
 	}
 
 	export interface EtPermissioned {
-		register: (command: Command) => void;
+		registerCommand: (command: Command) => void;
 		predicates: {
 			/// Requires an EToH tower that has client objects to be selected.
 			towerSelected: CommandPredicate;
