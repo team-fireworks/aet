@@ -40,7 +40,10 @@ declare namespace ty {
 	export function MapOf<K extends string | number | symbol, V>(keys: Def<K>, values: Def<V>): Def<Record<K, V>>;
 	export function MapOf<K, V>(keys: Def<K>, values: Def<V>): Def<Map<K, V>>;
 	export function Array<V>(values: Def<V>): Def<V[]>;
-	export function Struct<T extends Record<string, Def<unknown>>>(object: T): Def<{ [K in keyof T]: Static<T[K]> }>;
+	export function Struct<T extends Record<string, Def<unknown>>>(
+		options: { exhaustive: boolean },
+		object: T,
+	): Def<{ [K in keyof T]: Static<T[K]> }>;
 	export function Tuple<T extends Array<Def<unknown>>>(
 		options: { exhaustive: boolean },
 		tuple: T,

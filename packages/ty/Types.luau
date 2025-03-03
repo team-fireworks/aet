@@ -2,7 +2,7 @@
 -- From 'ty' by Elttob, MIT license
 
 local Package = script.Parent.Parent
-local Maybe = require(Package.Maybe)
+local Maybe = require(Package.ty.Maybe)
 
 export type Def = DefNoMethods & Methods
 type DefNoMethods = {

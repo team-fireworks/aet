@@ -4,7 +4,7 @@
 -- By Daniel P H Fox, licensed under MIT
 
 local Package = script.Parent.Parent.Parent
-local Maybe = require(Package.Maybe)
+local Maybe = require(Package.ty.Maybe)
 
 local Types = require(Package.ty.Types)
 local Def = require(Package.ty.Def)
