@@ -15,7 +15,7 @@ const STUDS = table.freeze({
 export = (et: EtPermissioned) => {
 	for (const [size, name] of pairs(STUDS)) {
 		et.register({
-			name: `Round selection size to nearest ${name}`,
+			name: `Round selected part size to nearest ${name}`,
 			description: `For each part selected, rounds the part's size to the nearest ${name}.`,
 			run: () => {
 				for (const selected of Selection.Get()) {
@@ -30,7 +30,7 @@ export = (et: EtPermissioned) => {
 		});
 
 		et.register({
-			name: `Round selection position to nearest ${name}`,
+			name: `Round selected part position to nearest ${name}`,
 			description: `For each part selected, rounds the part's position to the nearest ${name}.`,
 			run: () => {
 				for (const selected of Selection.Get()) {

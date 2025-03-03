@@ -32,21 +32,21 @@ export = (et: EtPermissioned) => {
 
 	for (const className of IMPLEMENT_PICK_CLASS_NAMES) {
 		et.register({
-			name: `Pick ${className}s from selection`,
-			description: `Pick ${className}s from selection`,
+			name: `Pick selected ${className}s`,
+			description: `Pick selected ${className}s`,
 			run: () => Selection.Set(Selection.Get().filter((v) => classIs(v, className))),
 		});
 	}
 
 	et.register({
-		name: "Pick all parts from selection",
-		description: "Pick all parts from selection",
+		name: "Pick all selected parts",
+		description: "Pick all selected parts",
 		run: () => Selection.Set(Selection.Get().filter((v) => PARTS.has(v.ClassName as never))),
 	});
 
 	et.register({
-		name: "Pick children from selection",
-		description: "Pick children from selection",
+		name: "Pick selected children",
+		description: "Pick selected children",
 		run: () =>
 			Selection.Set(
 				Selection.Get()
@@ -59,8 +59,8 @@ export = (et: EtPermissioned) => {
 	});
 
 	et.register({
-		name: "Pick descendants from selection",
-		description: "Pick descendants from selection",
+		name: "Pick selected descendants",
+		description: "Pick selected descendants",
 		run: () =>
 			Selection.Set(
 				Selection.Get()
