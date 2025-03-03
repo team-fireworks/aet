@@ -2,8 +2,7 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import Fusion, { Children, OnChange, OnEvent, UsedAs } from "@rbxts/fusion";
-import { Connect } from "libs/event";
+import Fusion, { Children, OnChange, UsedAs, Value } from "@rbxts/fusion";
 import { ScopeProps } from "scope";
 import { Box } from "ui/components/Box";
 import { CornerMid } from "ui/components/Corner";
@@ -15,17 +14,15 @@ import { FULL_UDIM_2, udim2Scale, udimPx } from "ui/udim";
 
 export interface PalleteSearchProps extends ScopeProps {
 	layoutOrder: UsedAs<number>;
-	text: UsedAs<string>;
-	onTextChanged: (text: string) => void;
-	onDoFocus: Connect<[]>;
-	onFocusLost: () => void;
+	searchInput: UsedAs<string>;
+	onInputChanged: (text: string) => void;
+	refInput: Value<TextBox>;
 }
 
-export function PalleteSearch({ scope, text, layoutOrder, onTextChanged, onDoFocus, onFocusLost }: PalleteSearchProps) {
+export function PalleteSearch({ scope, searchInput, layoutOrder, onInputChanged, refInput }: PalleteSearchProps) {
 	// `Hydrate` already pushes to scope, so no need to push here
 	const input = new Instance("TextBox");
-
-	onDoFocus(() => input.CaptureFocus());
+	let childrenLayoutOrder = 1;
 
 	return (
 		<Box
@@ -51,21 +48,24 @@ export function PalleteSearch({ scope, text, layoutOrder, onTextChanged, onDoFoc
 					VerticalAlignment={Enum.VerticalAlignment.Center}
 				/>
 				<Padding scope={scope} paddingX={udimPx(12)} />
-				{scope.Hydrate(input)({
-					BackgroundTransparency: 1,
-					FontFace: TEXT_STYLE_FONTS[TextStyle.Text],
-					TextSize: TEXT_STYLE_SIZES[TextStyle.Text],
-					Size: udim2Scale(0, 1),
-					PlaceholderText: "Search for commands...",
-					PlaceholderColor3: pallete(scope, TEXT_STYLE_PALLETE[TextStyle.Text]),
-					TextColor3: pallete(scope, "fg"),
-					TextXAlignment: Enum.TextXAlignment.Left,
-					TextYAlignment: Enum.TextYAlignment.Center,
-					Text: text,
-					[OnChange("Text")]: onTextChanged,
-					[OnEvent("FocusLost")]: onFocusLost,
-					[Children]: <uiflexitem scope={scope} FlexMode={Enum.UIFlexMode.Fill} />,
-				})}
+				{refInput.set(
+					scope.Hydrate(input)({
+						BackgroundTransparency: 1,
+						ClearTextOnFocus: false,
+						FontFace: TEXT_STYLE_FONTS[TextStyle.Text],
+						TextSize: TEXT_STYLE_SIZES[TextStyle.Text],
+						Size: udim2Scale(0, 1),
+						PlaceholderText: "Search for commands...",
+						PlaceholderColor3: pallete(scope, TEXT_STYLE_PALLETE[TextStyle.Text]),
+						TextColor3: pallete(scope, "fg"),
+						TextXAlignment: Enum.TextXAlignment.Left,
+						TextYAlignment: Enum.TextYAlignment.Center,
+						Text: searchInput,
+						LayoutOrder: childrenLayoutOrder++,
+						[OnChange("Text")]: onInputChanged,
+						[Children]: <uiflexitem scope={scope} FlexMode={Enum.UIFlexMode.Fill} />,
+					}),
+				)}
 			</TransparentBox>
 		</Box>
 	);

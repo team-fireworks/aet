@@ -7,7 +7,6 @@ import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
 import { UserInputService } from "@rbxts/services";
 import { commands, createCommandRun } from "core";
 import { CoreCommand } from "core/types";
-import { Connect, event, Fire } from "libs/event";
 import { Scope } from "scope";
 import { Search } from "./search";
 import { CommandPallete } from "./ui/CommandPallete";
@@ -19,9 +18,8 @@ export class App {
 	private selectedIndex: Value<number>;
 	private listedCommands: UsedAs<CoreCommand[]>;
 	private selectedCommand: UsedAs<Maybe<CoreCommand>>;
-	private onDoSearchFocus: Connect<[]>;
-	private focusSearch: Fire<[]>;
 	private runners: Map<CoreCommand, CommandRun>;
+	private refInput: Value<TextBox>;
 
 	constructor(private scope: Scope) {
 		this.search = new Search();
@@ -29,9 +27,7 @@ export class App {
 		this.visible = this.scope.Value(false);
 		this.selectedIndex = this.scope.Value(0);
 		this.runners = new Map();
-		const [onDoSearchFocus, focusSearch] = event();
-		this.onDoSearchFocus = onDoSearchFocus;
-		this.focusSearch = focusSearch;
+		this.refInput = this.scope.Value(undefined!);
 
 		this.listedCommands = this.scope.Computed((use) => {
 			return this.search.search(use(this.currentSearchInput), use(commands));
@@ -48,11 +44,16 @@ export class App {
 
 	async captureFocus() {
 		this.visible.set(true);
-		this.focusSearch();
+
+		const input = peek(this.refInput);
+		if (input) input.CaptureFocus();
 	}
 
 	async releaseFocus() {
 		this.visible.set(false);
+
+		const input = peek(this.refInput);
+		if (input) input.ReleaseFocus();
 	}
 
 	// TODO: holding Up/Down should keep scrolling
@@ -96,9 +97,8 @@ export class App {
 				scope={this.scope}
 				visible={this.visible}
 				searchInput={this.currentSearchInput}
-				onSearchChanged={(s) => this.currentSearchInput.set(s)}
-				onDoSearchFocus={this.onDoSearchFocus}
-				onSearchFocusLost={() => {}}
+				onSearchInputChanged={(s) => this.currentSearchInput.set(s)}
+				refInput={this.refInput}
 				listedCommands={this.listedCommands}
 				selectedCommand={this.selectedCommand}
 				onCommandRun={(cmd) => this.runCommand(cmd)}

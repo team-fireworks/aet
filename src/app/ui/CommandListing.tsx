@@ -48,18 +48,21 @@ export function CommandListing({ scope, command, highlighted, layoutOrder, onMou
 			<imagelabel
 				scope={scope}
 				BackgroundTransparency={1}
+				Name="Icon"
 				Size={udimSqPx(18)}
 				Image={indexUsedAsTable(scope, commandPlugin, "_icon")}
 				LayoutOrder={childrenlayoutOrder++}
 			/>
 			<Text
 				scope={scope}
+				name="Name"
 				text={indexUsedAsTable(scope, command, "name")}
 				textStyle={TextStyle.Text}
 				layoutOrder={childrenlayoutOrder++}
 			/>
 			<Text
 				scope={scope}
+				name="PluginName"
 				text={indexUsedAsTable(scope, commandPlugin, "_name")}
 				textStyle={TextStyle.Label}
 				layoutOrder={childrenlayoutOrder++}

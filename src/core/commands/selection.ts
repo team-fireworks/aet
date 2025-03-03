@@ -63,7 +63,7 @@ export = {
 				),
 		});
 
-		et.register({
+		et.registerCommand({
 			name: "Pick selected descendants",
 			description: "Pick selected descendants",
 			run: () =>

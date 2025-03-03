@@ -2,15 +2,13 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import Fusion, { UsedAs } from "@rbxts/fusion";
+import Fusion, { UsedAs, Value } from "@rbxts/fusion";
 import { CoreCommand } from "core/types";
-import { Connect } from "libs/event";
 import { ScopeProps } from "scope";
 import { Box } from "ui/components/Box";
 import { CornerMid } from "ui/components/Corner";
 import { ForPairs, Show } from "ui/components/Fusion";
 import { Padding } from "ui/components/Padding";
-import { Text, TextStyle } from "ui/components/Text";
 import { TransparentBox } from "ui/components/TransparentBox";
 import { pallete } from "ui/pallete";
 import { udim2Scale, udimPx, udimSqPx, udimSqScale } from "ui/udim";
@@ -22,9 +20,8 @@ export interface CommandPalleteProps extends ScopeProps {
 	visible: UsedAs<boolean>;
 
 	searchInput: UsedAs<string>;
-	onSearchChanged: (s: string) => void;
-	onDoSearchFocus: Connect<[]>;
-	onSearchFocusLost: () => void;
+	onSearchInputChanged: (s: string) => void;
+	refInput: Value<TextBox>;
 
 	listedCommands: UsedAs<CoreCommand[]>;
 	selectedCommand: UsedAs<Maybe<CoreCommand>>;
@@ -37,9 +34,8 @@ export function CommandPallete({
 	visible,
 
 	searchInput,
-	onSearchChanged,
-	onDoSearchFocus,
-	onSearchFocusLost,
+	onSearchInputChanged,
+	refInput,
 
 	listedCommands,
 	selectedCommand,
@@ -71,57 +67,81 @@ export function CommandPallete({
 				<CornerMid scope={scope} />
 				<PalleteSearch
 					scope={scope}
-					text={searchInput}
-					onTextChanged={onSearchChanged}
-					onDoFocus={onDoSearchFocus}
-					onFocusLost={onSearchFocusLost}
+					searchInput={searchInput}
+					onInputChanged={onSearchInputChanged}
+					refInput={refInput}
 					layoutOrder={1}
 				/>
 				<Show
 					scope={scope}
 					when={scope.Computed((use) => use(listedCommands).size() > 0)}
 					children={(scope) => {
+						// FIXME: mfw automaticsize doesnt work with
+						// uisizeconstraint so i have to pull this bs
+						const commandListingsAbsoluteSize = scope.Value(Vector2.zero);
+						const commandListingsSize = scope.Spring(
+							scope.Computed(
+								(use) => new UDim2(1, 0, 0, math.clamp(use(commandListingsAbsoluteSize).Y, 0, 320)),
+							),
+							50,
+							1.1,
+						);
+
 						let childrenlayoutOrder = 1;
 
 						return (
-							<Box
+							<scrollingframe
 								scope={scope}
-								automaticSize={Enum.AutomaticSize.Y}
-								bg={pallete(scope, "bgDark")}
-								size={udim2Scale(1, 0)}
-								layoutOrder={2}
+								BackgroundColor3={pallete(scope, "bgDark")}
+								ClipsDescendants
+								AutomaticCanvasSize={Enum.AutomaticSize.Y}
+								ScrollingDirection={Enum.ScrollingDirection.Y}
+								CanvasSize={udim2Scale(1, 0)}
+								Size={commandListingsSize}
+								VerticalScrollBarInset={Enum.ScrollBarInset.Always}
+								LayoutOrder={2}
 							>
-								<uilistlayout
+								<TransparentBox
 									scope={scope}
-									FillDirection={Enum.FillDirection.Vertical}
-									SortOrder={Enum.SortOrder.LayoutOrder}
-								/>
-								<Padding scope={scope} paddingX={udimPx(6)} />
-								<Text
-									scope={scope}
-									text="Results"
-									textStyle={TextStyle.Label}
-									padding={udimPx(6)}
-									paddingBottom={udimPx(2)}
-									layoutOrder={childrenlayoutOrder++}
-								/>
-								<ForPairs
-									scope={scope}
-									each={listedCommands as never as Map<number, CoreCommand>}
-									children={(_, scope, index, command) =>
-										$tuple(
-											[],
-											<CommandListing
-												scope={scope}
-												command={command}
-												highlighted={scope.Computed((use) => use(selectedCommand) === command)}
-												layoutOrder={childrenlayoutOrder + index}
-												onMouseActivated={() => onCommandRun(command)}
-											/>,
-										)
-									}
-								/>
-							</Box>
+									automaticSize={Enum.AutomaticSize.Y}
+									size={udim2Scale(1, 0)}
+									outSize={commandListingsAbsoluteSize}
+								>
+									<uilistlayout
+										scope={scope}
+										FillDirection={Enum.FillDirection.Vertical}
+										SortOrder={Enum.SortOrder.LayoutOrder}
+									/>
+									<Padding scope={scope} padding={udimPx(6)} />
+									{/* <Text
+										scope={scope}
+										text="Results"
+										textStyle={TextStyle.Label}
+										paddingX={udimPx(6)}
+										paddingY={ZERO_UDIM}
+										paddingBottom={udimPx(4)}
+										layoutOrder={childrenlayoutOrder++}
+									/> */}
+									<ForPairs
+										scope={scope}
+										each={listedCommands as never as Map<number, CoreCommand>}
+										children={(_, scope, index, command) =>
+											$tuple(
+												[],
+												<CommandListing
+													scope={scope}
+													command={command}
+													highlighted={scope.Computed(
+														(use) => use(selectedCommand) === command,
+													)}
+													layoutOrder={childrenlayoutOrder + index}
+													onMouseActivated={() => onCommandRun(command)}
+												/>,
+											)
+										}
+									/>
+								</TransparentBox>
+							</scrollingframe>
 						);
 					}}
 				/>

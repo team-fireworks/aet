@@ -3,7 +3,7 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { UsedAs } from "@rbxts/fusion";
-import { NAME, VERSION } from "config";
+import { VERSION } from "config";
 import { ScopeProps } from "scope";
 import { Box } from "ui/components/Box";
 import { CornerMid } from "ui/components/Corner";
@@ -18,6 +18,7 @@ export interface PalleteFooterProps extends ScopeProps {
 }
 
 export function PalleteFooter({ scope, layoutOrder }: PalleteFooterProps) {
+	let childrenlayoutOrder = 1;
 	return (
 		<Box scope={scope} name="PalleteFooter" size={new UDim2(1, 0, 0, 32)} layoutOrder={layoutOrder}>
 			<CornerMid scope={scope} />
@@ -27,9 +28,24 @@ export function PalleteFooter({ scope, layoutOrder }: PalleteFooterProps) {
 					scope={scope}
 					FillDirection={Enum.FillDirection.Horizontal}
 					VerticalAlignment={Enum.VerticalAlignment.Center}
+					SortOrder={Enum.SortOrder.LayoutOrder}
+					Padding={udimPx(4)}
 				/>
 				<Padding scope={scope} paddingX={udimPx(12)} />
-				<Text scope={scope} text={`${NAME} ${VERSION}`} textStyle={TextStyle.Text} />
+				{/* <imagelabel
+					scope={scope}
+					BackgroundTransparency={1}
+					Name="Icon"
+					Size={udimSqPx(18)}
+					Image={assets.images.et}
+					LayoutOrder={childrenlayoutOrder++}
+				/> */}
+				<Text
+					scope={scope}
+					text={VERSION.toString()}
+					textStyle={TextStyle.Label}
+					layoutOrder={childrenlayoutOrder++}
+				/>
 			</TransparentBox>
 		</Box>
 	);
