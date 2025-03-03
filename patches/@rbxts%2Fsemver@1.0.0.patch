@@ -1,5 +1,8 @@
+diff --git a/node_modules/@rbxts/semver/.bun-tag-dbf74b7085d6c327 b/.bun-tag-dbf74b7085d6c327
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/out/init.lua b/out/init.lua
-index c08a3bbb4a9cb6a43f2f9f4bdf030e32814928c1..fed10d3f9ecd68e14d785482dfb07f0871693b5b 100644
+index c08a3bbb4a9cb6a43f2f9f4bdf030e32814928c1..04ebb8bc55e2c1db9f6751cc020b2ba96ed6ed74 100644
 --- a/out/init.lua
 +++ b/out/init.lua
 @@ -28,256 +28,266 @@
@@ -97,7 +100,7 @@ index c08a3bbb4a9cb6a43f2f9f4bdf030e32814928c1..fed10d3f9ecd68e14d785482dfb07f08
 +    end
 +    local prerelease = (string.match(prereleaseWithSign, "^-(%w[%.%w-]*)$"))
 +    local _arg1 = "The prerelease " ..
-+    prereleaseWithSign .. " is not a slash followed by alphanumerics, dots and slashes"
++        prereleaseWithSign .. " is not a slash followed by alphanumerics, dots and slashes"
 +    assert(prerelease, _arg1)
 +    return prerelease
  end
@@ -411,7 +414,7 @@ index c08a3bbb4a9cb6a43f2f9f4bdf030e32814928c1..fed10d3f9ecd68e14d785482dfb07f08
 +
 +    function SemVer:constructor(major, minor, patch, prerelease, build)
 +        self.major = 0
-+        assert(major ~= 0 and major == major and major ~= "" and major, "At least one parameter is needed")
++        assert(major, "At least one parameter is needed")
 +        if type(major) == "string" then
 +            local ver = parseVersion(major)
 +            major = (ver[1])
@@ -454,7 +457,7 @@ index c08a3bbb4a9cb6a43f2f9f4bdf030e32814928c1..fed10d3f9ecd68e14d785482dfb07f08
 +
 +    function SemVer:equals(other)
 +        return self.major == other.major and self.minor == other.minor and self.patch == other.patch and
-+        self.prerelease == other.prerelease
++            self.prerelease == other.prerelease
 +    end
 +
 +    function SemVer:lessThan(other)
