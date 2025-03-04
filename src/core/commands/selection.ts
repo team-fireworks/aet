@@ -4,6 +4,7 @@
 
 import { EtPermissioned } from "@rbxts/et-for-plugins";
 import { Selection } from "@rbxts/services";
+import SiftArray from "@rbxts/sift/out/Array";
 import assets from "assets";
 import { CoreCommandModule } from "core/types";
 
@@ -44,9 +45,41 @@ export = {
 		}
 
 		et.registerCommand({
-			name: "Pick all selected parts",
-			description: "Pick all selected parts",
-			run: () => Selection.Set(Selection.Get().filter((v) => PARTS.has(v.ClassName as never))),
+			name: "Select children",
+			description: "Select children",
+			run: () => {
+				const nowSelection = Selection.Get();
+				Selection.Set(
+					SiftArray.join(
+						nowSelection,
+						nowSelection
+							.map((v) => v.GetChildren())
+							.reduce((total, children) => {
+								for (const v of children) total.push(v);
+								return total;
+							}),
+					),
+				);
+			},
+		});
+
+		et.registerCommand({
+			name: "Select descendants",
+			description: "Select descendants",
+			run: () => {
+				const nowSelection = Selection.Get();
+				Selection.Set(
+					SiftArray.join(
+						nowSelection,
+						nowSelection
+							.map((v) => v.GetDescendants())
+							.reduce((total, children) => {
+								for (const v of children) total.push(v);
+								return total;
+							}),
+					),
+				);
+			},
 		});
 
 		et.registerCommand({
