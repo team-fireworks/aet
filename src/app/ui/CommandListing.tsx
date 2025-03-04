@@ -58,6 +58,7 @@ export function CommandListing({ scope, command, highlighted, layoutOrder, onMou
 				name="Name"
 				text={indexUsedAsTable(scope, command, "name")}
 				textStyle={TextStyle.Text}
+				textWrapped={false}
 				layoutOrder={childrenlayoutOrder++}
 			/>
 			<Text
@@ -65,6 +66,7 @@ export function CommandListing({ scope, command, highlighted, layoutOrder, onMou
 				name="PluginName"
 				text={indexUsedAsTable(scope, commandPlugin, "_name")}
 				textStyle={TextStyle.Label}
+				textWrapped={false}
 				layoutOrder={childrenlayoutOrder++}
 			/>
 		</Box>

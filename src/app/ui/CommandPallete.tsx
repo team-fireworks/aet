@@ -41,6 +41,14 @@ export function CommandPallete({
 	selectedCommand,
 	onCommandRun,
 }: CommandPalleteProps) {
+	const visibility = scope.Spring(
+		scope.Computed((use) => (use(visible) ? 0 : 1)),
+		50,
+		1,
+	);
+
+	const isVisible = scope.Computed((use) => use(visibility) < 0.995);
+
 	return (
 		<TransparentBox
 			scope={scope}
@@ -48,8 +56,9 @@ export function CommandPallete({
 			anchorPoint={new Vector2(0.5, 0.5)}
 			position={udimSqScale(0.5)}
 			size={udimSqPx(640)}
-			visible={visible}
+			visible={isVisible}
 		>
+			<uiscale scope={scope} Scale={scope.Computed((use) => 1 + 0.025 * use(visibility))} />
 			<Box
 				scope={scope}
 				name="Container"
