@@ -44,6 +44,8 @@ export class App {
 
 	async captureFocus() {
 		this.visible.set(true);
+		this.selectedIndex.set(0);
+		this.currentSearchInput.set("");
 
 		const input = peek(this.refInput);
 		if (input) input.CaptureFocus();
@@ -85,10 +87,15 @@ export class App {
 			run = newRun;
 		}
 
+		this.releaseFocus();
+
+		// const fenv = getfenv(cmd.run);
+		// print("FENV", fenv);
+		// setfenv(cmd.run, {
+		// 	print: (...args: unknown[]) => info(`${cmd.name}:`, ...args),
+		// });
 		const [ok, v] = pcall(cmd.run, run);
 		if (!ok) warn(`Error running command "${cmd.name}: ${v}"`);
-
-		this.releaseFocus();
 	}
 
 	render() {
