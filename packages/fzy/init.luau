@@ -1,7 +1,5 @@
 --!nolint
 --!nocheck
--- https://github.com/swarn/fzy-lua/blob/main/src/fzy_lua.lua
--- roblaudio/ocmusic-browser adaptation for usage with roblox-ts
 
 -- The lua implementation of the fzy string matching algorithm
 
@@ -30,7 +28,7 @@ local fzy = {}
 --
 -- Returns:
 --   bool
-local function has_match(needle, haystack, case_sensitive)
+function fzy.has_match(needle, haystack, case_sensitive)
 	if not case_sensitive then
 		needle = string.lower(needle)
 		haystack = string.lower(haystack)
@@ -141,7 +139,7 @@ end
 -- Returns:
 --   number: higher scores indicate better matches. See also `get_score_min`
 --     and `get_score_max`.
-local function score(needle, haystack, case_sensitive)
+function fzy.score(needle, haystack, case_sensitive)
 	local n = string.len(needle)
 	local m = string.len(haystack)
 
@@ -172,7 +170,7 @@ end
 --   {int,...}: indices, where `indices[n]` is the location of the `n`th
 --     character of `needle` in `haystack`.
 --   number: the same matching score returned by `score`
-local function positions(needle, haystack, case_sensitive)
+function fzy.positions(needle, haystack, case_sensitive)
 	local n = string.len(needle)
 	local m = string.len(haystack)
 
@@ -221,12 +219,12 @@ end
 --     in `haystacks`, each entry giving the index of the line in `haystacks`
 --     as well as the equivalent to the return value of `positions` for that
 --     line.
-local function filter(needle, haystacks, case_sensitive)
+function fzy.filter(needle, haystacks, case_sensitive)
 	local result = {}
 
 	for i, line in ipairs(haystacks) do
-		if has_match(needle, line, case_sensitive) then
-			local p, s = positions(needle, line, case_sensitive)
+		if fzy.has_match(needle, line, case_sensitive) then
+			local p, s = fzy.positions(needle, line, case_sensitive)
 			table.insert(result, { i, p, s })
 		end
 	end
@@ -241,17 +239,17 @@ end
 --  - a `needle` or `haystack` larger than than `get_max_length`,
 -- the `score` function will return this exact value, which can be used as a
 -- sentinel. This is the lowest possible score.
-local function get_score_min()
+function fzy.get_score_min()
 	return SCORE_MIN
 end
 
 -- The score returned for exact matches. This is the highest possible score.
-local function get_score_max()
+function fzy.get_score_max()
 	return SCORE_MAX
 end
 
 -- The maximum size for which `fzy` will evaluate scores.
-local function get_max_length()
+function fzy.get_max_length()
 	return MATCH_MAX_LENGTH
 end
 
@@ -259,7 +257,7 @@ end
 --
 -- For matches that don't return `get_score_min`, their score will be greater
 -- than than this value.
-local function get_score_floor()
+function fzy.get_score_floor()
 	return MATCH_MAX_LENGTH * SCORE_GAP_INNER
 end
 
@@ -267,18 +265,13 @@ end
 --
 -- For matches that don't return `get_score_max`, their score will be less than
 -- this value.
-local function get_score_ceiling()
+function fzy.get_score_ceiling()
 	return MATCH_MAX_LENGTH * SCORE_MATCH_CONSECUTIVE
 end
 
-return table.freeze({
-	hasMatch = has_match,
-	filter = filter,
-	maxLength = get_max_length,
-	scoreCeiling = get_score_ceiling,
-	scoreFloor = get_score_floor,
-	scoreMax = get_score_max,
-	scoreMin = get_score_min,
-	positions = positions,
-	score = score,
-})
+-- The name of the currently-running implmenetation, "lua" or "native".
+function fzy.get_implementation_name()
+	return "lua"
+end
+
+return fzy

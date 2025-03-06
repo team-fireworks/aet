@@ -4,13 +4,16 @@
     "": {
       "name": "et",
       "dependencies": {
-        "@rbxts/et-for-plugins": "file:./packages/et-for-plugins",
+        "@rbxts/et": "file:./packages/et",
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",
+        "@rbxts/fzy": "file:./packages/fzy",
         "@rbxts/iris": "^2.3.1-ts.1",
+        "@rbxts/libopen-event": "^1.0.0",
         "@rbxts/libopen-maybe": "1.0.0",
         "@rbxts/libopen-radium": "1.0.0",
         "@rbxts/libopen-ty": "1.0.0",
         "@rbxts/libopen-whyhttp": "1.0.0",
+        "@rbxts/memoize": "file:./packages/memoize",
         "@rbxts/object-utils": "^1.0.4",
         "@rbxts/rust-classes": "^0.13.0",
         "@rbxts/semver": "^1.0.0",
@@ -77,11 +80,15 @@
 
     "@rbxts/compiler-types": ["@rbxts/compiler-types@3.0.0-types.0", "", {}, "sha512-VGOHJPoL7+56NTatMGqQj3K7xWuzEV+aP4QD5vZiHu+bcff3kiTmtoadaF6NkJrmwfFAvbsd4Dg764ZjWNceag=="],
 
-    "@rbxts/et-for-plugins": ["@rbxts/et-for-plugins@file:packages/et-for-plugins", {}],
+    "@rbxts/et": ["@rbxts/et@file:packages/et", {}],
 
     "@rbxts/fusion": ["@rbxts/fusion-0.3-temp@0.7.2", "", { "dependencies": { "@rbxts/ui-labs": "^2.3.1" } }, "sha512-204MueZ6/3sps9bf4H+usqAL3VO+M5cmHwQnRci0LEF/Q4yV1re/ID96BTYTaWlohI0Vn+yKE45iFYNoclhk5Q=="],
 
+    "@rbxts/fzy": ["@rbxts/fzy@file:packages/fzy", {}],
+
     "@rbxts/iris": ["@rbxts/iris@2.3.1-ts.1", "", {}, "sha512-L/lja+ugKNH3ywdz5c8omXUS34L9oGKlul3yVifzTfQVJS4ryePU/hS6IdMaSbIwNda+qEOehXbSxglF9qxa/A=="],
+
+    "@rbxts/libopen-event": ["@rbxts/libopen-event@1.0.0", "", {}, "sha512-rtMzBt9wdUZTBDft3HzenLMY1RYI55X3Mqp4nqXWJMFUN8TTQIS7emhcO4t1LjczJpjxcyWri/MvsGipmGs89A=="],
 
     "@rbxts/libopen-maybe": ["@rbxts/libopen-maybe@1.0.0", "", {}, "sha512-fyGpKaVCjpjUHtCWWFlzvdJ2BjpPJ+1Ppx9CZlQZUMqhjJeqyIU3lxzahvVu+YNvXNcRlen78/EowNr9+/lFLA=="],
 
@@ -90,6 +97,8 @@
     "@rbxts/libopen-ty": ["@rbxts/libopen-ty@1.0.0", "", { "dependencies": { "@rbxts/libopen-maybe": "npm:@rbxts/libopen-ty@1.0.0" } }, "sha512-bvO4ft7rIP4fzazQC5QeokxSBFLu4FFOEFtJaDHJaLJbdq7UzIGja61L5eDIxPs4qd3Wnc55yVjqQVcpWuPTsQ=="],
 
     "@rbxts/libopen-whyhttp": ["@rbxts/libopen-whyhttp@1.0.0", "", {}, "sha512-AqWm2L3QLbY6lXsMfXgvLRn0ir75bdmLW7D2Y1f57blu9jsi3N8XJiAVs547UIkA7tZ3Ix1cu/rkiBhW1CrElw=="],
+
+    "@rbxts/memoize": ["@rbxts/memoize@file:packages/memoize", {}],
 
     "@rbxts/object-utils": ["@rbxts/object-utils@1.0.4", "", {}, "sha512-dLLhf022ipV+9i910sOE7kl9losKHoon0WgeerHqVMQA5EYsLUsVT2AxhJuhk8MiDn5oJ2GiFofE/LadY9TpJQ=="],
 

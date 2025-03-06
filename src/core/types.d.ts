@@ -1,18 +1,11 @@
-import { Command, EtPermissioned } from "@rbxts/et-for-plugins";
+// This Source Code Form is subject to the terms of the Mozilla Public License,
+// v. 2.0. If a copy of the MPL was not distributed with this file, You can
+// obtain one at http://mozilla.org/MPL/2.0/.
 
-export interface CorePlugin {
-	_plugin: Plugin;
-	_name: string;
-	_icon: string;
-}
+import { CommandContext, RegisterCommandProps, RegisterExtensionProps } from "@rbxts/et";
 
-export interface CoreCommand extends Command {
-	_plugin: CorePlugin;
-}
+export interface CoreExtension extends RegisterExtensionProps {}
 
-/// Used in core/commands
-export interface CoreCommandModule {
-	name: string;
-	icon: string;
-	run: (et: EtPermissioned) => void;
+export interface CoreCommand extends RegisterCommandProps {
+	run: (ctx: CommandContext) => void;
 }

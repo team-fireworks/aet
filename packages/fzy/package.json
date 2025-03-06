@@ -1,0 +1,7 @@
+{
+    "name": "@rbxts/fzy",
+    "version": "1.0.0",
+    "private": true,
+    "license": "MIT",
+    "types": "./index.d.ts"
+}
