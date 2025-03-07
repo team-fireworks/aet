@@ -5,5 +5,5 @@
 import { SemVer } from "@rbxts/semver";
 
 export const VERSION = new SemVer(0, 1, 0, "prealpha");
-export const NAME = "Et";
+export const NAME = "Aet";
 export const IS_DEV = true;

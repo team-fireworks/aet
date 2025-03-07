@@ -11,6 +11,7 @@ return {
 		wrench = "rbxasset://.asphalt-et/icons/wrench.cd53f5e00f758a987d571b57072b662b.png",
 	},
 	images = {
+		aet = "rbxasset://.asphalt-et/images/aet.2f485b3d3dbdc237de8f1ffc92d293dd.png",
 		et = "rbxasset://.asphalt-et/images/et.3cb8e1c6fad58dc313761843b4239857.png",
 		etoh = "rbxasset://.asphalt-et/images/etoh.93735367d28759da424dbc2723cb0026.png",
 	},
