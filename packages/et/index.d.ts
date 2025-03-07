@@ -19,35 +19,57 @@ declare namespace Et {
 		SpawnLocation: BasePart;
 	}
 
-	export interface ExtensionContext {
+	export interface Extension {
 		plugin: Plugin;
 		name: string;
 		icon: string;
+		needs: string[];
 
-		registerCommand(props: RegisterCommandProps, run: (ctx: CommandContext) => void): void;
+		newCommand(props: NewCommandProps): void;
 	}
 
-	export interface RegisterCommandProps {
+	/** @hidden */
+	export interface BaseCommandArgument {
+		kind: string;
+		purpose: string;
+		initialValue: unknown;
+	}
+
+	/** @hidden */
+	export interface GenericCommandArgument<K extends string, T> extends BaseCommandArgument {
+		kind: K;
+		initialValue: T;
+	}
+
+	export interface Color3CommandArgument extends GenericCommandArgument<"color3", Color3> {}
+
+	export type CommandArgument = Color3CommandArgument;
+
+	/** @hidden */
+	export type InferCommandArgumentValue<T extends CommandArgument> = T extends Color3CommandArgument ? Color3 : never;
+
+	export interface NewCommandProps<Arguments extends CommandArgument[] = []> {
 		name: string;
 		description: string;
+		arguments?: Arguments;
+		run: (
+			ctx: CommandContext,
+			...args: { [K in keyof Arguments]: InferCommandArgumentValue<Arguments[K]> }
+		) => void;
 	}
 
 	export interface CommandContext {
 		getSelectedTower(): Maybe<TowerInstance>;
 
-		askString(purpose: string, initial?: string): string;
-		askColor3(purpose: string, initial?: Color3): Color3;
-		askColorSequence(purpose: string, initial?: ColorSequence): ColorSequence;
-
 		hideMainView(): void;
 	}
 
-	export interface RegisterExtensionProps {
+	export interface NewExtensiondProps {
 		plugin: Plugin;
 		name: string;
 		icon: string;
 		needs: string[];
 	}
 
-	export function registerExtension(props: RegisterExtensionProps, fn: (ext: ExtensionContext) => void): void;
+	export function newExtension(props: NewExtensiondProps): Extension;
 }

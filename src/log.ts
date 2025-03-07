@@ -102,7 +102,7 @@ export class RobloxLogger implements Logger {
 			}
 
 		const msg =
-			`${LEVEL_TO_EMOJI[record.level]} [${modulePath}.luau] — ${record.args.map((v) => tostring(v)).join(" ")}`.gsub(
+			`${LEVEL_TO_EMOJI[record.level]} [${modulePath}] — ${record.args.map((v) => tostring(v)).join(" ")}`.gsub(
 				"\n",
 				"\n    ",
 			)[0];

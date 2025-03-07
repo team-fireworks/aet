@@ -1,4 +1,4 @@
-local ET_MODULE_TEMPLATE = [[-- This Source Code Form is subject to the terms of the Mozilla Public License,
+return [[-- This Source Code Form is subject to the terms of the Mozilla Public License,
 -- v. 2.0. If a copy of the MPL was not distributed with this file, You can
 -- obtain one at http://mozilla.org/MPL/2.0/.
 
@@ -6,23 +6,26 @@ local ET_MODULE_TEMPLATE = [[-- This Source Code Form is subject to the terms of
 -- YOUR CHANGES WILL BE OVERWRITTEN
 -- THIS MODULE IS MANAGED BY THE ET PLUGIN
 
-export type RegisterExtensionProps = {
+export type NewExtensiondProps = {
     plugin: Plugin,
     name: string,
     icon: string,
+    needs: { string },
 }
 
 export type Extension = {
     name: string,
     icon: string,
     plugin: Plugin,
+    needs: { string },
 
-    registerCommand: (self: Extension, props: RegisterCommandProps, run: (ctx: CommandContext) -> ()) -> ()
+    registerCommand: (self: Extension, props: NewCommandProps) -> ()
 }
 
-export type RegisterCommandProps = {
+export type NewCommandProps = {
     name: string,
     description: string,
+    run: (ctx: CommandContext) -> ()
 }
 
 export type CommandContext = {
@@ -35,10 +38,6 @@ export type CommandContext = {
 
 return {} :: {
     version: string,
-    registerExtension: (props: RegisterExtensionProps, run: (ext: Extension) -> ()) -> ()
+    newExtension: (props: NewExtensiondProps) -> Extension
 }
 ]]
-
-return table.freeze({
-	etModuleTemplate = ET_MODULE_TEMPLATE,
-})
