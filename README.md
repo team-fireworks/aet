@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="200px" />
+<img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="175px" />
 
 Aet is a powerful command pallete streamlining tower building jampacked with
 popular utilities for the next decade of Eternal Towers of Hell.
