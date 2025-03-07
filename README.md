@@ -1,78 +1,26 @@
-# Et
+<img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="200px" />
 
-<img src="https://raw.githubusercontent.com/znotfireman/et/refs/heads/main/assets/images/et.png" align="right" width="200px" />
+Aet is a powerful command pallete streamlining tower building jampacked with
+popular utilities for the next decade of Eternal Towers of Hell.
 
-![CI workflow](https://github.com/znotfireman/et/actions/workflows/ci.yaml/badge.svg)
-![Documentation workflow](https://github.com/znotfireman/et/actions/workflows/docs.yaml/badge.svg)
-<!-- TODO: replace with actual creator store page once it releases -->
-[Roblox Creator Store](https://tenor.com/view/vr-cuddle-time-jtoh-deletion-2025-gif-9159746476639723483?quality=lossless) ·
-[Documentation](https://znotfireman.github.io/et)
+- Popular tower building utilities and scripts in one command pallete
+- First class support for Eternal Towers of Hell v5 (v6 and MTK coming soon)
+- Comes with Archimedes, tightropes, instance reclassing, and gapfill
+- Library of sounds, decals, and client objects
+- Extend Aet with custom commands
 
-Et is a full-featured Eternal Towers of Hell companion plugin jampacked with
-utilities and a state-of-the-arts foundation for the next decade of tower
-building.
+[![Get on Roblox](https://img.shields.io/badge/Get_on_Roblox-00A2FF?style=for-the-badge&logo=robloxstudio&logoColor=FFFFFF)](https://tenor.com/view/vr-cuddle-time-jtoh-deletion-2025-gif-9159746476639723483?quality=lossless)
+[![Documenation](https://img.shields.io/github/actions/workflow/status/team-fireworks/aet/docs.yaml?style=for-the-badge&label=Documentation)](https://team-fireworks.github.io/aet)
+![CI](https://img.shields.io/github/actions/workflow/status/team-fireworks/aet/ci.yaml?style=for-the-badge&label=CI)
+<!-- ^^^^ TODO: replace with actual creator store page once it releases -->
 
 > **Warning:**
-> Et is unreleased, unfinished, and untested. Pre-alpha releases should be
+> Aet is unreleased, unfinished, and untested. Pre-alpha releases should be
 > availible by March. Contributions are welcomed.
-
-- 🚀 All tower building utilities and scripts under one keybind
-- 🧰 First class support for Eternal Towers of Hell v5 (with v6 and MTK v4 coming soon)
-- 📦 Comes with archimedes, tightropes, instance reclassing, and gapfill
-- 📚 Library of sounds, decals, and client objects
-- 🧩 Et for Plugins API for registering your own commands
 
 ## About commands
 
-Ethereal exposes an API for other plugins to register commands, which contains
-arguments and methods. Commands are sandboxed and disallowed from using `plugin`
-APIs. Commands however receive a `CommandRun` API when ran, which enables
-prompting the users for values, retrieving the workspace's default tower, and
-reading plugin settings.
-
-Take a look:
-
-```Luau
--- require et
-local Et = require(game:WaitForChild("Et", math.huge))
-
--- request access to the plugin API
-local et = Et.request(plugin, {
-    name = "My Ethereal plugin",
-    icon = "rbxassetid://1234567890",
-    permissions = {
-        -- this permission allows registering new commands
-        Et.Permissions.Commands,
-    }
-})
-
-print(`Hello Et version {et.version.tostring()}!`)
-
-et.registerCommand {
-    name = "Trim ClientObject Values",
-    description = "Deletes double ClientObject values which breaks the kit",
-
-    predicates = {
-        -- this predicate only passes if the user has set a tower for the current workspace
-        et.predicates.isTowerSelected
-    },
-
-    run = function(run)
-        assert(run.tower, "required for typechecking")
-        for _, v in run.tower.ClientSidedObjects:GetDescendants() do
-            if not v.Parent or not v.Name == "ClientObject" or not v:IsA("ValueObject") then
-                continue
-            end
-
-            for _, c in v.Parent:GetDescendants() do
-                if c.Name == "ClientObject" and c:IsA("ValueObject") and v ~= c then
-                    c:Destroy()
-                end
-            end
-        end
-    end
-}
-```
+TBA
 
 ## About the plugin
 
@@ -84,4 +32,4 @@ TBA
 
 ## License
 
-Et is licensed under the terms of the [Mozilla Public License Version 2.0](./LICENSE.md).
+Aet is licensed under the terms of the [Mozilla Public License Version 2.0](./LICENSE.md).
