@@ -1,7 +1,7 @@
 {
-    "name": "@rbxts/memoize",
-    "version": "1.0.0",
-    "private": true,
-    "license": "MIT",
-    "types": "./index.d.ts"
+	"name": "@rbxts/memoize",
+	"version": "1.0.0",
+	"private": true,
+	"license": "MIT",
+	"types": "./index.d.ts"
 }
