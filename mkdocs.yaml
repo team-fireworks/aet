@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
-site_name: Ethereal
-site_url: https://znotfireman.github.io/ethereal
-repo_name: znotfireman/ethereal
-repo_url: https://github.com/znotfireman/ethereal
+site_name: Aet
+site_url: https://team-fireworks.github.io/aet
+repo_name: team-fireworks/aet
+repo_url: https://github.com/team-fireworks/aet
 
 theme:
     logo: "images/ethereal.png"

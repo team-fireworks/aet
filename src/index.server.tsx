@@ -3,7 +3,7 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import { plugin } from "plugin";
-if (!plugin) throw "Et must be run as a plugin.";
+if (!plugin) throw "Aet must be run as a plugin.";
 
 import { info, RobloxLogger, setDefaultLogger } from "log";
 
@@ -12,7 +12,7 @@ const [rootTrace] = debug.info(1, "s");
 setDefaultLogger(
 	new RobloxLogger({
 		aliases: {
-			[rootTrace]: "et",
+			[rootTrace]: "aet",
 		},
 	}),
 );

@@ -5,9 +5,9 @@
 type Maybe<T> = T | undefined;
 type Cleanup = () => void;
 
-export = Et;
-export as namespace Et;
-declare namespace Et {
+export = Aet;
+export as namespace Aet;
+declare namespace Aet {
 	export interface TowerObbyInstance extends Instance {
 		WinPad: BasePart;
 	}
