@@ -5,7 +5,7 @@
 import { plugin } from "plugin";
 if (!plugin) throw "Aet must be run as a plugin.";
 
-import { info, RobloxLogger, setDefaultLogger } from "log";
+import { info, RobloxLogger, setDefaultLogger, trace } from "log";
 
 const [rootTrace] = debug.info(1, "s");
 
@@ -17,8 +17,16 @@ setDefaultLogger(
 	}),
 );
 
+import Fusion, { peek } from "@rbxts/fusion";
+import Object from "@rbxts/object-utils";
+import { CoreGui } from "@rbxts/services";
 import { pushCoreExtensions } from "lib/coreExtensions";
+import { commands } from "lib/extensions";
+import { LibCommand } from "lib/types";
 import { scope } from "scope";
+import { suggest } from "suggestions/suggest";
+import { Hydrate } from "ui/components/foundation/Fusion";
+import { CommandPallete } from "ui/components/pallete/CommandPallete";
 
 info("Starting up!");
 
@@ -29,6 +37,54 @@ plugin.Unloading.Once(() => {
 
 info("Pushing core extensions");
 pushCoreExtensions();
+
+const commandsAsArray = scope.Computed((use) => Object.keys(use(commands)));
+const query = scope.Value("Hello");
+const suggestedCommands = scope.Computed((use) => suggest(use(query), use(commandsAsArray)));
+
+const isCommandPalleteVisible = scope.Value(false);
+
+function captureFocus() {
+	info("Capturing focus");
+	isCommandPalleteVisible.set(!peek(isCommandPalleteVisible));
+}
+
+function releaseFocus() {}
+
+scope.Observer(suggestedCommands).onBind(() =>
+	trace(
+		"Suggested commands:",
+		peek(suggestedCommands)
+			.map(({ name }) => name)
+			.join(", "),
+	),
+);
+
+info("Creating plugin action");
+
+const summonAet = plugin.CreatePluginAction("summonAet", "Summon Aet", "Summons the Aet command pallete");
+
+scope.push(summonAet.Triggered.Connect(captureFocus), summonAet);
+
+info("Mounting command pallete");
+
+function onRunCommand(cmd: LibCommand) {
+	info("Running command", cmd.name);
+}
+
+const holder = new Instance("ScreenGui");
+
+<Hydrate scope={scope} instance={holder} Name="Aet Command Pallete" ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
+	<CommandPallete
+		scope={scope}
+		visible={isCommandPalleteVisible}
+		suggestedCommands={suggestedCommands}
+		selectedCommand={undefined}
+		onRunCommand={onRunCommand}
+	/>
+</Hydrate>;
+
+holder.Parent = CoreGui;
 
 info("Startup finished!");
 
