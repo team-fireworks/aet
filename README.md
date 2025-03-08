@@ -18,6 +18,10 @@ Eternal Towers of Hell's next decade.
 > Aet is unreleased, unfinished, and untested. Pre-alpha releases should be
 > availible by March. Contributions are welcomed.
 
+<div align="center">
+    <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/commandPallete.png" />
+</div>
+
 ## About commands
 
 TBA
