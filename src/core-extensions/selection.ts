@@ -6,6 +6,7 @@ import { Selection } from "@rbxts/services";
 import Sift from "@rbxts/sift";
 import assets from "assets";
 import { newCoreExtension } from "lib/extensions";
+import { predicates } from "lib/predicates";
 
 const ext = newCoreExtension({ name: "Selection", icon: assets.images.et });
 
@@ -105,6 +106,72 @@ ext.newCommand({
 					return total;
 				}),
 		),
+});
+
+ext.newCommand({
+	name: "Select workspace tower's ClientSidedObjects folder",
+	description: "Select ClientSidedObjects folder",
+	predicates: [predicates.isTowerSelected],
+	run: (ctx) => {
+		const tower = ctx.getSelectedTower()!;
+		Selection.Set([tower.ClientSidedObjects, ...Selection.Get()]);
+	},
+});
+
+ext.newCommand({
+	name: "Select workspace tower's Obby folder",
+	description: "Select Obby folder",
+	predicates: [predicates.isTowerSelected],
+	run: (ctx) => {
+		const tower = ctx.getSelectedTower()!;
+		Selection.Set([tower.Obby, ...Selection.Get()]);
+	},
+});
+
+ext.newCommand({
+	name: "Select workspace tower's Frame folder",
+	description: "Select Frame folder",
+	predicates: [predicates.isTowerSelected],
+	run: (ctx) => {
+		const tower = ctx.getSelectedTower()!;
+		Selection.Set([tower.Frame, ...Selection.Get()]);
+	},
+});
+
+ext.newCommand({
+	name: "Select workspace tower's WinPad",
+	description: "Select WinPad",
+	predicates: [predicates.isTowerSelected],
+	run: (ctx) => {
+		const tower = ctx.getSelectedTower()!;
+		Selection.Set([tower.Obby.WinPad, ...Selection.Get()]);
+	},
+});
+
+ext.newCommand({
+	name: "Select workspace tower's SpawnLocation",
+	description: "Select WinPad",
+	predicates: [predicates.isTowerSelected],
+	run: (ctx) => {
+		const tower = ctx.getSelectedTower()!;
+		Selection.Set([tower.SpawnLocation, ...Selection.Get()]);
+	},
+});
+
+ext.newCommand({
+	name: "Select all client objects",
+	description: "Select all client objects",
+	run: (ctx) => {
+		throw "not yet implemented";
+	},
+});
+
+ext.newCommand({
+	name: "Pick selected client objects",
+	description: "Pick selected client objects",
+	run: () => {
+		throw "not yet implemented";
+	},
 });
 
 export = ext;
