@@ -9,7 +9,7 @@ import { Box } from "ui/components/foundation/Box";
 import { CornerSmall } from "ui/components/foundation/Corner";
 import { Padding } from "ui/components/foundation/Padding";
 import { Text, TextStyle } from "ui/components/foundation/Text";
-import { pallete } from "ui/pallete";
+import { palette } from "ui/palette";
 import { udimPx, udimSqPx } from "ui/udim";
 
 export interface CommandListingProps extends ScopeProps {
@@ -36,7 +36,7 @@ export function CommandListing({
 			scope={scope}
 			size={new UDim2(1, 0, 0, 32)}
 			bg={scope.Computed((use, scope) =>
-				use(pallete(scope, (use(enabled) && use(hover)) || use(highlighted) ? "bg" : "bgDark")),
+				use(palette(scope, (use(enabled) && use(hover)) || use(highlighted) ? "bg" : "bgDark")),
 			)}
 			onActivated={onMouseActivated}
 			onHoverStart={() => hover.set(true)}

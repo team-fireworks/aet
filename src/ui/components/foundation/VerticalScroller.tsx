@@ -5,7 +5,7 @@
 import Fusion, { Children, Value } from "@rbxts/fusion";
 import { UsedAs } from "@rbxts/fusion/out/Types";
 import { ScopeProps } from "scope";
-import { pallete } from "ui/pallete";
+import { palette } from "ui/palette";
 import { BaseProps, ChildrenProps, LayoutProps } from "ui/types";
 
 export interface VerticalScrollerProps extends ScopeProps, BaseProps, LayoutProps, ChildrenProps {
@@ -57,7 +57,7 @@ export function VerticalScroller({
 			Size={size}
 			AutomaticSize={automaticSize}
 			ClipsDescendants={clipsDescendants}
-			BackgroundColor3={bg ?? pallete(scope, "bg")}
+			BackgroundColor3={bg ?? palette(scope, "bg")}
 			Out:AbsoluteSize={outSize}
 			OnEvent:MouseEnter={onHoverStart}
 			OnEvent:MouseLeave={onHoverEnd}

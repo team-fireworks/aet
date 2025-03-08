@@ -11,19 +11,19 @@ import { CornerMid } from "ui/components/foundation/Corner";
 import { Padding } from "ui/components/foundation/Padding";
 import { Text, TEXT_STYLE_PALLETE, TextStyle } from "ui/components/foundation/Text";
 import { TransparentBox } from "ui/components/foundation/TransparentBox";
-import { pallete } from "ui/pallete";
+import { palette } from "ui/palette";
 import { udim2Px, udim2Scale, udimPx, udimSqScale } from "ui/udim";
 
-export interface CommandPalleteFooterProps extends ScopeProps {
+export interface CommandPaletteFooterProps extends ScopeProps {
 	layoutOrder: UsedAs<number>;
 }
 
-export function CommandPalleteFooter({ scope, layoutOrder }: CommandPalleteFooterProps) {
+export function CommandPaletteFooter({ scope, layoutOrder }: CommandPaletteFooterProps) {
 	let childrenlayoutOrder = 1;
 	return (
-		<Box scope={scope} name="CommandPalleteFooter" size={new UDim2(1, 0, 0, 32)} layoutOrder={layoutOrder}>
+		<Box scope={scope} name="CommandPaletteFooter" size={new UDim2(1, 0, 0, 32)} layoutOrder={layoutOrder}>
 			<CornerMid scope={scope} />
-			<frame scope={scope} Name="Cover" BackgroundColor3={pallete(scope, "bg")} Size={udim2Scale(1, 0.5)} />
+			<frame scope={scope} Name="Cover" BackgroundColor3={palette(scope, "bg")} Size={udim2Scale(1, 0.5)} />
 			<TransparentBox scope={scope} size={udimSqScale(1)}>
 				<uilistlayout
 					scope={scope}
@@ -39,7 +39,7 @@ export function CommandPalleteFooter({ scope, layoutOrder }: CommandPalleteFoote
 					Name="Logo"
 					Size={udim2Px(32, 16)}
 					Image={assets.images.aetWhite}
-					ImageColor3={pallete(scope, TEXT_STYLE_PALLETE[TextStyle.Label])}
+					ImageColor3={palette(scope, TEXT_STYLE_PALLETE[TextStyle.Label])}
 					LayoutOrder={childrenlayoutOrder++}
 				/>
 				<Text

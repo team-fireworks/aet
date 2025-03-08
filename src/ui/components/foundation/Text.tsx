@@ -5,7 +5,7 @@
 import Fusion, { peek, UsedAs, Value } from "@rbxts/fusion";
 import { ScopeProps } from "scope";
 import { sans } from "ui/fonts";
-import { pallete, Pallete } from "ui/pallete";
+import { Palette, palette } from "ui/palette";
 import { BaseProps, LayoutProps } from "ui/types";
 import { Padding, PaddingProps } from "./Padding";
 
@@ -29,13 +29,13 @@ export interface TextProps extends ScopeProps, LayoutProps, BaseProps, PaddingPr
 	outTextBounds?: Value<Vector2>;
 }
 
-// TODO: move these values to pallete
+// TODO: move these values to palette
 export const TEXT_STYLE_PALLETE = table.freeze({
 	[TextStyle.Title]: "fgLight",
 	[TextStyle.Subtitle]: "fgDark",
 	[TextStyle.Text]: "fg",
 	[TextStyle.Label]: "fgDarker",
-} satisfies Record<TextStyle, keyof Pallete>);
+} satisfies Record<TextStyle, keyof Palette>);
 
 export const TEXT_STYLE_SIZES = table.freeze({
 	[TextStyle.Title]: 24,
@@ -94,7 +94,7 @@ export function Text({
 			BackgroundTransparency={1}
 			FontFace={scope.Computed((use) => TEXT_STYLE_FONTS[use(textStyle)])}
 			Text={text}
-			TextColor3={scope.Computed((use, scope) => use(pallete(scope, TEXT_STYLE_PALLETE[use(textStyle)])))}
+			TextColor3={scope.Computed((use, scope) => use(palette(scope, TEXT_STYLE_PALLETE[use(textStyle)])))}
 			TextSize={scope.Computed((use) => TEXT_STYLE_SIZES[use(textStyle)])}
 			TextWrapped={textWrapped}
 			TextXAlignment={scope.Computed((use) => {

@@ -26,7 +26,7 @@ import { scope } from "scope";
 import { suggest } from "suggestions/suggest";
 import { LibCommand } from "types";
 import { Hydrate } from "ui/components/foundation/Fusion";
-import { CommandPallete } from "ui/components/pallete/CommandPallete";
+import { CommandPalette } from "ui/components/palette/CommandPalette";
 
 info("Starting up!");
 
@@ -56,18 +56,18 @@ const refSearchInput = scope.Value<Maybe<TextBox>>(undefined);
 const selectedIndex = scope.Value(0);
 const selectedCommand = scope.Computed((use) => use(suggestedCommands)[use(selectedIndex)]);
 
-const isCommandPalleteVisible = scope.Value(false);
+const isCommandPaletteVisible = scope.Value(false);
 
 function captureFocus() {
 	trace("Capturing focus");
 
-	const isCommandPalleteVisibleNow = peek(isCommandPalleteVisible);
-	if (!isCommandPalleteVisibleNow) {
+	const isCommandPaletteVisibleNow = peek(isCommandPaletteVisible);
+	if (!isCommandPaletteVisibleNow) {
 		searchInput.set("");
 	}
 
 	selectedIndex.set(0);
-	isCommandPalleteVisible.set(true);
+	isCommandPaletteVisible.set(true);
 
 	const ref = peek(refSearchInput);
 	if (ref) {
@@ -83,7 +83,7 @@ function releaseFocus() {
 		ref.ReleaseFocus();
 	}
 
-	isCommandPalleteVisible.set(false);
+	isCommandPaletteVisible.set(false);
 }
 
 function runCommand(cmd: LibCommand) {
@@ -123,18 +123,18 @@ scope.push(UserInputService.InputBegan.Connect(handleInput));
 
 info("Creating plugin action");
 
-const summonAet = plugin.CreatePluginAction("summonAet", "Summon Aet", "Summons the Aet command pallete");
+const summonAet = plugin.CreatePluginAction("summonAet", "Summon Aet", "Summons the Aet command palette");
 
 scope.push(summonAet.Triggered.Connect(captureFocus), summonAet);
 
-info("Mounting command pallete");
+info("Mounting command palette");
 
 const holder = new Instance("ScreenGui");
 
-<Hydrate scope={scope} instance={holder} Name="Aet Command Pallete" ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
-	<CommandPallete
+<Hydrate scope={scope} instance={holder} Name="Aet Command Palette" ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
+	<CommandPalette
 		scope={scope}
-		visible={isCommandPalleteVisible}
+		visible={isCommandPaletteVisible}
 		searchInput={searchInput}
 		onSearchInputChanged={(input) => searchInput.set(input)}
 		refSearchInput={refSearchInput}

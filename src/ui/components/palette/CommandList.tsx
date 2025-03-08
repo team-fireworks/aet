@@ -9,8 +9,8 @@ import { LibCommand } from "types";
 import { ForPairs } from "ui/components/foundation/Fusion";
 import { Padding } from "ui/components/foundation/Padding";
 import { TransparentBox } from "ui/components/foundation/TransparentBox";
-import { CommandListing } from "ui/components/pallete/CommandListing";
-import { pallete } from "ui/pallete";
+import { CommandListing } from "ui/components/palette/CommandListing";
+import { palette } from "ui/palette";
 import { udim2Scale, udimPx } from "ui/udim";
 
 export interface CommandListProps extends ScopeProps {
@@ -34,7 +34,7 @@ export function CommandList({ scope, commands, selectedCommand, onRunCommand }: 
 	return (
 		<scrollingframe
 			scope={scope}
-			BackgroundColor3={pallete(scope, "bgDark")}
+			BackgroundColor3={palette(scope, "bgDark")}
 			ClipsDescendants
 			AutomaticCanvasSize={Enum.AutomaticSize.Y}
 			ScrollingDirection={Enum.ScrollingDirection.Y}

@@ -9,30 +9,30 @@ import { CornerMid } from "ui/components/foundation/Corner";
 import { Padding } from "ui/components/foundation/Padding";
 import { TEXT_STYLE_FONTS, TEXT_STYLE_PALLETE, TEXT_STYLE_SIZES, TextStyle } from "ui/components/foundation/Text";
 import { TransparentBox } from "ui/components/foundation/TransparentBox";
-import { pallete } from "ui/pallete";
+import { palette } from "ui/palette";
 import { FULL_UDIM_2, udim2Scale, udimPx } from "ui/udim";
 
-export interface CommandPalleteSearchProps extends ScopeProps {
+export interface CommandPaletteSearchProps extends ScopeProps {
 	layoutOrder: UsedAs<number>;
 	searchInput: UsedAs<string>;
 	onSearchInputChanged: (text: string) => void;
 	refSearchInput: Value<Maybe<TextBox>>;
 }
 
-export function CommandPalleteSearch({
+export function CommandPaletteSearch({
 	scope,
 	searchInput,
 	layoutOrder,
 	onSearchInputChanged,
 	refSearchInput,
-}: CommandPalleteSearchProps) {
+}: CommandPaletteSearchProps) {
 	let childrenLayoutOrder = 1;
 
 	return (
 		<Box
 			scope={scope}
-			name="CommandPalleteSearch"
-			bg={pallete(scope, "bgDark")}
+			name="CommandPaletteSearch"
+			bg={palette(scope, "bgDark")}
 			size={new UDim2(1, 0, 0, 42)}
 			layoutOrder={layoutOrder}
 		>
@@ -40,7 +40,7 @@ export function CommandPalleteSearch({
 			<frame
 				scope={scope}
 				Name="Cover"
-				BackgroundColor3={pallete(scope, "bgDark")}
+				BackgroundColor3={palette(scope, "bgDark")}
 				Size={udim2Scale(1, 0.5)}
 				Position={udim2Scale(0, 1)}
 				AnchorPoint={new Vector2(0, 1)}
@@ -60,8 +60,8 @@ export function CommandPalleteSearch({
 						TextSize: TEXT_STYLE_SIZES[TextStyle.Text],
 						Size: udim2Scale(0, 1),
 						PlaceholderText: "Search for commands...",
-						PlaceholderColor3: pallete(scope, TEXT_STYLE_PALLETE[TextStyle.Text]),
-						TextColor3: pallete(scope, "fg"),
+						PlaceholderColor3: palette(scope, TEXT_STYLE_PALLETE[TextStyle.Text]),
+						TextColor3: palette(scope, "fg"),
 						TextXAlignment: Enum.TextXAlignment.Left,
 						TextYAlignment: Enum.TextYAlignment.Center,
 						Text: searchInput,

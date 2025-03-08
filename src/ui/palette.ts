@@ -5,7 +5,7 @@
 import Fusion, { peek, Scope, UsedAs } from "@rbxts/fusion";
 import { scope } from "scope";
 
-export interface Pallete {
+export interface Palette {
 	name: string;
 
 	border: Color3;
@@ -68,15 +68,15 @@ export const PALLETES = {
 		primaryLighter: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.9),
 		primaryLightest: Color3.fromHSV(ETHEREAL_PRIMARY_HUE, ETHEREAL_PRIMARY_SATURATION, 0.95),
 	},
-} satisfies Record<string, Pallete>;
+} satisfies Record<string, Palette>;
 
-export const palleteValue = scope.Value(PALLETES.dark);
-export const palleteContext = scope.Contextual<UsedAs<Pallete>>(peek(palleteValue));
+export const paletteValue = scope.Value(PALLETES.dark);
+export const paletteContext = scope.Contextual<UsedAs<Palette>>(peek(paletteValue));
 
-export const currentPallete = scope.Computed((use) => {
-	return use(palleteContext.now());
+export const currentPalette = scope.Computed((use) => {
+	return use(paletteContext.now());
 });
 
-export function pallete<K extends keyof Pallete>(scope: Scope<typeof Fusion>, key: K) {
-	return scope.Computed((use) => use(currentPallete)[key]);
+export function palette<K extends keyof Palette>(scope: Scope<typeof Fusion>, key: K) {
+	return scope.Computed((use) => use(currentPalette)[key]);
 }

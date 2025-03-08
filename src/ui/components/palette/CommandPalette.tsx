@@ -9,13 +9,13 @@ import { Box } from "ui/components/foundation/Box";
 import { CornerMid } from "ui/components/foundation/Corner";
 import { Show } from "ui/components/foundation/Fusion";
 import { TransparentBox } from "ui/components/foundation/TransparentBox";
-import { CommandList } from "ui/components/pallete/CommandList";
-import { CommandPalleteFooter } from "ui/components/pallete/CommandPalleteFooter";
-import { CommandPalleteSearch } from "ui/components/pallete/CommandPalleteSearch";
-import { pallete } from "ui/pallete";
+import { CommandList } from "ui/components/palette/CommandList";
+import { CommandPaletteFooter } from "ui/components/palette/CommandPaletteFooter";
+import { CommandPaletteSearch } from "ui/components/palette/CommandPaletteSearch";
+import { palette } from "ui/palette";
 import { udim2Scale, udimPx, udimSqPx, udimSqScale } from "ui/udim";
 
-export interface CommandPalleteProps extends ScopeProps {
+export interface CommandPaletteProps extends ScopeProps {
 	visible: UsedAs<boolean>;
 
 	searchInput: UsedAs<string>;
@@ -27,7 +27,7 @@ export interface CommandPalleteProps extends ScopeProps {
 	onRunCommand: (cmd: LibCommand) => void;
 }
 
-export function CommandPallete({
+export function CommandPalette({
 	scope,
 
 	visible,
@@ -39,7 +39,7 @@ export function CommandPallete({
 	suggestedCommands,
 	selectedCommand,
 	onRunCommand,
-}: CommandPalleteProps) {
+}: CommandPaletteProps) {
 	const visibility = scope.Spring(
 		scope.Computed((use) => (use(visible) ? 0 : 1)),
 		50,
@@ -51,7 +51,7 @@ export function CommandPallete({
 	return (
 		<TransparentBox
 			scope={scope}
-			name="CommandPallete"
+			name="CommandPalette"
 			anchorPoint={new Vector2(0.5, 0.5)}
 			position={udimSqScale(0.5)}
 			size={udimSqPx(640)}
@@ -61,7 +61,7 @@ export function CommandPallete({
 			<Box
 				scope={scope}
 				name="Container"
-				bg={pallete(scope, "borderLight")}
+				bg={palette(scope, "borderLight")}
 				automaticSize={Enum.AutomaticSize.Y}
 				size={udim2Scale(1, 0)}
 			>
@@ -71,9 +71,9 @@ export function CommandPallete({
 					SortOrder={Enum.SortOrder.LayoutOrder}
 					Padding={udimPx(1)}
 				/>
-				<uistroke scope={scope} Color={pallete(scope, "borderLighter")} />
+				<uistroke scope={scope} Color={palette(scope, "borderLighter")} />
 				<CornerMid scope={scope} />
-				<CommandPalleteSearch
+				<CommandPaletteSearch
 					scope={scope}
 					searchInput={searchInput}
 					onSearchInputChanged={onSearchInputChanged}
@@ -96,7 +96,7 @@ export function CommandPallete({
 						/>
 					)}
 				/>
-				<CommandPalleteFooter scope={scope} layoutOrder={3} />
+				<CommandPaletteFooter scope={scope} layoutOrder={3} />
 			</Box>
 		</TransparentBox>
 	);
