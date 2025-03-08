@@ -1,13 +1,13 @@
 <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="175px" />
 
-Aet is a powerful command pallete streamlining tower building jampacked with
-popular utilities for the next decade of Eternal Towers of Hell.
+Aet is a powerful command pallete jampacked with tower building tools for
+Eternal Towers of Hell's next decade.
 
-- Popular tower building utilities and scripts in one command pallete
-- First class support for Eternal Towers of Hell v5 (v6 and MTK coming soon)
+- Everyday tower building utilities and scripts in one command pallete
+- First class support for Eternal Towers of Hell v5.5 (v6, other v5.5, and MTK coming soon)
 - Comes with Archimedes, tightropes, instance reclassing, and gapfill
 - Library of sounds, decals, and client objects
-- Extend Aet with custom commands
+- Made to be extended
 
 <!-- vvvv TODO: replace with actual creator store page once it releases -->
 [![Get on Roblox](https://img.shields.io/badge/Get_on_Roblox-00A2FF?style=for-the-badge&logo=robloxstudio&logoColor=FFFFFF)](https://c.tenor.com/fx3049y_H9sAAAAd/tenor.gif)
