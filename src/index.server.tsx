@@ -20,7 +20,7 @@ setDefaultLogger(
 import Fusion, { peek } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { CoreGui, UserInputService } from "@rbxts/services";
-import { pushCoreExtensions } from "lib/coreExtensions";
+import { addCoreExtensions } from "extensions";
 import { commands } from "lib/extensions";
 import { newCommandContext } from "lib/newCommandContext";
 import { LibCommand } from "lib/types";
@@ -37,7 +37,7 @@ plugin.Unloading.Once(() => {
 });
 
 info("Pushing core extensions");
-pushCoreExtensions();
+addCoreExtensions();
 
 const commandsAsArray = scope.Computed((use) => Object.keys(use(commands)));
 
