@@ -1,7 +1,7 @@
 import { peek } from "@rbxts/fusion";
-import helloWorld from "extensions/helloWorld";
-import modelling from "extensions/modelling";
-import selection from "extensions/selection";
+import helloWorld from "core-extensions/helloWorld";
+import modelling from "core-extensions/modelling";
+import selection from "core-extensions/selection";
 import { extensions } from "lib/extensions";
 import { debug } from "log";
 

@@ -20,7 +20,7 @@ setDefaultLogger(
 import Fusion, { peek } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { CoreGui, UserInputService } from "@rbxts/services";
-import { addCoreExtensions } from "extensions";
+import { addCoreExtensions } from "core-extensions";
 import { commands } from "lib/extensions";
 import { newCommandContext } from "lib/newCommandContext";
 import { LibCommand } from "lib/types";
