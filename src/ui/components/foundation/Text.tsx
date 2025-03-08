@@ -29,6 +29,7 @@ export interface TextProps extends ScopeProps, LayoutProps, BaseProps, PaddingPr
 	outTextBounds?: Value<Vector2>;
 }
 
+// TODO: move these values to pallete
 export const TEXT_STYLE_PALLETE = table.freeze({
 	[TextStyle.Title]: "fgLight",
 	[TextStyle.Subtitle]: "fgDark",
