@@ -6,7 +6,7 @@ import { Selection } from "@rbxts/services";
 import assets from "assets";
 import { newCoreExtension } from "lib/extensions";
 
-const ext = newCoreExtension({ name: "Modelling", icon: assets.images.et });
+const ext = newCoreExtension({ name: "Modelling", icon: assets.images.fluent.straightRuler });
 
 const STUDS = table.freeze({
 	[1]: "stud",

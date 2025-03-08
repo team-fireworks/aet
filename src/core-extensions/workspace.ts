@@ -4,7 +4,7 @@ import { newCoreExtension } from "lib/extensions";
 import { forgetSelectedTower, trySetTower } from "lib/tower";
 import { warn } from "log";
 
-const ext = newCoreExtension({ name: "Workspace", icon: assets.images.et });
+const ext = newCoreExtension({ name: "Workspace", icon: assets.images.fluent.asiaAustralia });
 
 ext.newCommand({
 	name: "Set selection as workspace tower",

@@ -10,7 +10,7 @@ import { CornerSmall } from "ui/components/foundation/Corner";
 import { Padding } from "ui/components/foundation/Padding";
 import { Text, TextStyle } from "ui/components/foundation/Text";
 import { pallete } from "ui/pallete";
-import { udimPx } from "ui/udim";
+import { udimPx, udimSqPx } from "ui/udim";
 
 export interface CommandListingProps extends ScopeProps {
 	command: UsedAs<LibCommand>;
@@ -51,15 +51,15 @@ export function CommandListing({
 				Padding={udimPx(4)}
 			/>
 			<CornerSmall scope={scope} />
-			<Padding scope={scope} paddingX={udimPx(6)} />
-			{/* <imagelabel
+			<Padding scope={scope} paddingX={udimPx(4)} />
+			<imagelabel
 				scope={scope}
 				BackgroundTransparency={1}
 				Name="Icon"
-				Size={udimSqPx(18)}
-				Image={scope.Computed((use) => use(commandPlugin).icon)}
+				Size={udimSqPx(24)}
+				Image={scope.Computed((use) => use(command)._extension.icon)}
 				LayoutOrder={childrenlayoutOrder++}
-			/> */}
+			/>
 			<Text
 				scope={scope}
 				name="Name"
@@ -68,14 +68,14 @@ export function CommandListing({
 				textWrapped={false}
 				layoutOrder={childrenlayoutOrder++}
 			/>
-			{/* <Text
+			<Text
 				scope={scope}
-				name="PluginName"
-				text={indexUsedAsTable(scope, commandPlugin, "_name")}
+				name="ExtensionName"
+				text={scope.Computed((use) => use(command)._extension.name)}
 				textStyle={TextStyle.Label}
 				textWrapped={false}
 				layoutOrder={childrenlayoutOrder++}
-			/> */}
+			/>
 		</Box>
 	);
 }

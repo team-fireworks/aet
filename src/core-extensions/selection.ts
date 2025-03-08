@@ -8,7 +8,7 @@ import assets from "assets";
 import { newCoreExtension } from "lib/extensions";
 import { predicates } from "lib/predicates";
 
-const ext = newCoreExtension({ name: "Selection", icon: assets.images.et });
+const ext = newCoreExtension({ name: "Selection", icon: assets.images.fluent.pointingUp });
 
 const PARTS = new Set<keyof CreatableInstances>([
 	"Part",

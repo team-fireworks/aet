@@ -15,6 +15,14 @@ return {
 		aetWhite = "rbxasset://.asphalt-et/images/aetWhite.4cb81eed58a8d5bda22049ae8d7a6520.png",
 		et = "rbxasset://.asphalt-et/images/et.3cb8e1c6fad58dc313761843b4239857.png",
 		etoh = "rbxasset://.asphalt-et/images/etoh.93735367d28759da424dbc2723cb0026.png",
+		fluent = {
+			asiaAustralia = "rbxasset://.asphalt-et/images/fluent/asiaAustralia.d6c76bf22d58743f5eaab674e219da86.png",
+			framedPicture = "rbxasset://.asphalt-et/images/fluent/framedPicture.a819bb252795216a2f4b4ae443a6a75c.png",
+			magicWand = "rbxasset://.asphalt-et/images/fluent/magicWand.c78ebce05666e457d2b808c69dca12b3.png",
+			package = "rbxasset://.asphalt-et/images/fluent/package.f250d83eab0a51319e5d25d55b1ea8c4.png",
+			pointingUp = "rbxasset://.asphalt-et/images/fluent/pointingUp.3e97dde81e73eb34eeabd14662565ef9.png",
+			straightRuler = "rbxasset://.asphalt-et/images/fluent/straightRuler.e66e7e22e89131c7bd69adeee43c2372.png",
+		},
 	},
 	sfx = {
 		click = "rbxasset://.asphalt-et/sfx/click.da815722c4e9550204156ceb371073cc.ogg",
