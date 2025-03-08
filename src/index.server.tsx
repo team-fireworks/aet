@@ -66,6 +66,7 @@ function captureFocus() {
 		searchInput.set("");
 	}
 
+	selectedIndex.set(0);
 	isCommandPalleteVisible.set(true);
 
 	const ref = peek(refSearchInput);
@@ -76,6 +77,7 @@ function captureFocus() {
 
 function releaseFocus() {
 	trace("Releasing focus");
+
 	const ref = peek(refSearchInput);
 	if (ref) {
 		ref.ReleaseFocus();
