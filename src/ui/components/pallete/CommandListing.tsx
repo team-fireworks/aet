@@ -3,8 +3,8 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { UsedAs } from "@rbxts/fusion";
-import { LibCommand } from "lib/types";
 import { ScopeProps } from "scope";
+import { LibCommand } from "types";
 import { Box } from "ui/components/foundation/Box";
 import { CornerSmall } from "ui/components/foundation/Corner";
 import { Padding } from "ui/components/foundation/Padding";
@@ -14,12 +14,20 @@ import { udimPx } from "ui/udim";
 
 export interface CommandListingProps extends ScopeProps {
 	command: UsedAs<LibCommand>;
+	enabled: UsedAs<boolean>;
 	highlighted: UsedAs<boolean>;
 	layoutOrder: UsedAs<number>;
 	onMouseActivated: () => void;
 }
 
-export function CommandListing({ scope, command, highlighted, layoutOrder, onMouseActivated }: CommandListingProps) {
+export function CommandListing({
+	scope,
+	command,
+	enabled,
+	highlighted,
+	layoutOrder,
+	onMouseActivated,
+}: CommandListingProps) {
 	const hover = scope.Value(false);
 	let childrenlayoutOrder = 1;
 
@@ -27,7 +35,9 @@ export function CommandListing({ scope, command, highlighted, layoutOrder, onMou
 		<Box
 			scope={scope}
 			size={new UDim2(1, 0, 0, 32)}
-			bg={scope.Computed((use, scope) => use(pallete(scope, use(hover) || use(highlighted) ? "bg" : "bgDark")))}
+			bg={scope.Computed((use, scope) =>
+				use(pallete(scope, (use(enabled) && use(hover)) || use(highlighted) ? "bg" : "bgDark")),
+			)}
 			onActivated={onMouseActivated}
 			onHoverStart={() => hover.set(true)}
 			onHoverEnd={() => hover.set(false)}

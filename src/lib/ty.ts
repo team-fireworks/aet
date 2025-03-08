@@ -2,7 +2,7 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
-import Et from "@rbxts/et";
+import Aet from "@rbxts/aet";
 import ty from "@rbxts/libopen-ty";
 
 export const NewExtensiondProps = ty
@@ -16,7 +16,7 @@ export const NewExtensiondProps = ty
 		},
 	)
 	.Nicknamed("NewExtensionProps")
-	.Retype<Et.NewExtensiondProps>();
+	.Retype<Aet.NewExtensiondProps>();
 
 export const BaseCommandArgument = ty
 	.Struct(
@@ -28,7 +28,7 @@ export const BaseCommandArgument = ty
 		},
 	)
 	.Nicknamed("BaseCommandArgument")
-	.Retype<Et.BaseCommandArgument>();
+	.Retype<Aet.BaseCommandArgument>();
 
 function createCommandArgument<T extends Et.BaseCommandArgument>(
 	kind: string,
@@ -59,8 +59,9 @@ export const NewCommandProps = ty
 			name: ty.String,
 			description: ty.String,
 			arguments: ty.Array(CommandArgument).Optional(),
+			predicates: ty.Array(ty.Function).Optional(),
 			run: ty.Function,
 		},
 	)
 	.Nicknamed("NewCommandProps")
-	.Retype<Et.NewCommandProps>();
+	.Retype<Aet.NewCommandProps>();

@@ -1,13 +1,9 @@
-import Et from "@rbxts/et";
-import { peek } from "@rbxts/fusion";
-import Object from "@rbxts/object-utils";
+import Aet from "@rbxts/aet";
 import Sift from "@rbxts/sift";
-import { IS_DEV } from "config";
 import { NewCommandProps, NewExtensiondProps } from "lib/ty";
-import { LibCommand, LibExtension } from "lib/types";
-import { debug } from "log";
 import { plugin } from "plugin";
 import { scope, Scope } from "scope";
+import { LibCommand, LibExtension } from "types";
 
 export interface NewExtensionOk {
 	ok: true;
@@ -70,13 +66,15 @@ export function tryNewExtension(
 				throw `Cannot create command in "${extName}" with invalid properties: ${someCommandProps.reason ?? "(unknown reason)"}`;
 			}
 
-			const { name, description, arguments: args, run } = someCommandProps.value;
+			const { name, description, arguments: args, predicates, run } = someCommandProps.value;
 
 			commands.add({
+				_extension: extension,
 				name,
 				description,
 				// fym i have to alias `arguments` im in fucking roblox-ts
 				arguments: args,
+				predicates,
 				run,
 			});
 		},
@@ -102,8 +100,8 @@ export function newExtension(
 	return result.extension;
 }
 
-export function newCoreExtension(props: Omit<Et.NewExtensiondProps, "plugin" | "needs">): LibExtension {
-	const newProps = Sift.Dictionary.copy(props as Et.NewExtensiondProps);
+export function newCoreExtension(props: Omit<Aet.NewExtensiondProps, "plugin" | "needs">): LibExtension {
+	const newProps = Sift.Dictionary.copy(props as Aet.NewExtensiondProps);
 	newProps.plugin = plugin;
 	newProps.needs = [];
 
@@ -120,27 +118,3 @@ export function newCoreExtension(props: Omit<Et.NewExtensiondProps, "plugin" | "
 }
 
 export const extensions = scope.Value(new Set<LibExtension>());
-
-export const commands = scope.Computed((use): Set<LibCommand> => {
-	const extensionsNow = use(extensions);
-	const extensionCommands = Object.keys(extensionsNow).map(({ _commands }) => _commands);
-
-	if (extensionCommands.size() > 0)
-		return extensionCommands.reduce((total, commands) => {
-			const newTotal = Sift.Set.copy(total);
-			for (const cmd of commands) newTotal.add(cmd);
-			return newTotal;
-		});
-
-	return new Set();
-});
-
-if (IS_DEV)
-	scope.Observer(commands).onBind(() =>
-		debug(
-			"Current commands:",
-			Object.keys(peek(commands))
-				.map(({ name }) => name)
-				.join(", "),
-		),
-	);

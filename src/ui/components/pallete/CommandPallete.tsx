@@ -3,8 +3,8 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { UsedAs, Value } from "@rbxts/fusion";
-import { LibCommand } from "lib/types";
 import { ScopeProps } from "scope";
+import { LibCommand } from "types";
 import { Box } from "ui/components/foundation/Box";
 import { CornerMid } from "ui/components/foundation/Corner";
 import { Show } from "ui/components/foundation/Fusion";

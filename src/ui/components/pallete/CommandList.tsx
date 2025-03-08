@@ -3,8 +3,9 @@
 // obtain one at http://mozilla.org/MPL/2.0/.
 
 import Fusion, { UsedAs } from "@rbxts/fusion";
-import { LibCommand } from "lib/types";
+import { getCommandPredicateResult } from "lib/commands";
 import { ScopeProps } from "scope";
+import { LibCommand } from "types";
 import { ForPairs } from "ui/components/foundation/Fusion";
 import { Padding } from "ui/components/foundation/Padding";
 import { TransparentBox } from "ui/components/foundation/TransparentBox";
@@ -66,15 +67,16 @@ export function CommandList({ scope, commands, selectedCommand, onRunCommand }: 
 				<ForPairs
 					scope={scope}
 					each={commands as never as Map<number, LibCommand>}
-					children={(_, scope, index, command) =>
+					children={(_, scope, index, cmd) =>
 						$tuple(
 							[],
 							<CommandListing
 								scope={scope}
-								command={command}
-								highlighted={scope.Computed((use) => use(selectedCommand) === command)}
+								command={cmd}
+								enabled={scope.Computed((use) => getCommandPredicateResult(use, cmd).ok)}
+								highlighted={scope.Computed((use) => use(selectedCommand) === cmd)}
 								layoutOrder={childrenlayoutOrder + index}
-								onMouseActivated={() => onRunCommand(command)}
+								onMouseActivated={() => onRunCommand(cmd)}
 							/>,
 						)
 					}

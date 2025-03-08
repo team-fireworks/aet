@@ -21,11 +21,10 @@ import Fusion, { peek } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import { CoreGui, UserInputService } from "@rbxts/services";
 import { addCoreExtensions } from "core-extensions";
-import { commands } from "lib/extensions";
-import { newCommandContext } from "lib/newCommandContext";
-import { LibCommand } from "lib/types";
+import { commands, getCommandPredicateResult, newCommandContext } from "lib/commands";
 import { scope } from "scope";
 import { suggest } from "suggestions/suggest";
+import { LibCommand } from "types";
 import { Hydrate } from "ui/components/foundation/Fusion";
 import { CommandPallete } from "ui/components/pallete/CommandPallete";
 
@@ -89,7 +88,7 @@ function runCommand(cmd: LibCommand) {
 	trace("Running command", cmd.name);
 	releaseFocus();
 
-	const [runOk, runValue] = pcall(cmd.run, newCommandContext(scope, undefined as never, cmd));
+	const [runOk, runValue] = pcall(cmd.run, newCommandContext(scope, cmd._extension, cmd));
 	if (!runOk) {
 		warn(`Failed to run command "${cmd.name}":`, runValue as never);
 	}
@@ -111,7 +110,9 @@ function handleInput(input: InputObject, _gameProcessed: boolean) {
 		case Enum.KeyCode.Return:
 			trace("Returned");
 			const selectedCommandNow = peek(selectedCommand);
-			if (selectedCommandNow) runCommand(selectedCommandNow);
+			if (selectedCommandNow && getCommandPredicateResult(peek, selectedCommandNow).ok) {
+				runCommand(selectedCommandNow);
+			}
 			return;
 	}
 }

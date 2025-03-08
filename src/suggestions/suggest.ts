@@ -1,5 +1,5 @@
 import fzy from "@rbxts/fzy";
-import { LibCommand } from "lib/types";
+import { LibCommand } from "types";
 
 export const suggestionCache = new Map<string, LibCommand[]>();
 export const suggestionScores = new Map<string, Map<LibCommand, number>>();

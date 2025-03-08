@@ -52,6 +52,7 @@ declare namespace Aet {
 		name: string;
 		description: string;
 		arguments?: Arguments;
+		predicates?: CommandPredicate[];
 		run: (
 			ctx: CommandContext,
 			...args: { [K in keyof Arguments]: InferCommandArgumentValue<Arguments[K]> }
@@ -72,4 +73,28 @@ declare namespace Aet {
 	}
 
 	export function newExtension(props: NewExtensiondProps): Extension;
+
+	export interface CommandPredicateStates {
+		getSelectedTower(): Maybe<TowerInstance>;
+	}
+
+	export interface CommandPredicateOk {
+		ok: true;
+	}
+
+	export interface CommandPredicateErr {
+		ok: false;
+		reason: string;
+	}
+
+	export type CommandPredicateResult = CommandPredicateOk | CommandPredicateErr;
+
+	export type CommandPredicate = (state: CommandPredicateStates) => CommandPredicateResult;
+
+	export const predicates: {
+		isTowerSelected: CommandPredicate;
+		isTowerNotSelected: CommandPredicate;
+		isKitVersion5_5: CommandPredicate;
+		isKitVersion6: CommandPredicate;
+	};
 }
