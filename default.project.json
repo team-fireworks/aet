@@ -1,11 +1,11 @@
 {
-    "name": "ethereal",
+    "name": "Aet",
     "globIgnorePaths": [
         "**/package.json",
         "**/tsconfig.json"
     ],
     "tree": {
-        "$className": "Folder",
+        "$className": "Actor",
         "Aet": {
             "$path": "out",
             "include": {
