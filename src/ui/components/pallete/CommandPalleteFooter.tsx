@@ -37,7 +37,7 @@ export function CommandPalleteFooter({ scope, layoutOrder }: CommandPalleteFoote
 					scope={scope}
 					BackgroundTransparency={1}
 					Name="Logo"
-					Size={udim2Px(28, 12)}
+					Size={udim2Px(32, 16)}
 					Image={assets.images.aetWhite}
 					ImageColor3={pallete(scope, TEXT_STYLE_PALLETE[TextStyle.Label])}
 					LayoutOrder={childrenlayoutOrder++}
