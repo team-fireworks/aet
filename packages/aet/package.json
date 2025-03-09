@@ -1,24 +1,24 @@
 {
-	"name": "@rbxts/aet",
-	"version": "0.1.0-prealpha",
-	"description": "Plugin/Tool APIs for Aet, the full-featured Eternal Towers of Hell companion plugin.",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/team-fireworks/aet.git"
-	},
-	"keywords": [
-		"etoh",
-		"jtoh",
-		"eternal towers of hell",
-		"juke towers of hell",
-		"roblox",
-		"roblox-ts"
-	],
-	"author": "Fire <znotfireman@gmail.com>",
-	"license": "MPL-2.0",
-	"types": "./index.d.ts",
-	"bugs": {
-		"url": "https://github.com/team-fireworks/aet/issues"
-	},
-	"homepage": "https://team-fireworks.github.io/aet"
+    "name": "@rbxts/aet",
+    "version": "0.1.0-prealpha",
+    "description": "Plugin/Tool APIs for Aet, the full-featured Eternal Towers of Hell companion plugin.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/team-fireworks/aet.git"
+    },
+    "keywords": [
+        "etoh",
+        "jtoh",
+        "eternal towers of hell",
+        "juke towers of hell",
+        "roblox",
+        "roblox-ts"
+    ],
+    "author": "Fire <znotfireman@gmail.com>",
+    "license": "MPL-2.0",
+    "types": "./index.d.ts",
+    "bugs": {
+        "url": "https://github.com/team-fireworks/aet/issues"
+    },
+    "homepage": "https://team-fireworks.github.io/aet"
 }
