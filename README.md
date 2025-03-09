@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="1050px" />
+    <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="150px" />
     <br/>
     <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/commandPalette.png" width="600px" />
 </div>
