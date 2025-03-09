@@ -4,8 +4,8 @@
     <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/commandPalette.png" width="600px" />
 </div>
 
-Aet combines new and existing utilities for Eternal Tower of Hell, all within an
-extendable command launcher built for the next decade of tower building.
+Essential tower building utilities for Eternal Tower of Hell packaged in an
+extendable command launcher. Fast, ergonomic, and built for the next decade.
 
 - First class support for Eternal Towers of Hell v5.5 and v6
 - One interface, everything you need
