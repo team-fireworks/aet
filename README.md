@@ -1,10 +1,15 @@
-<img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="175px" />
+<div align="center">
+    <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/aet.png" height="1050px" />
+    <br/>
+    <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/commandPalette.png" width="600px" />
+</div>
 
-Aet is a powerful command palette jampacked with tower building tools for
-Eternal Towers of Hell's next decade.
+Aet combines new and existing utilities for Eternal Tower of Hell, all within an
+extendable command launcher built for the next decade of tower building.
 
-- Everyday tower building utilities and scripts in one command palette
-- First class support for Eternal Towers of Hell v5.5 (v6, other v5.5, and MTK coming soon)
+- First class support for Eternal Towers of Hell v5.5 and v6
+- One interface, everything you need
+- Quick and precise instances selection
 - Comes with Archimedes, tightropes, instance reclassing, and gapfill
 - Library of sounds, decals, and client objects
 - Made to be extended
@@ -17,10 +22,6 @@ Eternal Towers of Hell's next decade.
 > **Warning:**
 > Aet is unreleased, unfinished, and untested. Pre-alpha releases should be
 > availible by March. Contributions are welcomed.
-
-<div align="center">
-    <img src="https://raw.githubusercontent.com/team-fireworks/aet/refs/heads/main/assets/images/commandPalette.png" />
-</div>
 
 ## About commands
 
