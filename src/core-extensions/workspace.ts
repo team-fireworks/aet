@@ -4,10 +4,10 @@ import { newCoreExtension } from "lib/extensions";
 import { forgetSelectedTower, trySetTower } from "lib/tower";
 import { warn } from "log";
 
-const ext = newCoreExtension({ name: "Workspace", icon: assets.images.fluent.asiaAustralia });
+const ext = newCoreExtension({ name: "Workspace", icon: assets.images.dosuno });
 
 ext.newCommand({
-	name: "Set selection as workspace tower",
+	name: "Select as Workspace Tower",
 	description: "Set selection as workspace tower",
 	run: () => {
 		const selectionNow = Selection.Get();
@@ -20,7 +20,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Forget current workspace tower",
+	name: "Forget Workspace Tower",
 	description: "Forget current workspace tower",
 	run: () => {
 		forgetSelectedTower();

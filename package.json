@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "@rbxts/aet": "file:./packages/aet",
+        "@rbxts/aet-utils": "file:./packages/aet-utils",
         "@rbxts/fzy": "file:./packages/fzy",
         "@rbxts/memoize": "file:./packages/memoize",
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",

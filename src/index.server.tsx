@@ -44,10 +44,10 @@ const searchInput = scope.Value("");
 const suggestedCommands = scope.Computed((use) => suggest(use(searchInput), use(commandsAsArray)));
 scope.Observer(suggestedCommands).onBind(() =>
 	trace(
-		"Suggested commands:",
+		"Suggested commands:\n-",
 		peek(suggestedCommands)
 			.map(({ name }) => name)
-			.join(", "),
+			.join("\n- "),
 	),
 );
 

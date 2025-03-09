@@ -5,6 +5,7 @@
       "name": "aet",
       "dependencies": {
         "@rbxts/aet": "file:./packages/aet",
+        "@rbxts/aet-utils": "file:./packages/aet-utils",
         "@rbxts/fusion": "npm:@rbxts/fusion-0.3-temp@^0.7/2",
         "@rbxts/fzy": "file:./packages/fzy",
         "@rbxts/iris": "^2.3.1-ts.1",
@@ -81,6 +82,8 @@
     "@pkgr/core": ["@pkgr/core@0.1.1", "", {}, "sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA=="],
 
     "@rbxts/aet": ["@rbxts/aet@file:packages/aet", {}],
+
+    "@rbxts/aet-utils": ["@rbxts/aet-utils@file:packages/aet-utils", {}],
 
     "@rbxts/compiler-types": ["@rbxts/compiler-types@3.0.0-types.0", "", {}, "sha512-VGOHJPoL7+56NTatMGqQj3K7xWuzEV+aP4QD5vZiHu+bcff3kiTmtoadaF6NkJrmwfFAvbsd4Dg764ZjWNceag=="],
 

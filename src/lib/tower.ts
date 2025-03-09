@@ -79,8 +79,6 @@ function getDefaultTowerObjectValue(): ObjectValue {
 	return existing as ObjectValue;
 }
 
-export const selectedTower = scope.Value<Maybe<TowerInstance>>(undefined);
-
 export function forgetSelectedTower() {
 	selectedTower.set(undefined);
 	getDefaultTowerObjectValue().Value = undefined;
@@ -97,3 +95,7 @@ export function trySetTower(inst: Instance): LuaTuple<[ok: false, reason: string
 
 	return $tuple(true as true);
 }
+
+const existingTower = getDefaultTowerObjectValue().Value;
+export const selectedTower = scope.Value<Maybe<TowerInstance>>(undefined);
+if (existingTower) trySetTower(existingTower);

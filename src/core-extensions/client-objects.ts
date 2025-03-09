@@ -1,7 +1,7 @@
 import assets from "assets";
 import { newCoreExtension } from "lib/extensions";
 
-const ext = newCoreExtension({ name: "Client Objects", icon: assets.images.fluent.magicWand });
+const ext = newCoreExtension({ name: "Client Objects", icon: assets.images.dosuno });
 
 // ext.newCommand({
 // 	name: "Hello World",

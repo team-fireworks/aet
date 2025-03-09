@@ -2,7 +2,12 @@
     "name": "Aet",
     "globIgnorePaths": [
         "**/package.json",
-        "**/tsconfig.json"
+        "**/tsconfig.json",
+        "**/.pesde",
+        "**/pesde.toml",
+        "**/pesde.lock",
+        "**/wally.toml",
+        "**/*.md"
     ],
     "tree": {
         "$className": "Actor",

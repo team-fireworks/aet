@@ -13,6 +13,8 @@ return {
 	images = {
 		aet = "rbxasset://.asphalt-et/images/aet.2f485b3d3dbdc237de8f1ffc92d293dd.png",
 		aetWhite = "rbxasset://.asphalt-et/images/aetWhite.4cb81eed58a8d5bda22049ae8d7a6520.png",
+		commandPalette = "rbxasset://.asphalt-et/images/commandPalette.01e8bb94fab7c825702e9934bc2ee7e2.png",
+		dosuno = "rbxasset://.asphalt-et/images/dosuno.213b8b5efb55400ff82b318769467e03.png",
 		et = "rbxasset://.asphalt-et/images/et.3cb8e1c6fad58dc313761843b4239857.png",
 		etoh = "rbxasset://.asphalt-et/images/etoh.93735367d28759da424dbc2723cb0026.png",
 		fluent = {

@@ -3,10 +3,9 @@ import { CommandContext } from "@rbxts/et";
 import { Computed, peek, Use, UsedAs } from "@rbxts/fusion";
 import Object from "@rbxts/object-utils";
 import Sift from "@rbxts/sift";
-import { IS_DEV } from "config";
 import { extensions } from "lib/extensions";
 import { selectedTower } from "lib/tower";
-import { debug } from "log";
+import { trace } from "log";
 import { scope, Scope } from "scope";
 import { LibCommand, LibExtension } from "types";
 import { computePredicate } from "./predicates";
@@ -35,15 +34,14 @@ export function getCommandPredicateResult(use: Use, cmd: UsedAs<LibCommand>): Co
 	return use(commandPredicateResults).get(use(cmd))!;
 }
 
-if (IS_DEV)
-	scope.Observer(commands).onBind(() =>
-		debug(
-			"Current commands:",
-			Object.keys(peek(commands))
-				.map(({ name }) => name)
-				.join(", "),
-		),
-	);
+scope.Observer(commands).onBind(() =>
+	trace(
+		"Current commands:\n-",
+		Object.keys(peek(commands))
+			.map(({ name }) => name)
+			.join("\n- "),
+	),
+);
 
 export function newCommandContext(scope: Scope, ext: LibExtension, cmd: LibCommand): CommandContext {
 	return table.freeze<CommandContext>({

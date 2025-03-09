@@ -2,13 +2,14 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can
 // obtain one at http://mozilla.org/MPL/2.0/.
 
+import { isClientObject } from "@rbxts/aet-utils";
 import { Selection } from "@rbxts/services";
 import Sift from "@rbxts/sift";
 import assets from "assets";
 import { newCoreExtension } from "lib/extensions";
 import { predicates } from "lib/predicates";
 
-const ext = newCoreExtension({ name: "Selection", icon: assets.images.fluent.pointingUp });
+const ext = newCoreExtension({ name: "Selection", icon: assets.images.dosuno });
 
 const PARTS = new Set<keyof CreatableInstances>([
 	"Part",
@@ -36,14 +37,14 @@ ext.newCommand({
 
 for (const className of IMPLEMENT_PICK_CLASS_NAMES) {
 	ext.newCommand({
-		name: `Pick selected ${className}s`,
-		description: `Pick selected ${className}s`,
+		name: `Pick ${className}s`,
+		description: `Pick ${className}s`,
 		run: () => Selection.Set(Selection.Get().filter((v) => classIs(v, className))),
 	});
 }
 
 ext.newCommand({
-	name: "Select children",
+	name: "Select Children",
 	description: "Select children",
 	run: () => {
 		const nowSelection = Selection.Get();
@@ -62,7 +63,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select descendants",
+	name: "Select Descendants",
 	description: "Select descendants",
 	run: () => {
 		const nowSelection = Selection.Get();
@@ -81,7 +82,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Pick selected children",
+	name: "Pick Children",
 	description: "Pick selected children",
 	run: () =>
 		Selection.Set(
@@ -95,7 +96,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Pick selected descendants",
+	name: "Pick Descendants",
 	description: "Pick selected descendants",
 	run: () =>
 		Selection.Set(
@@ -109,8 +110,8 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select workspace tower's ClientSidedObjects folder",
-	description: "Select ClientSidedObjects folder",
+	name: "Select Tower's ClientSidedObjects",
+	description: "Select Tower's ClientSidedObjects",
 	predicates: [predicates.isTowerSelected],
 	run: (ctx) => {
 		const tower = ctx.getSelectedTower()!;
@@ -119,7 +120,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select workspace tower's Obby folder",
+	name: "Select Tower's Obby",
 	description: "Select Obby folder",
 	predicates: [predicates.isTowerSelected],
 	run: (ctx) => {
@@ -129,7 +130,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select workspace tower's Frame folder",
+	name: "Select Tower's Frame",
 	description: "Select Frame folder",
 	predicates: [predicates.isTowerSelected],
 	run: (ctx) => {
@@ -139,7 +140,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select workspace tower's WinPad",
+	name: "Select Tower's WinPad",
 	description: "Select WinPad",
 	predicates: [predicates.isTowerSelected],
 	run: (ctx) => {
@@ -149,7 +150,7 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select workspace tower's SpawnLocation",
+	name: "Select Tower's SpawnLocation",
 	description: "Select WinPad",
 	predicates: [predicates.isTowerSelected],
 	run: (ctx) => {
@@ -159,18 +160,29 @@ ext.newCommand({
 });
 
 ext.newCommand({
-	name: "Select all client objects",
+	name: "Select Tower's Client Objects",
 	description: "Select all client objects",
+	predicates: [predicates.isTowerSelected],
 	run: (ctx) => {
-		throw "not yet implemented";
+		const tower = ctx.getSelectedTower()!;
+		Selection.Set(tower.ClientSidedObjects.GetDescendants().filter(isClientObject));
 	},
 });
 
 ext.newCommand({
-	name: "Pick selected client objects",
+	name: "Pick Client Objects",
 	description: "Pick selected client objects",
 	run: () => {
-		throw "not yet implemented";
+		Selection.Set(Selection.Get().filter(isClientObject));
+	},
+});
+
+ext.newCommand({
+	name: "Select Workspace Tower",
+	description: "Pick selected client objects",
+	predicates: [predicates.isTowerSelected],
+	run: (ctx) => {
+		Selection.Set([ctx.getSelectedTower()!, ...Selection.Get()]);
 	},
 });
 
